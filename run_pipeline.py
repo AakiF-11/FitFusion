@@ -256,8 +256,8 @@ def stage_masking(person_path: str, openpose_kpts, args: argparse.Namespace, job
         ckpt_dir=str(args.ckpt_dir / "humanparsing"),
     )
 
-    confidence, valid, reason = score_mask_validity(schp_mask, openpose_kpts)
-    if not valid:
+    confidence, should_halt, reason = score_mask_validity(schp_mask, openpose_kpts)
+    if should_halt:
         log.error(f"  Mask confidence {confidence:.2f} — halting: {reason}")
         sys.exit(1)
     log.info(f"  Mask confidence: {confidence:.2f} ✓")

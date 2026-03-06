@@ -252,7 +252,7 @@ def stage_masking(person_path: str, openpose_kpts, args: argparse.Namespace, job
     from src.masking.adaptive_mask import generate_adaptive_mask
 
     schp_mask = run_human_parsing(
-        image_path=person_path,
+        image=person_path,
         ckpt_dir=str(args.ckpt_dir / "humanparsing"),
     )
 

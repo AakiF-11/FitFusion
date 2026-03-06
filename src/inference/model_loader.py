@@ -84,6 +84,7 @@ def load_idm_vton_pipeline(ckpt_dir: str, device: str = "cuda") -> Any:
         image_encoder=image_encoder,
         tokenizer=tokenizer,
         tokenizer_2=tokenizer_2,
+        feature_extractor=CLIPImageProcessor(),
         torch_dtype=dtype,
     ).to(device)
 

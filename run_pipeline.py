@@ -282,26 +282,29 @@ def stage_size_physics(garment_path: str, args: argparse.Namespace, job_dir: Pat
     """
     log.info("[Stage 4/6] Applying size physics to garment...")
 
-    from src.size_physics.physics import SizeAwareVTON
+    from src.size_physics.physics import classify_fit
     from src.size_physics.resizer import GarmentResizer
+    from PIL import Image as PILImage
 
     resizer = GarmentResizer(target_resolution=(args.width, args.height))
-    physics = SizeAwareVTON()
 
-    params = physics.compute_physics_params(
-        person_size=args.person_size,
-        garment_size=args.target_size,
+    params = classify_fit(
         garment_type=args.garment_type,
+        garment_size=args.target_size,
+        person_size=args.person_size,
     )
     log.info(f"  Fit class: {params.fit_type.name}  |  Width ratio: {params.width_ratio:.3f}")
 
+    garment_pil = PILImage.open(garment_path).convert("RGB")
     warped_garment = resizer.resize_garment(
-        garment_image_path=garment_path,
+        garment_image=garment_pil,
         garment_type=args.garment_type,
-        person_size=args.person_size,
         garment_size=args.target_size,
-        save_dir=str(job_dir / "intermediates") if args.save_intermediates else None,
+        person_size=args.person_size,
     )
+
+    if args.save_intermediates:
+        warped_garment.save(str(job_dir / "intermediates" / "warped_garment.png"))
 
     return warped_garment, params
 

@@ -46,7 +46,7 @@ def run_tryon(
 
     with torch.no_grad():
         result = pipeline(
-            prompt=physics_params.generation_prompt,
+            prompt=physics_params.positive_prompt,
             image=person_image,
             mask_image=agnostic_mask,
             garment_image=warped_garment,

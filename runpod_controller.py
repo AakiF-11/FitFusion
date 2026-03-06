@@ -53,6 +53,11 @@ CONFIG_FILE = os.path.join(ROOT, ".runpod_config.json")
 # Files/folders to sync to the pod
 SYNC_INCLUDES = [
     "IDM-VTON/",                    # Core model code (includes train_xl_qlora.py, measurement_encoder.py, prepare_vitonhd_dataset.py)
+    "src/",                         # Pipeline wrapper modules (pose, masking, size_physics, etc.)
+    "fitfusion/",                   # Compositor, confidence scorer, background utils
+    "data/",                        # Test images, brand catalog, VITON-HD test set
+    "run_pipeline.py",              # Main inference entry point
+    "requirements.txt",             # Python dependencies
     "training_data_extraction/",    # Training data
     "extract_snag_tights.py",
     "extract_universal_standard.py",

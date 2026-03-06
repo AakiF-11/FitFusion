@@ -1,0 +1,53 @@
+{
+  "description": "Size-aware inference test: M-size model (Snag Tights Model C) trying on XL Cropped Borg Aviator Jacket Black",
+
+  "person_image": "data/test_inputs/person_model_C_Pixie.jpg",
+  "garment_image": "data/test_inputs/garment_cropped_borg_aviator_jacket_black.png",
+
+  "person_measurements": {
+    "model_id": "snag_tights_model_C",
+    "size_label": "M",
+    "bust_cm": 92,
+    "waist_cm": 76,
+    "hips_cm": 100,
+    "height_cm": 167,
+    "source": "brand_catalog"
+  },
+
+  "target_measurements": {
+    "model_id": "snag_tights_model_E",
+    "size_label": "XL",
+    "bust_cm": 110,
+    "waist_cm": 94,
+    "hips_cm": 118,
+    "height_cm": 173,
+    "source": "brand_catalog"
+  },
+
+  "garment": {
+    "product_id": "cropped-borg-aviator-jacket-black",
+    "brand_id": "snag_tights",
+    "name": "Cropped Borg Aviator Jacket Black",
+    "type": "top",
+    "source_size_session": "snag_tights_cropped-borg-aviator-jacket-black_D1_1772475036",
+    "note": "Garment image is background-removed preprocessed PNG from tryon_output pipeline"
+  },
+
+  "size_delta": {
+    "bust_expansion_cm": 18,
+    "waist_expansion_cm": 18,
+    "hips_expansion_cm": 18,
+    "expected_fit_type": "LOOSE"
+  },
+
+  "inference_params": {
+    "person_size": "M",
+    "target_size": "XL",
+    "garment_type": "top",
+    "steps": 30,
+    "guidance_scale": 2.0,
+    "seed": 42
+  },
+
+  "run_command": "python run_pipeline.py --person_image data/test_inputs/person_model_C_Pixie.jpg --garment_image data/test_inputs/garment_cropped_borg_aviator_jacket_black.png --person_size M --target_size XL --garment_type top --ckpt_dir ./ckpt --output_dir ./output --steps 30 --guidance_scale 2.0 --seed 42 --device cuda"
+}

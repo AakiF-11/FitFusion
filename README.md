@@ -1,86 +1,379 @@
-# FitFusion QLoRA Architecture
+# FitFusion — Size-Aware Virtual Try-On
 
-**Size-Conditioned Virtual Try-On using QLoRA Fine-Tuning**
+**Production-grade Size-Conditioned Virtual Try-On pipeline built on IDM-VTON (SDXL)**
+
+> GitHub: `https://github.com/AakiF-11/FitFusion` | Branch: `master`  
+> Inference Platform: RunPod (NVIDIA RTX A6000, 48 GB VRAM)  
+> Base Model: IDM-VTON (Stable Diffusion XL fine-tuned for try-on)
 
 ---
 
-## 📦 Project Structure
+## Project Overview
+
+FitFusion wraps IDM-VTON in a 6-stage physics-informed pipeline. Instead of a generic one-size image overlay, it uses real garment measurements, size charts, and fabric physics to show exactly how a specific size will drape on a specific body — adjusting mask geometry, warp tension, and inpainting guidance accordingly.
+
+The pipeline handles everything from raw input images to a cleaned, skin-composited final result with zero hardcoded values.
+
+---
+
+## Repository Structure
 
 ```
 FitFusion/
-├── fitfusion/                    # Core QLoRA modules (4 files, 2160 lines)
-│   ├── core/lora_bridge.py       # Trigger token mapping (620 lines)
-│   ├── tools/generate_training_data.py  # Data generation (470 lines)
-│   ├── train/qlora_trainer.py    # Training logic (680 lines)
-│   └── pipelines/v65_optimized.py # Inference (390 lines)
 │
-├── qlora_training_data/          # Source data (644 examples, 86MB)
-├── training_data/                # Processed data (644 pairs with captions)
-├── requirements_qlora.txt        # Dependencies
-└── *.md                          # Documentation
+├── run_pipeline.py                  # MAIN ENTRY POINT — 6-stage CLI pipeline
+├── runpod_controller.py             # Pod lifecycle management (start/stop/sync)
+├── runpod_setup.sh                  # RunPod dependency installer
+├── start_training.sh                # QLoRA training launcher
+├── extract_snag_tights.py           # Brand data extraction (Snag Tights)
+├── extract_universal_standard.py    # Brand data extraction (Universal Standard)
+├── requirements.txt                 # Python dependencies
+│
+├── src/                             # Modular pipeline implementation
+│   ├── preprocessing/
+│   │   ├── background.py            # rembg background stripping → studio gray
+│   │   └── validator.py             # Image dimension/format gating
+│   ├── pose/
+│   │   ├── openpose.py              # OpenPose keypoint extraction [stub]
+│   │   └── densepose.py             # DensePose UV map generation [stub]
+│   ├── masking/
+│   │   ├── human_parsing.py         # SCHP segmentation runner [stub]
+│   │   ├── confidence.py            # Arm-geometry confidence scorer
+│   │   ├── adaptive_mask.py         # Size-adaptive agnostic mask scaler
+│   │   └── compositor.py            # Skin/tattoo restoration compositor
+│   ├── size_physics/
+│   │   ├── charts.py                # Brand size chart lookup tables
+│   │   ├── physics.py               # 7-layer fit physics engine
+│   │   └── resizer.py               # Garment image resizer (width/length ratios)
+│   ├── inference/
+│   │   ├── model_loader.py          # IDM-VTON UNet/VAE/encoder loader
+│   │   └── tryon.py                 # Diffusion inference executor
+│   └── catalog/
+│       └── brand.py                 # B2B brand catalog ingestion
+│
+├── IDM-VTON/                        # Upstream IDM-VTON repository (unmodified)
+│   ├── inference.py                 # Original IDM-VTON inference script
+│   ├── infer_size_aware.py          # Size-aware inference adapter
+│   ├── run_tryon.py                 # Legacy end-to-end runner
+│   ├── tryon_api.py                 # Celery/Redis API endpoint
+│   ├── size_aware_vton.py           # Physics engine (source)
+│   ├── size_aware_pipeline.py       # Garment resizer (source)
+│   ├── size_charts.py               # Size chart data (source)
+│   ├── size_adaptive_mask.py        # Adaptive mask logic (source)
+│   ├── brand_catalog.py             # Brand catalog logic (source)
+│   ├── measurement_encoder.py       # Body measurement encoder
+│   ├── tps_warper.py                # Thin-plate spline garment warper
+│   ├── train_xl.py                  # IDM-VTON full fine-tuning script
+│   ├── train_xl_qlora.py            # IDM-VTON QLoRA fine-tuning script
+│   ├── generate_densepose.py        # DensePose generation utility
+│   ├── prepare_vitonhd_dataset.py   # VITON-HD dataset preparation
+│   ├── size_evaluation.py           # Fit quality evaluation
+│   ├── ckpt/                        # Model weights (gitignored)
+│   │   ├── unet/
+│   │   ├── unet_encoder/
+│   │   ├── vae/
+│   │   ├── text_encoder/
+│   │   ├── text_encoder_2/
+│   │   ├── tokenizer/
+│   │   ├── tokenizer_2/
+│   │   ├── image_encoder/
+│   │   ├── scheduler/
+│   │   ├── densepose/
+│   │   ├── humanparsing/
+│   │   └── openpose/
+│   └── gradio_demo/                 # Gradio web UI
+│
+├── fitfusion/                       # Legacy application-level modules
+│   ├── utils/preprocessing.py       # Background standardization (rembg)
+│   └── masking/
+│       ├── compositor.py            # Skin compositing logic
+│       └── confidence_scorer.py     # Mask validity scoring
+│
+├── data/
+│   ├── brand_catalog/               # Brand JSON manifests + product images
+│   │   ├── catalog.json
+│   │   ├── snag_tights/
+│   │   └── universal_standard/
+│   ├── fitfusion_vitonhd/           # VITON-HD formatted dataset
+│   │   ├── train_pairs.txt
+│   │   ├── test_pairs.txt
+│   │   ├── measurements.json
+│   │   ├── train/
+│   │   └── test/
+│   └── tryon_output/                # Historical inference outputs
+│
+├── training_data_extraction/        # Raw scraped brand data
+│   ├── snag_tights/
+│   └── universal_standard/
+│
+├── tests/
+│   └── evaluation_matrix.py         # Fit quality evaluation matrix
+│
+├── MODEL_SELECTION_AND_TRAINING_PLAN.md   # IDM-VTON vs alternatives analysis
+├── FitFusion_README.md                    # Detailed architecture narrative
+└── .gitignore
 ```
 
 ---
 
-## 🚀 Quick Start
+## Pipeline Architecture
+
+The pipeline is driven by `run_pipeline.py` and executes 6 sequential stages:
+
+```
+Customer Photo + Garment Photo
+         │
+         ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Stage 1 · Preprocessing                                    │
+│  · rembg background removal → solid RGB(238,238,238) gray   │
+│  · Image dimension/format validation (min 512×384)          │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Stage 2 · Pose Estimation                                  │
+│  · OpenPose → 18-joint body skeleton keypoints              │
+│  · DensePose → UV surface map for guided inpainting         │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Stage 3 · Agnostic Mask Generation                         │
+│  · SCHP human parsing segmentation                          │
+│  · Arm-geometry confidence scoring (threshold 0.85)         │
+│  · Size-adaptive mask scaling (target_size vs person_size)  │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Stage 4 · Size Physics                                     │
+│  · Fit class computation (7 classes: BURSTING → TENT)       │
+│  · Width/length ratio derivation from brand size charts     │
+│  · Garment image geometric resize (mask-only, not texture)  │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Stage 5 · IDM-VTON Diffusion Inference                     │
+│  · Load UNet + UNet_Encoder + VAE + CLIP encoders           │
+│  · IP-Adapter cross-attention garment conditioning          │
+│  · SDXL inpainting at 1024×768                              │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  Stage 6 · Post-Processing                                  │
+│  · cv2.addWeighted skin/tattoo compositing                  │
+│  · Result PNG + metadata.json saved to timestamped job dir  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Quick Start
 
 ```bash
-# 1. Install dependencies
-pip install -r requirements_qlora.txt
+# Basic inference
+python run_pipeline.py \
+    --person_image  inputs/person/customer.jpg \
+    --garment_image inputs/garment/jacket.jpg  \
+    --target_size   XL                         \
+    --ckpt_dir      ./ckpt                     \
+    --output_dir    ./outputs
 
-# 2. Analyze training data
-python analyze_training_data.py
-
-# 3. Check status
-# Read TRAINING_BLOCKER_STATUS.md for current options
+# Full options
+python run_pipeline.py \
+    --person_image  inputs/person/customer.jpg \
+    --garment_image inputs/garment/jacket.jpg  \
+    --target_size   XL                         \
+    --person_size   M                          \
+    --garment_type  jacket                     \
+    --ckpt_dir      ./ckpt                     \
+    --output_dir    ./outputs                  \
+    --steps         30                         \
+    --guidance_scale 2.0                       \
+    --seed          42                         \
+    --device        cuda                       \
+    --save_intermediates
 ```
 
+### CLI Arguments Reference
+
+| Argument | Default | Description |
+|---|---|---|
+| `--person_image` | required | Full-body customer photo (JPG/PNG) |
+| `--garment_image` | required | Flat garment product photo |
+| `--output_dir` | `./outputs` | Result directory |
+| `--target_size` | required | Size to simulate: `4XS`–`4XL` |
+| `--person_size` | `M` | Customer's body baseline size |
+| `--garment_type` | `top` | `top`, `pants`, `dress`, `skirt`, `jacket`, `outerwear` |
+| `--ckpt_dir` | `./ckpt` | IDM-VTON weights directory |
+| `--steps` | `30` | Diffusion inference steps |
+| `--guidance_scale` | `2.0` | Classifier-free guidance scale |
+| `--width` / `--height` | `768` / `1024` | Inference resolution |
+| `--seed` | `42` | Reproducibility seed |
+| `--device` | `cuda` | `cuda` or `cpu` |
+| `--skip_preprocessing` | off | Skip background stripping |
+| `--skip_skin_restore` | off | Skip skin compositing |
+| `--save_intermediates` | off | Save masked/warped/densepose images |
+
+Output is written to `outputs/<person_stem>_<YYYYMMDD_HHMMSS>/result.png` + `metadata.json`.
+
 ---
 
-## 📊 What's Included
+## Checkpoint Layout
 
-### ✅ Complete Infrastructure
-- **4 QLoRA Modules** - 2,160 lines of production code
-- **644 Training Examples** - Perfectly balanced across 7 fit classes
-- **Trigger Token System** - `[FF_TIGHT]`, `[FF_BAGGY]`, etc.
-- **6GB VRAM Optimized** - Works on RTX 3050
-
-### ⚠️ Current Status
-- Training Data: ✅ Ready
-- Infrastructure: ✅ Complete  
-- Training: ⚠️ Blocked (OOTDiffusion not trainable with LoRA)
-
-See **[TRAINING_BLOCKER_STATUS.md](TRAINING_BLOCKER_STATUS.md)** for options.
-
----
-
-## 🎯 Fit Classes
+The `--ckpt_dir` must contain these subdirectories (all weights are gitignored):
 
 ```
-[FF_BURSTING]  - H < 0.85  | Extreme tension
-[FF_TIGHT]     - 0.85-0.92 | Form-fitting
-[FF_SNUG]      - 0.92-0.98 | Close fit
-[FF_PERFECT]   - 0.98-1.08 | Classic fit
-[FF_RELAXED]   - 1.08-1.20 | Loose
-[FF_BAGGY]     - 1.20-1.40 | Oversized
-[FF_TENT]      - H > 1.40  | Extremely oversized
+ckpt/
+├── unet/              # IDM-VTON fine-tuned UNet (SDXL)
+├── unet_encoder/      # Garment feature encoder UNet
+├── vae/               # Stable Diffusion XL VAE
+├── text_encoder/      # CLIP ViT-L/14
+├── text_encoder_2/    # CLIP ViT-bigG/14
+├── tokenizer/         # CLIP tokenizer
+├── tokenizer_2/       # CLIP tokenizer 2
+├── image_encoder/     # IP-Adapter image encoder
+├── scheduler/         # DDPM noise scheduler
+├── densepose/         # Detectron2 DensePose weights
+├── humanparsing/      # SCHP (parsing_atr.onnx, parsing_lip.onnx)
+└── openpose/          # OpenPose body_pose_model.pth
 ```
 
----
-
-## 📚 Documentation
-
-- **[TRAINING_BLOCKER_STATUS.md](TRAINING_BLOCKER_STATUS.md)** - Current status & options
-- **[QLORA_ARCHITECTURE_GUIDE.md](QLORA_ARCHITECTURE_GUIDE.md)** - Complete technical guide
-- **[TRAINING_DATA_READY.md](TRAINING_DATA_READY.md)** - Dataset documentation
+On RunPod the weights live at `/workspace/FitFusion/ckpt/`.
 
 ---
 
-## 💡 What You Have
+## Fit Classes
 
-✅ Production-ready QLoRA infrastructure  
-✅ 644 high-quality training examples  
-✅ Complete documentation  
-⚠️ Need trainable base model or cloud GPU access
+The physics engine maps (person_size, target_size) pairs to one of 7 fit classes, each carrying distinct warp tension parameters:
 
-**Next:** See TRAINING_BLOCKER_STATUS.md for path forward.
+| Class | Ratio H | Description |
+|---|---|---|
+| `BURSTING` | H < 0.85 | Extreme tension — garment far too small |
+| `TIGHT` | 0.85 – 0.92 | Form-fitting |
+| `SNUG` | 0.92 – 0.98 | Close fit |
+| `PERFECT` | 0.98 – 1.08 | Classic/intended fit |
+| `RELAXED` | 1.08 – 1.20 | Loose / oversized |
+| `BAGGY` | 1.20 – 1.40 | Oversized |
+| `TENT` | H > 1.40 | Extremely oversized |
+
+*H = garment_measurement / body_measurement*
+
+---
+
+## `src/` Module Status
+
+| Module | File | Status |
+|---|---|---|
+| Preprocessing | `src/preprocessing/background.py` | Complete |
+| Preprocessing | `src/preprocessing/validator.py` | Complete |
+| Pose | `src/pose/openpose.py` | Stub — `NotImplementedError` |
+| Pose | `src/pose/densepose.py` | Stub — `NotImplementedError` |
+| Masking | `src/masking/human_parsing.py` | Stub — `NotImplementedError` |
+| Masking | `src/masking/confidence.py` | Complete (re-exports `fitfusion/masking/confidence_scorer.py`) |
+| Masking | `src/masking/adaptive_mask.py` | Complete (wraps `IDM-VTON/size_adaptive_mask.py`) |
+| Masking | `src/masking/compositor.py` | Complete (re-exports `fitfusion/masking/compositor.py`) |
+| Size Physics | `src/size_physics/charts.py` | Complete (re-exports `IDM-VTON/size_charts.py`) |
+| Size Physics | `src/size_physics/physics.py` | Complete (re-exports `IDM-VTON/size_aware_vton.py`) |
+| Size Physics | `src/size_physics/resizer.py` | Complete (re-exports `IDM-VTON/size_aware_pipeline.py`) |
+| Inference | `src/inference/model_loader.py` | Complete |
+| Inference | `src/inference/tryon.py` | Complete |
+| Catalog | `src/catalog/brand.py` | Complete (re-exports `IDM-VTON/brand_catalog.py`) |
+
+**Stubs requiring implementation:** `src/pose/openpose.py`, `src/pose/densepose.py`, `src/masking/human_parsing.py`  
+These integrate with the ckpt weights but the actual inference wrappers need to be written around the upstream `IDM-VTON/preprocess/` scripts.
+
+---
+
+## RunPod Deployment
+
+**Pod:** `hn05v8n20u7btj-6441183f@ssh.runpod.io`  
+**GPU:** NVIDIA RTX A6000 (48 GB VRAM)  
+**SSH key:** `C:\Users\Aakif\.ssh\id_ed25519`
+
+```bash
+# Connect
+ssh -i C:\Users\Aakif\.ssh\id_ed25519 -o StrictHostKeyChecking=no -tt hn05v8n20u7btj-6441183f@ssh.runpod.io
+
+# Sync local changes to pod
+python runpod_controller.py sync
+
+# Install/update dependencies on pod
+bash /workspace/FitFusion/runpod_setup.sh
+```
+
+**Pod Python environment:**
+
+| Package | Version |
+|---|---|
+| torch | 2.2.0+cu121 |
+| diffusers | 0.25.0 |
+| transformers | 4.36.2 |
+| huggingface_hub | 0.23.4 |
+| numpy | 1.26.4 |
+| accelerate | latest |
+| CUDA | 12.1 |
+
+**Known environment notes:**
+- `huggingface_hub` must stay at `0.23.4` — newer versions break diffusers 0.25.0
+- `numpy` must stay `< 2.0` — numpy 2.x breaks several downstream deps
+- Weights symlinked: `IDM-VTON/ckpt` → `/workspace/FitFusion/ckpt`
+
+---
+
+## Key Design Decisions
+
+### Texture-Preserving Mask Scaling
+Size adaptation is applied **exclusively** to the agnostic boundary mask geometry. The garment image tensors remain at 1:1 aspect ratio. This prevents texture hallucination and preserves high-frequency details (logos, prints, patterns).
+
+### Prompt Stripping
+Diffusion prompts carry only pure garment identity (color, material, style). Physics descriptors like "tight", "stretching", "loose" are completely stripped. Fit conditioning is driven entirely by explicit mask geometry — not text conditionals.
+
+### Mask Confidence Gate
+OpenPose joints (Shoulder → Elbow → Wrist) define a structural arm bounding plane. Any SCHP mask proposing garment pixels outside this plane triggers a confidence penalty. Scores below 0.85 halt execution before diffusion to prevent generative waste. A `None`-type failsafe handles cropped photos where wrists/elbows are out of frame.
+
+### Redis Concurrency (Legacy `tryon_api.py`)
+The Celery/Redis broker in `IDM-VTON/tryon_api.py` prevents simultaneous API requests from causing GPU OOM crashes, isolating tensor processing from binary Pickle conflicts.
+
+---
+
+## Training
+
+IDM-VTON QLoRA fine-tuning scripts are available for further size-conditioning training:
+
+```bash
+# Full fine-tune
+python IDM-VTON/train_xl.py
+
+# QLoRA fine-tune (memory efficient)
+python IDM-VTON/train_xl_qlora.py
+
+# On RunPod
+bash start_training.sh
+```
+
+See [MODEL_SELECTION_AND_TRAINING_PLAN.md](MODEL_SELECTION_AND_TRAINING_PLAN.md) for full model comparison (IDM-VTON vs CatVTON vs CatV2TON vs FitDiT) and the rationale for choosing IDM-VTON.
+
+---
+
+## Current Status
+
+| Component | Status |
+|---|---|
+| Brand catalog system | Complete |
+| Size physics engine | Complete |
+| Background preprocessing | Complete |
+| Mask confidence scoring | Complete |
+| Size-adaptive mask scaling | Complete |
+| Skin compositing | Complete |
+| IDM-VTON model loader | Complete |
+| Diffusion inference executor | Complete |
+| `run_pipeline.py` entry point | Complete |
+| OpenPose wrapper (`src/pose/`) | Stub — needs implementation |
+| DensePose wrapper (`src/pose/`) | Stub — needs implementation |
+| SCHP human parsing (`src/masking/`) | Stub — needs implementation |
+| VITON-HD test dataset on pod | Missing — required for full inference test |
+| QLoRA training run | Not started |

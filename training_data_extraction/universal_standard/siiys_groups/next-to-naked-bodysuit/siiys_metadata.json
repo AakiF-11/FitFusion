@@ -1,0 +1,240 @@
+{
+  "group": "next-to-naked-bodysuit",
+  "source_product": "next-to-naked-bodysuit-pageant-blue",
+  "num_sizes": 11,
+  "sizes": [
+    {
+      "size_label": "4XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_4XS_001.jpg?v=1734650323?width=1000",
+      "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_4XS.jpg",
+      "model": {
+        "product_name": "Next to naked Bodysuit",
+        "size": "4XS",
+        "height": "5' 9.5\"",
+        "bust": "33\"",
+        "waist": "25\"",
+        "hips": "36.5\""
+      }
+    },
+    {
+      "size_label": "3XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_3XS_002_5a5c3a5e-ed48-47df-bbbc-cb213e91db26.jpg?v=1734650380?width=1000",
+      "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_3XS.jpg",
+      "model": {
+        "product_name": "Next to naked Bodysuit",
+        "size": "3XS",
+        "height": "5' 9\"",
+        "bust": "32\"",
+        "waist": "25\"",
+        "hips": "37\""
+      }
+    },
+    {
+      "size_label": "2XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_2XS_003_46b51337-29c2-444c-a7bf-3f6e2071bbe6.jpg?v=1734650380?width=1000",
+      "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_2XS.jpg",
+      "model": {
+        "product_name": "Next to naked Bodysuit",
+        "size": "2XS",
+        "height": "5' 10\"",
+        "bust": "34\"",
+        "waist": "29\"",
+        "hips": "38\""
+      }
+    },
+    {
+      "size_label": "XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_XS_010.jpg?v=1734650329?width=1000",
+      "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_XS.jpg",
+      "model": {
+        "product_name": "Next to naked Bodysuit",
+        "size": "XS",
+        "height": "5' 8\"",
+        "bust": "34\"",
+        "waist": "29\"",
+        "hips": "41\""
+      }
+    },
+    {
+      "size_label": "S",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_S_003_e09b8c5b-a116-47a2-a28b-358333ced16b.jpg?v=1734650380?width=1000",
+      "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_S.jpg",
+      "model": {
+        "product_name": "Next to naked Bodysuit",
+        "size": "S",
+        "height": "5' 8\"",
+        "bust": "38.5\"",
+        "waist": "34.5\"",
+        "hips": "44.5\""
+      }
+    },
+    {
+      "size_label": "M",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_M_010_5e5ee035-e684-405f-b1e9-616f32a694b1.jpg?v=1734650380?width=1000",
+      "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_M.jpg",
+      "model": {
+        "product_name": "Next to naked Bodysuit",
+        "size": "M",
+        "height": "5' 7\"",
+        "bust": "38\"",
+        "waist": "40\"",
+        "hips": "49.5\""
+      }
+    },
+    {
+      "size_label": "L",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_L_001_15a8105c-693c-4181-8bb1-64b82c61533f.jpg?v=1734650380?width=1000",
+      "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_L.jpg",
+      "model": {
+        "product_name": "Next to naked Bodysuit",
+        "size": "L",
+        "height": "5' 9\"",
+        "bust": "52\"",
+        "waist": "44.5\"",
+        "hips": "55.5\""
+      }
+    },
+    {
+      "size_label": "XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_XL_004_ee71da00-5742-49a0-8388-01d79835ab9f.jpg?v=1734650381?width=1000",
+      "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_XL.jpg",
+      "model": {
+        "product_name": "Next to naked Bodysuit",
+        "size": "XL",
+        "height": "5' 10\"",
+        "bust": "44\"",
+        "waist": "47.5\"",
+        "hips": "63\""
+      }
+    },
+    {
+      "size_label": "2XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_2XL_012_515841a7-b933-4161-868d-c81463720480.jpg?v=1734650381?width=1000",
+      "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_2XL.jpg",
+      "model": {
+        "product_name": "Next to naked Bodysuit",
+        "size": "2XL",
+        "height": "5' 7\"",
+        "bust": "55.5\"",
+        "waist": "56\"",
+        "hips": "63\""
+      }
+    },
+    {
+      "size_label": "3XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_3XL_015_5f0b77f1-691e-43a2-9f96-1fe0cb4e4871.jpg?v=1734650380?width=1000",
+      "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_3XL.jpg",
+      "model": {
+        "product_name": "Next to naked Bodysuit",
+        "size": "3XL",
+        "height": "5' 7\"",
+        "bust": "62\"",
+        "waist": "58\"",
+        "hips": "68\""
+      }
+    },
+    {
+      "size_label": "4XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_4XL_009.jpg?v=1734650381?width=1000",
+      "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_4XL.jpg",
+      "model": {
+        "product_name": "Next to naked Bodysuit",
+        "size": "4XL",
+        "height": "5' 6\"",
+        "bust": "62\"",
+        "waist": "67\"",
+        "hips": "77\""
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "product_name": "Next to naked Bodysuit",
+      "size": "4XS",
+      "height": "5' 9.5\"",
+      "bust": "33\"",
+      "waist": "25\"",
+      "hips": "36.5\""
+    },
+    {
+      "product_name": "Next to naked Bodysuit",
+      "size": "3XS",
+      "height": "5' 9\"",
+      "bust": "32\"",
+      "waist": "25\"",
+      "hips": "37\""
+    },
+    {
+      "product_name": "Next to naked Bodysuit",
+      "size": "2XS",
+      "height": "5' 10\"",
+      "bust": "34\"",
+      "waist": "29\"",
+      "hips": "38\""
+    },
+    {
+      "product_name": "Next to naked Bodysuit",
+      "size": "XS",
+      "height": "5' 8\"",
+      "bust": "34\"",
+      "waist": "29\"",
+      "hips": "41\""
+    },
+    {
+      "product_name": "Next to naked Bodysuit",
+      "size": "S",
+      "height": "5' 8\"",
+      "bust": "38.5\"",
+      "waist": "34.5\"",
+      "hips": "44.5\""
+    },
+    {
+      "product_name": "Next to naked Bodysuit",
+      "size": "M",
+      "height": "5' 7\"",
+      "bust": "38\"",
+      "waist": "40\"",
+      "hips": "49.5\""
+    },
+    {
+      "product_name": "Next to naked Bodysuit",
+      "size": "L",
+      "height": "5' 9\"",
+      "bust": "52\"",
+      "waist": "44.5\"",
+      "hips": "55.5\""
+    },
+    {
+      "product_name": "Next to naked Bodysuit",
+      "size": "XL",
+      "height": "5' 10\"",
+      "bust": "44\"",
+      "waist": "47.5\"",
+      "hips": "63\""
+    },
+    {
+      "product_name": "Next to naked Bodysuit",
+      "size": "2XL",
+      "height": "5' 7\"",
+      "bust": "55.5\"",
+      "waist": "56\"",
+      "hips": "63\""
+    },
+    {
+      "product_name": "Next to naked Bodysuit",
+      "size": "3XL",
+      "height": "5' 7\"",
+      "bust": "62\"",
+      "waist": "58\"",
+      "hips": "68\""
+    },
+    {
+      "product_name": "Next to naked Bodysuit",
+      "size": "4XL",
+      "height": "5' 6\"",
+      "bust": "62\"",
+      "waist": "67\"",
+      "hips": "77\""
+    }
+  ]
+}

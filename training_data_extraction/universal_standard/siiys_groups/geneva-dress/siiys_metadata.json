@@ -1,0 +1,240 @@
+{
+  "group": "geneva-dress",
+  "source_product": "iconic-geneva-dress-midnight",
+  "num_sizes": 11,
+  "sizes": [
+    {
+      "size_label": "4XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_4XS_003.jpg?v=1734650323?width=1000",
+      "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_4XS.jpg",
+      "model": {
+        "product_name": "Iconic Geneva Dress",
+        "size": "4XS",
+        "height": "5' 9.5\"",
+        "bust": "33\"",
+        "waist": "25\"",
+        "hips": "36.5\""
+      }
+    },
+    {
+      "size_label": "3XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_3XS_003.jpg?v=1734650325?width=1000",
+      "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_3XS.jpg",
+      "model": {
+        "product_name": "Iconic Geneva Dress",
+        "size": "3XS",
+        "height": "5' 8\"",
+        "bust": "32\"",
+        "waist": "25\"",
+        "hips": "37\""
+      }
+    },
+    {
+      "size_label": "2XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_2XS_001.jpg?v=1734650326?width=1000",
+      "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_2XS.jpg",
+      "model": {
+        "product_name": "Iconic Geneva Dress",
+        "size": "2XS",
+        "height": "5' 10\"",
+        "bust": "34\"",
+        "waist": "29\"",
+        "hips": "38\""
+      }
+    },
+    {
+      "size_label": "XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_XS_008_f8f49621-e376-43b5-a323-3e005725e565.jpg?v=1734652871?width=1000",
+      "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_XS.jpg",
+      "model": {
+        "product_name": "Iconic Geneva Dress",
+        "size": "XS",
+        "height": "5' 10\"",
+        "bust": "36\"",
+        "waist": "33\"",
+        "hips": "44.5\""
+      }
+    },
+    {
+      "size_label": "S",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_S_005.jpg?v=1734650329?width=1000",
+      "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_S.jpg",
+      "model": {
+        "product_name": "Iconic Geneva Dress",
+        "size": "S",
+        "height": "5' 8\"",
+        "bust": "38.5\"",
+        "waist": "34.5\"",
+        "hips": "44.5\""
+      }
+    },
+    {
+      "size_label": "M",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_M_011.jpg?v=1734650326?width=1000",
+      "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_M.jpg",
+      "model": {
+        "product_name": "Iconic Geneva Dress",
+        "size": "M",
+        "height": "5' 7\"",
+        "bust": "38\"",
+        "waist": "40\"",
+        "hips": "49.5\""
+      }
+    },
+    {
+      "size_label": "L",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_L_008.jpg?v=1734650324?width=1000",
+      "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_L.jpg",
+      "model": {
+        "product_name": "Iconic Geneva Dress",
+        "size": "L",
+        "height": "5' 10\"",
+        "bust": "42\"",
+        "waist": "39.5\"",
+        "hips": "53.5\""
+      }
+    },
+    {
+      "size_label": "XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_XL_008.jpg?v=1734650326?width=1000",
+      "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_XL.jpg",
+      "model": {
+        "product_name": "Iconic Geneva Dress",
+        "size": "XL",
+        "height": "5' 7.5\"",
+        "bust": "48\"",
+        "waist": "49\"",
+        "hips": "59.5\""
+      }
+    },
+    {
+      "size_label": "2XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_2XL_007.jpg?v=1734650329?width=1000",
+      "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_2XL.jpg",
+      "model": {
+        "product_name": "Iconic Geneva Dress",
+        "size": "2XL",
+        "height": "5' 7\"",
+        "bust": "55.5\"",
+        "waist": "56\"",
+        "hips": "63\""
+      }
+    },
+    {
+      "size_label": "3XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_3XL_003.jpg?v=1734650330?width=1000",
+      "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_3XL.jpg",
+      "model": {
+        "product_name": "Iconic Geneva Dress",
+        "size": "3XL",
+        "height": "5' 7\"",
+        "bust": "62\"",
+        "waist": "58\"",
+        "hips": "68\""
+      }
+    },
+    {
+      "size_label": "4XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_4XL_005.jpg?v=1734652297?width=1000",
+      "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_4XL.jpg",
+      "model": {
+        "product_name": "Iconic Geneva Dress",
+        "size": "4XL",
+        "height": "5' 6\"",
+        "bust": "62\"",
+        "waist": "67\"",
+        "hips": "77\""
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "product_name": "Iconic Geneva Dress",
+      "size": "4XS",
+      "height": "5' 9.5\"",
+      "bust": "33\"",
+      "waist": "25\"",
+      "hips": "36.5\""
+    },
+    {
+      "product_name": "Iconic Geneva Dress",
+      "size": "3XS",
+      "height": "5' 8\"",
+      "bust": "32\"",
+      "waist": "25\"",
+      "hips": "37\""
+    },
+    {
+      "product_name": "Iconic Geneva Dress",
+      "size": "2XS",
+      "height": "5' 10\"",
+      "bust": "34\"",
+      "waist": "29\"",
+      "hips": "38\""
+    },
+    {
+      "product_name": "Iconic Geneva Dress",
+      "size": "XS",
+      "height": "5' 10\"",
+      "bust": "36\"",
+      "waist": "33\"",
+      "hips": "44.5\""
+    },
+    {
+      "product_name": "Iconic Geneva Dress",
+      "size": "S",
+      "height": "5' 8\"",
+      "bust": "38.5\"",
+      "waist": "34.5\"",
+      "hips": "44.5\""
+    },
+    {
+      "product_name": "Iconic Geneva Dress",
+      "size": "M",
+      "height": "5' 7\"",
+      "bust": "38\"",
+      "waist": "40\"",
+      "hips": "49.5\""
+    },
+    {
+      "product_name": "Iconic Geneva Dress",
+      "size": "L",
+      "height": "5' 10\"",
+      "bust": "42\"",
+      "waist": "39.5\"",
+      "hips": "53.5\""
+    },
+    {
+      "product_name": "Iconic Geneva Dress",
+      "size": "XL",
+      "height": "5' 7.5\"",
+      "bust": "48\"",
+      "waist": "49\"",
+      "hips": "59.5\""
+    },
+    {
+      "product_name": "Iconic Geneva Dress",
+      "size": "2XL",
+      "height": "5' 7\"",
+      "bust": "55.5\"",
+      "waist": "56\"",
+      "hips": "63\""
+    },
+    {
+      "product_name": "Iconic Geneva Dress",
+      "size": "3XL",
+      "height": "5' 7\"",
+      "bust": "62\"",
+      "waist": "58\"",
+      "hips": "68\""
+    },
+    {
+      "product_name": "Iconic Geneva Dress",
+      "size": "4XL",
+      "height": "5' 6\"",
+      "bust": "62\"",
+      "waist": "67\"",
+      "hips": "77\""
+    }
+  ]
+}

@@ -1,0 +1,1202 @@
+{
+  "geneva-dress": {
+    "group": "geneva-dress",
+    "source_product": "iconic-geneva-dress-midnight",
+    "num_sizes": 11,
+    "sizes": [
+      {
+        "size_label": "4XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_4XS_003.jpg?v=1734650323?width=1000",
+        "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_4XS.jpg",
+        "model": {
+          "product_name": "Iconic Geneva Dress",
+          "size": "4XS",
+          "height": "5' 9.5\"",
+          "bust": "33\"",
+          "waist": "25\"",
+          "hips": "36.5\""
+        }
+      },
+      {
+        "size_label": "3XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_3XS_003.jpg?v=1734650325?width=1000",
+        "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_3XS.jpg",
+        "model": {
+          "product_name": "Iconic Geneva Dress",
+          "size": "3XS",
+          "height": "5' 8\"",
+          "bust": "32\"",
+          "waist": "25\"",
+          "hips": "37\""
+        }
+      },
+      {
+        "size_label": "2XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_2XS_001.jpg?v=1734650326?width=1000",
+        "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_2XS.jpg",
+        "model": {
+          "product_name": "Iconic Geneva Dress",
+          "size": "2XS",
+          "height": "5' 10\"",
+          "bust": "34\"",
+          "waist": "29\"",
+          "hips": "38\""
+        }
+      },
+      {
+        "size_label": "XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_XS_008_f8f49621-e376-43b5-a323-3e005725e565.jpg?v=1734652871?width=1000",
+        "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_XS.jpg",
+        "model": {
+          "product_name": "Iconic Geneva Dress",
+          "size": "XS",
+          "height": "5' 10\"",
+          "bust": "36\"",
+          "waist": "33\"",
+          "hips": "44.5\""
+        }
+      },
+      {
+        "size_label": "S",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_S_005.jpg?v=1734650329?width=1000",
+        "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_S.jpg",
+        "model": {
+          "product_name": "Iconic Geneva Dress",
+          "size": "S",
+          "height": "5' 8\"",
+          "bust": "38.5\"",
+          "waist": "34.5\"",
+          "hips": "44.5\""
+        }
+      },
+      {
+        "size_label": "M",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_M_011.jpg?v=1734650326?width=1000",
+        "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_M.jpg",
+        "model": {
+          "product_name": "Iconic Geneva Dress",
+          "size": "M",
+          "height": "5' 7\"",
+          "bust": "38\"",
+          "waist": "40\"",
+          "hips": "49.5\""
+        }
+      },
+      {
+        "size_label": "L",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_L_008.jpg?v=1734650324?width=1000",
+        "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_L.jpg",
+        "model": {
+          "product_name": "Iconic Geneva Dress",
+          "size": "L",
+          "height": "5' 10\"",
+          "bust": "42\"",
+          "waist": "39.5\"",
+          "hips": "53.5\""
+        }
+      },
+      {
+        "size_label": "XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_XL_008.jpg?v=1734650326?width=1000",
+        "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_XL.jpg",
+        "model": {
+          "product_name": "Iconic Geneva Dress",
+          "size": "XL",
+          "height": "5' 7.5\"",
+          "bust": "48\"",
+          "waist": "49\"",
+          "hips": "59.5\""
+        }
+      },
+      {
+        "size_label": "2XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_2XL_007.jpg?v=1734650329?width=1000",
+        "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_2XL.jpg",
+        "model": {
+          "product_name": "Iconic Geneva Dress",
+          "size": "2XL",
+          "height": "5' 7\"",
+          "bust": "55.5\"",
+          "waist": "56\"",
+          "hips": "63\""
+        }
+      },
+      {
+        "size_label": "3XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_3XL_003.jpg?v=1734650330?width=1000",
+        "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_3XL.jpg",
+        "model": {
+          "product_name": "Iconic Geneva Dress",
+          "size": "3XL",
+          "height": "5' 7\"",
+          "bust": "62\"",
+          "waist": "58\"",
+          "hips": "68\""
+        }
+      },
+      {
+        "size_label": "4XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Iconic_Geneva_Dress_US1002_4XL_005.jpg?v=1734652297?width=1000",
+        "local_path": "siiys_groups\\geneva-dress\\geneva-dress_size_4XL.jpg",
+        "model": {
+          "product_name": "Iconic Geneva Dress",
+          "size": "4XL",
+          "height": "5' 6\"",
+          "bust": "62\"",
+          "waist": "67\"",
+          "hips": "77\""
+        }
+      }
+    ],
+    "measurements": [
+      {
+        "product_name": "Iconic Geneva Dress",
+        "size": "4XS",
+        "height": "5' 9.5\"",
+        "bust": "33\"",
+        "waist": "25\"",
+        "hips": "36.5\""
+      },
+      {
+        "product_name": "Iconic Geneva Dress",
+        "size": "3XS",
+        "height": "5' 8\"",
+        "bust": "32\"",
+        "waist": "25\"",
+        "hips": "37\""
+      },
+      {
+        "product_name": "Iconic Geneva Dress",
+        "size": "2XS",
+        "height": "5' 10\"",
+        "bust": "34\"",
+        "waist": "29\"",
+        "hips": "38\""
+      },
+      {
+        "product_name": "Iconic Geneva Dress",
+        "size": "XS",
+        "height": "5' 10\"",
+        "bust": "36\"",
+        "waist": "33\"",
+        "hips": "44.5\""
+      },
+      {
+        "product_name": "Iconic Geneva Dress",
+        "size": "S",
+        "height": "5' 8\"",
+        "bust": "38.5\"",
+        "waist": "34.5\"",
+        "hips": "44.5\""
+      },
+      {
+        "product_name": "Iconic Geneva Dress",
+        "size": "M",
+        "height": "5' 7\"",
+        "bust": "38\"",
+        "waist": "40\"",
+        "hips": "49.5\""
+      },
+      {
+        "product_name": "Iconic Geneva Dress",
+        "size": "L",
+        "height": "5' 10\"",
+        "bust": "42\"",
+        "waist": "39.5\"",
+        "hips": "53.5\""
+      },
+      {
+        "product_name": "Iconic Geneva Dress",
+        "size": "XL",
+        "height": "5' 7.5\"",
+        "bust": "48\"",
+        "waist": "49\"",
+        "hips": "59.5\""
+      },
+      {
+        "product_name": "Iconic Geneva Dress",
+        "size": "2XL",
+        "height": "5' 7\"",
+        "bust": "55.5\"",
+        "waist": "56\"",
+        "hips": "63\""
+      },
+      {
+        "product_name": "Iconic Geneva Dress",
+        "size": "3XL",
+        "height": "5' 7\"",
+        "bust": "62\"",
+        "waist": "58\"",
+        "hips": "68\""
+      },
+      {
+        "product_name": "Iconic Geneva Dress",
+        "size": "4XL",
+        "height": "5' 6\"",
+        "bust": "62\"",
+        "waist": "67\"",
+        "hips": "77\""
+      }
+    ]
+  },
+  "next-to-naked-bodysuit": {
+    "group": "next-to-naked-bodysuit",
+    "source_product": "next-to-naked-bodysuit-pageant-blue",
+    "num_sizes": 11,
+    "sizes": [
+      {
+        "size_label": "4XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_4XS_001.jpg?v=1734650323?width=1000",
+        "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_4XS.jpg",
+        "model": {
+          "product_name": "Next to naked Bodysuit",
+          "size": "4XS",
+          "height": "5' 9.5\"",
+          "bust": "33\"",
+          "waist": "25\"",
+          "hips": "36.5\""
+        }
+      },
+      {
+        "size_label": "3XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_3XS_002_5a5c3a5e-ed48-47df-bbbc-cb213e91db26.jpg?v=1734650380?width=1000",
+        "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_3XS.jpg",
+        "model": {
+          "product_name": "Next to naked Bodysuit",
+          "size": "3XS",
+          "height": "5' 9\"",
+          "bust": "32\"",
+          "waist": "25\"",
+          "hips": "37\""
+        }
+      },
+      {
+        "size_label": "2XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_2XS_003_46b51337-29c2-444c-a7bf-3f6e2071bbe6.jpg?v=1734650380?width=1000",
+        "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_2XS.jpg",
+        "model": {
+          "product_name": "Next to naked Bodysuit",
+          "size": "2XS",
+          "height": "5' 10\"",
+          "bust": "34\"",
+          "waist": "29\"",
+          "hips": "38\""
+        }
+      },
+      {
+        "size_label": "XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_XS_010.jpg?v=1734650329?width=1000",
+        "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_XS.jpg",
+        "model": {
+          "product_name": "Next to naked Bodysuit",
+          "size": "XS",
+          "height": "5' 8\"",
+          "bust": "34\"",
+          "waist": "29\"",
+          "hips": "41\""
+        }
+      },
+      {
+        "size_label": "S",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_S_003_e09b8c5b-a116-47a2-a28b-358333ced16b.jpg?v=1734650380?width=1000",
+        "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_S.jpg",
+        "model": {
+          "product_name": "Next to naked Bodysuit",
+          "size": "S",
+          "height": "5' 8\"",
+          "bust": "38.5\"",
+          "waist": "34.5\"",
+          "hips": "44.5\""
+        }
+      },
+      {
+        "size_label": "M",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_M_010_5e5ee035-e684-405f-b1e9-616f32a694b1.jpg?v=1734650380?width=1000",
+        "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_M.jpg",
+        "model": {
+          "product_name": "Next to naked Bodysuit",
+          "size": "M",
+          "height": "5' 7\"",
+          "bust": "38\"",
+          "waist": "40\"",
+          "hips": "49.5\""
+        }
+      },
+      {
+        "size_label": "L",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_L_001_15a8105c-693c-4181-8bb1-64b82c61533f.jpg?v=1734650380?width=1000",
+        "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_L.jpg",
+        "model": {
+          "product_name": "Next to naked Bodysuit",
+          "size": "L",
+          "height": "5' 9\"",
+          "bust": "52\"",
+          "waist": "44.5\"",
+          "hips": "55.5\""
+        }
+      },
+      {
+        "size_label": "XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_XL_004_ee71da00-5742-49a0-8388-01d79835ab9f.jpg?v=1734650381?width=1000",
+        "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_XL.jpg",
+        "model": {
+          "product_name": "Next to naked Bodysuit",
+          "size": "XL",
+          "height": "5' 10\"",
+          "bust": "44\"",
+          "waist": "47.5\"",
+          "hips": "63\""
+        }
+      },
+      {
+        "size_label": "2XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_2XL_012_515841a7-b933-4161-868d-c81463720480.jpg?v=1734650381?width=1000",
+        "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_2XL.jpg",
+        "model": {
+          "product_name": "Next to naked Bodysuit",
+          "size": "2XL",
+          "height": "5' 7\"",
+          "bust": "55.5\"",
+          "waist": "56\"",
+          "hips": "63\""
+        }
+      },
+      {
+        "size_label": "3XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_3XL_015_5f0b77f1-691e-43a2-9f96-1fe0cb4e4871.jpg?v=1734650380?width=1000",
+        "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_3XL.jpg",
+        "model": {
+          "product_name": "Next to naked Bodysuit",
+          "size": "3XL",
+          "height": "5' 7\"",
+          "bust": "62\"",
+          "waist": "58\"",
+          "hips": "68\""
+        }
+      },
+      {
+        "size_label": "4XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Next_to_Naked_Bodysuit_USAT0017_4XL_009.jpg?v=1734650381?width=1000",
+        "local_path": "siiys_groups\\next-to-naked-bodysuit\\next-to-naked-bodysuit_size_4XL.jpg",
+        "model": {
+          "product_name": "Next to naked Bodysuit",
+          "size": "4XL",
+          "height": "5' 6\"",
+          "bust": "62\"",
+          "waist": "67\"",
+          "hips": "77\""
+        }
+      }
+    ],
+    "measurements": [
+      {
+        "product_name": "Next to naked Bodysuit",
+        "size": "4XS",
+        "height": "5' 9.5\"",
+        "bust": "33\"",
+        "waist": "25\"",
+        "hips": "36.5\""
+      },
+      {
+        "product_name": "Next to naked Bodysuit",
+        "size": "3XS",
+        "height": "5' 9\"",
+        "bust": "32\"",
+        "waist": "25\"",
+        "hips": "37\""
+      },
+      {
+        "product_name": "Next to naked Bodysuit",
+        "size": "2XS",
+        "height": "5' 10\"",
+        "bust": "34\"",
+        "waist": "29\"",
+        "hips": "38\""
+      },
+      {
+        "product_name": "Next to naked Bodysuit",
+        "size": "XS",
+        "height": "5' 8\"",
+        "bust": "34\"",
+        "waist": "29\"",
+        "hips": "41\""
+      },
+      {
+        "product_name": "Next to naked Bodysuit",
+        "size": "S",
+        "height": "5' 8\"",
+        "bust": "38.5\"",
+        "waist": "34.5\"",
+        "hips": "44.5\""
+      },
+      {
+        "product_name": "Next to naked Bodysuit",
+        "size": "M",
+        "height": "5' 7\"",
+        "bust": "38\"",
+        "waist": "40\"",
+        "hips": "49.5\""
+      },
+      {
+        "product_name": "Next to naked Bodysuit",
+        "size": "L",
+        "height": "5' 9\"",
+        "bust": "52\"",
+        "waist": "44.5\"",
+        "hips": "55.5\""
+      },
+      {
+        "product_name": "Next to naked Bodysuit",
+        "size": "XL",
+        "height": "5' 10\"",
+        "bust": "44\"",
+        "waist": "47.5\"",
+        "hips": "63\""
+      },
+      {
+        "product_name": "Next to naked Bodysuit",
+        "size": "2XL",
+        "height": "5' 7\"",
+        "bust": "55.5\"",
+        "waist": "56\"",
+        "hips": "63\""
+      },
+      {
+        "product_name": "Next to naked Bodysuit",
+        "size": "3XL",
+        "height": "5' 7\"",
+        "bust": "62\"",
+        "waist": "58\"",
+        "hips": "68\""
+      },
+      {
+        "product_name": "Next to naked Bodysuit",
+        "size": "4XL",
+        "height": "5' 6\"",
+        "bust": "62\"",
+        "waist": "67\"",
+        "hips": "77\""
+      }
+    ]
+  },
+  "seine-jeans": {
+    "group": "seine-jeans",
+    "source_product": "seine-high-rise-skinny-jeans-27-inch-french-blue",
+    "num_sizes": 11,
+    "sizes": [
+      {
+        "size_label": "0",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_0_005.jpg?v=1734540491?width=1000",
+        "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_0.jpg",
+        "model": {
+          "product_name": "Seine Skinny Jeans",
+          "size": "0",
+          "height": "5' 9.5\"",
+          "bust": "33\"",
+          "waist": "25\"",
+          "hips": "36.5\""
+        }
+      },
+      {
+        "size_label": "4",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_4_010.jpg?v=1734540491?width=1000",
+        "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_4.jpg",
+        "model": {
+          "product_name": "Seine Skinny Jeans",
+          "size": "4",
+          "height": "5' 9\"",
+          "bust": "32\"",
+          "waist": "25\"",
+          "hips": "37\""
+        }
+      },
+      {
+        "size_label": "8",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_8_001.jpg?v=1734540491?width=1000",
+        "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_8.jpg",
+        "model": {
+          "product_name": "Seine Skinny Jeans",
+          "size": "8",
+          "height": "5' 9.5\"",
+          "bust": "36\"",
+          "waist": "40\"",
+          "hips": "41\""
+        }
+      },
+      {
+        "size_label": "12",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_12_001.jpg?v=1734540491?width=1000",
+        "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_12.jpg",
+        "model": {
+          "product_name": "Seine Skinny Jeans",
+          "size": "12",
+          "height": "5' 10\"",
+          "bust": "36\"",
+          "waist": "33\"",
+          "hips": "44.5\""
+        }
+      },
+      {
+        "size_label": "14",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_14_008.jpg?v=1734540491?width=1000",
+        "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_14.jpg",
+        "model": {
+          "product_name": "Seine Skinny Jeans",
+          "size": "14",
+          "height": "5' 8\"",
+          "bust": "38.5\"",
+          "waist": "34.5\"",
+          "hips": "44.5\""
+        }
+      },
+      {
+        "size_label": "16",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_16_013.jpg?v=1734540491?width=1000",
+        "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_16.jpg",
+        "model": {
+          "product_name": "Seine Skinny Jeans",
+          "size": "16",
+          "height": "5' 10\"",
+          "bust": "46\"",
+          "waist": "39.5\"",
+          "hips": "48\""
+        }
+      },
+      {
+        "size_label": "20",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_20_020.jpg?v=1734540491?width=1000",
+        "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_20.jpg",
+        "model": {
+          "product_name": "Seine Skinny Jeans",
+          "size": "20",
+          "height": "5' 10\"",
+          "bust": "42\"",
+          "waist": "40\"",
+          "hips": "53.5\""
+        }
+      },
+      {
+        "size_label": "24",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_24_012.jpg?v=1734540491?width=1000",
+        "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_24.jpg",
+        "model": {
+          "product_name": "Seine Skinny Jeans",
+          "size": "24",
+          "height": "5' 10\"",
+          "bust": "44\"",
+          "waist": "47.5\"",
+          "hips": "63\""
+        }
+      },
+      {
+        "size_label": "28",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_28_003.jpg?v=1734540491?width=1000",
+        "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_28.jpg",
+        "model": {
+          "product_name": "Seine Skinny Jeans",
+          "size": "28",
+          "height": "5' 7\"",
+          "bust": "55.5\"",
+          "waist": "56\"",
+          "hips": "63\""
+        }
+      },
+      {
+        "size_label": "30",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_30_002.jpg?v=1734540661?width=1000",
+        "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_30.jpg",
+        "model": {
+          "product_name": "Seine Skinny Jeans",
+          "size": "30",
+          "height": "5' 7\"",
+          "bust": "62\"",
+          "waist": "58\"",
+          "hips": "68\""
+        }
+      },
+      {
+        "size_label": "36",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_34_012.jpg?v=1734540491?width=1000",
+        "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_36.jpg",
+        "model": {
+          "product_name": "Seine Skinny Jeans",
+          "size": "36",
+          "height": "5' 6\"",
+          "bust": "62\"",
+          "waist": "67\"",
+          "hips": "77\""
+        }
+      }
+    ],
+    "measurements": [
+      {
+        "product_name": "Seine Skinny Jeans",
+        "size": "0",
+        "height": "5' 9.5\"",
+        "bust": "33\"",
+        "waist": "25\"",
+        "hips": "36.5\""
+      },
+      {
+        "product_name": "Seine Skinny Jeans",
+        "size": "4",
+        "height": "5' 9\"",
+        "bust": "32\"",
+        "waist": "25\"",
+        "hips": "37\""
+      },
+      {
+        "product_name": "Seine Skinny Jeans",
+        "size": "8",
+        "height": "5' 9.5\"",
+        "bust": "36\"",
+        "waist": "40\"",
+        "hips": "41\""
+      },
+      {
+        "product_name": "Seine Skinny Jeans",
+        "size": "12",
+        "height": "5' 10\"",
+        "bust": "36\"",
+        "waist": "33\"",
+        "hips": "44.5\""
+      },
+      {
+        "product_name": "Seine Skinny Jeans",
+        "size": "14",
+        "height": "5' 8\"",
+        "bust": "38.5\"",
+        "waist": "34.5\"",
+        "hips": "44.5\""
+      },
+      {
+        "product_name": "Seine Skinny Jeans",
+        "size": "16",
+        "height": "5' 10\"",
+        "bust": "46\"",
+        "waist": "39.5\"",
+        "hips": "48\""
+      },
+      {
+        "product_name": "Seine Skinny Jeans",
+        "size": "20",
+        "height": "5' 10\"",
+        "bust": "42\"",
+        "waist": "40\"",
+        "hips": "53.5\""
+      },
+      {
+        "product_name": "Seine Skinny Jeans",
+        "size": "24",
+        "height": "5' 10\"",
+        "bust": "44\"",
+        "waist": "47.5\"",
+        "hips": "63\""
+      },
+      {
+        "product_name": "Seine Skinny Jeans",
+        "size": "28",
+        "height": "5' 7\"",
+        "bust": "55.5\"",
+        "waist": "56\"",
+        "hips": "63\""
+      },
+      {
+        "product_name": "Seine Skinny Jeans",
+        "size": "30",
+        "height": "5' 7\"",
+        "bust": "62\"",
+        "waist": "58\"",
+        "hips": "68\""
+      },
+      {
+        "product_name": "Seine Skinny Jeans",
+        "size": "36",
+        "height": "5' 6\"",
+        "bust": "62\"",
+        "waist": "67\"",
+        "hips": "77\""
+      }
+    ]
+  },
+  "stephanie-pants": {
+    "group": "stephanie-pants",
+    "source_product": "stephanie-wide-leg-stripe-ponte-pants-27-inch-black-with-black-stripe",
+    "num_sizes": 11,
+    "sizes": [
+      {
+        "size_label": "4XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_4XS_002.jpg?v=1734650329?width=1000",
+        "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_4XS.jpg",
+        "model": {
+          "product_name": "Stephanie Pants",
+          "size": "4XS",
+          "height": "5' 9.5\"",
+          "bust": "33\"",
+          "waist": "25\"",
+          "hips": "36.5\""
+        }
+      },
+      {
+        "size_label": "3XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_3XS_004.jpg?v=1734650602?width=1000",
+        "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_3XS.jpg",
+        "model": {
+          "product_name": "Stephanie Pants",
+          "size": "3XS",
+          "height": "5' 8\"",
+          "bust": "32\"",
+          "waist": "27\"",
+          "hips": "37\""
+        }
+      },
+      {
+        "size_label": "2XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_2XS_009.jpg?v=1734650602?width=1000",
+        "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_2XS.jpg",
+        "model": {
+          "product_name": "Stephanie Pants",
+          "size": "2XS",
+          "height": "5' 9.5\"",
+          "bust": "36\"",
+          "waist": "30\"",
+          "hips": "41\""
+        }
+      },
+      {
+        "size_label": "XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_XS_011.jpg?v=1734652445?width=1000",
+        "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_XS.jpg",
+        "model": {
+          "product_name": "Stephanie Pants",
+          "size": "XS",
+          "height": "5' 8\"",
+          "bust": "34\"",
+          "waist": "29\"",
+          "hips": "41\""
+        }
+      },
+      {
+        "size_label": "S",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_S_021.jpg?v=1734652475?width=1000",
+        "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_S.jpg",
+        "model": {
+          "product_name": "Stephanie Pants",
+          "size": "S",
+          "height": "5' 9\"",
+          "bust": "41.5\"",
+          "waist": "35.5\"",
+          "hips": "44.5\""
+        }
+      },
+      {
+        "size_label": "M",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_M_011.jpg?v=1734652511?width=1000",
+        "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_M.jpg",
+        "model": {
+          "product_name": "Stephanie Pants",
+          "size": "M",
+          "height": "5' 10\"",
+          "bust": "46\"",
+          "waist": "40\"",
+          "hips": "48\""
+        }
+      },
+      {
+        "size_label": "L",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_L_005_3fb492e1-6b52-4d35-8910-88f7308852c8.jpg?v=1734652552?width=1000",
+        "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_L.jpg",
+        "model": {
+          "product_name": "Stephanie Pants",
+          "size": "L",
+          "height": "5' 9\"",
+          "bust": "52\"",
+          "waist": "44.5\"",
+          "hips": "55.5\""
+        }
+      },
+      {
+        "size_label": "XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_XL_003.jpg?v=1734652475?width=1000",
+        "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_XL.jpg",
+        "model": {
+          "product_name": "Stephanie Pants",
+          "size": "XL",
+          "height": "5' 10\"",
+          "bust": "44\"",
+          "waist": "47.5\"",
+          "hips": "63\""
+        }
+      },
+      {
+        "size_label": "2XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_2XL_006.jpg?v=1734650602?width=1000",
+        "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_2XL.jpg",
+        "model": {
+          "product_name": "Stephanie Pants",
+          "size": "2XL",
+          "height": "5' 7\"",
+          "bust": "55.5\"",
+          "waist": "56\"",
+          "hips": "63\""
+        }
+      },
+      {
+        "size_label": "3XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_3XL_008_7edf980e-993b-42e5-b5e0-d6f576ed3321.jpg?v=1734650603?width=1000",
+        "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_3XL.jpg",
+        "model": {
+          "product_name": "Stephanie Pants",
+          "size": "3XL",
+          "height": "5' 7\"",
+          "bust": "62\"",
+          "waist": "58\"",
+          "hips": "68\""
+        }
+      },
+      {
+        "size_label": "4XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_4XL_017.jpg?v=1734652339?width=1000",
+        "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_4XL.jpg",
+        "model": {
+          "product_name": "Stephanie Pants",
+          "size": "4XL",
+          "height": "5' 6\"",
+          "bust": "62\"",
+          "waist": "67\"",
+          "hips": "77\""
+        }
+      }
+    ],
+    "measurements": [
+      {
+        "product_name": "Stephanie Pants",
+        "size": "4XS",
+        "height": "5' 9.5\"",
+        "bust": "33\"",
+        "waist": "25\"",
+        "hips": "36.5\""
+      },
+      {
+        "product_name": "Stephanie Pants",
+        "size": "3XS",
+        "height": "5' 8\"",
+        "bust": "32\"",
+        "waist": "27\"",
+        "hips": "37\""
+      },
+      {
+        "product_name": "Stephanie Pants",
+        "size": "2XS",
+        "height": "5' 9.5\"",
+        "bust": "36\"",
+        "waist": "30\"",
+        "hips": "41\""
+      },
+      {
+        "product_name": "Stephanie Pants",
+        "size": "XS",
+        "height": "5' 8\"",
+        "bust": "34\"",
+        "waist": "29\"",
+        "hips": "41\""
+      },
+      {
+        "product_name": "Stephanie Pants",
+        "size": "S",
+        "height": "5' 9\"",
+        "bust": "41.5\"",
+        "waist": "35.5\"",
+        "hips": "44.5\""
+      },
+      {
+        "product_name": "Stephanie Pants",
+        "size": "M",
+        "height": "5' 10\"",
+        "bust": "46\"",
+        "waist": "40\"",
+        "hips": "48\""
+      },
+      {
+        "product_name": "Stephanie Pants",
+        "size": "L",
+        "height": "5' 9\"",
+        "bust": "52\"",
+        "waist": "44.5\"",
+        "hips": "55.5\""
+      },
+      {
+        "product_name": "Stephanie Pants",
+        "size": "XL",
+        "height": "5' 10\"",
+        "bust": "44\"",
+        "waist": "47.5\"",
+        "hips": "63\""
+      },
+      {
+        "product_name": "Stephanie Pants",
+        "size": "2XL",
+        "height": "5' 7\"",
+        "bust": "55.5\"",
+        "waist": "56\"",
+        "hips": "63\""
+      },
+      {
+        "product_name": "Stephanie Pants",
+        "size": "3XL",
+        "height": "5' 7\"",
+        "bust": "62\"",
+        "waist": "58\"",
+        "hips": "68\""
+      },
+      {
+        "product_name": "Stephanie Pants",
+        "size": "4XL",
+        "height": "5' 6\"",
+        "bust": "62\"",
+        "waist": "67\"",
+        "hips": "77\""
+      }
+    ]
+  },
+  "tee-rex": {
+    "group": "tee-rex",
+    "source_product": "signature-tee-rex-seaside-blue",
+    "num_sizes": 11,
+    "sizes": [
+      {
+        "size_label": "4XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/761de67e-39b1-4f34-a2a1-fb62bb0e69bb_Tee_Rex_US10013_4XS_007.jpg?v=1734527709?width=1000",
+        "local_path": "siiys_groups\\tee-rex\\tee-rex_size_4XS.jpg",
+        "model": {
+          "product_name": "Tee Rex",
+          "size": "4XS",
+          "height": "5' 9.5\"",
+          "bust": "33\"",
+          "waist": "25\"",
+          "hips": "36.5\""
+        }
+      },
+      {
+        "size_label": "3XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/3xs.jpg?v=1734537646?width=1000",
+        "local_path": "siiys_groups\\tee-rex\\tee-rex_size_3XS.jpg",
+        "model": {
+          "product_name": "Tee Rex",
+          "size": "3XS",
+          "height": "5' 8\"",
+          "bust": "32\"",
+          "waist": "27\"",
+          "hips": "37\""
+        }
+      },
+      {
+        "size_label": "2XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/2XS.jpg?v=1734537646?width=1000",
+        "local_path": "siiys_groups\\tee-rex\\tee-rex_size_2XS.jpg",
+        "model": {
+          "product_name": "Tee Rex",
+          "size": "2XS",
+          "height": "5' 10\"",
+          "bust": "34\"",
+          "waist": "29\"",
+          "hips": "38\""
+        }
+      },
+      {
+        "size_label": "XS",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/12c8d193-3417-44a0-91a9-6301bceb78d3_Tee_Rex_US10013_XS_003.jpg?v=1734537646?width=1000",
+        "local_path": "siiys_groups\\tee-rex\\tee-rex_size_XS.jpg",
+        "model": {
+          "product_name": "Tee Rex",
+          "size": "XS",
+          "height": "5' 10\"",
+          "bust": "36\"",
+          "waist": "33\"",
+          "hips": "44.5\""
+        }
+      },
+      {
+        "size_label": "S",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/b9cfe6a4-58de-4413-85bb-c78232f11920_Tee_Rex_US10013_S_006.jpg?v=1734537646?width=1000",
+        "local_path": "siiys_groups\\tee-rex\\tee-rex_size_S.jpg",
+        "model": {
+          "product_name": "Tee Rex",
+          "size": "S",
+          "height": "5' 8\"",
+          "bust": "38.5\"",
+          "waist": "34.5\"",
+          "hips": "44.5\""
+        }
+      },
+      {
+        "size_label": "M",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Tee_Rex_US10013_M_015.jpg?v=1734537649?width=1000",
+        "local_path": "siiys_groups\\tee-rex\\tee-rex_size_M.jpg",
+        "model": {
+          "product_name": "Tee Rex",
+          "size": "M",
+          "height": "5' 7\"",
+          "bust": "38\"",
+          "waist": "40\"",
+          "hips": "49.5\""
+        }
+      },
+      {
+        "size_label": "L",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Tee_Rex_US10013_L_003.jpg?v=1734537648?width=1000",
+        "local_path": "siiys_groups\\tee-rex\\tee-rex_size_L.jpg",
+        "model": {
+          "product_name": "Tee Rex",
+          "size": "L",
+          "height": "5' 10\"",
+          "bust": "42\"",
+          "waist": "39.5\"",
+          "hips": "53.5\""
+        }
+      },
+      {
+        "size_label": "XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Tee_Rex_US10013_XL_004.jpg?v=1734537649?width=1000",
+        "local_path": "siiys_groups\\tee-rex\\tee-rex_size_XL.jpg",
+        "model": {
+          "product_name": "Tee Rex",
+          "size": "XL",
+          "height": "5' 7.5\"",
+          "bust": "48\"",
+          "waist": "49\"",
+          "hips": "59.5\""
+        }
+      },
+      {
+        "size_label": "2XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Tee_Rex_US10013_2XL_010.jpg?v=1734537648?width=1000",
+        "local_path": "siiys_groups\\tee-rex\\tee-rex_size_2XL.jpg",
+        "model": {
+          "product_name": "Tee Rex",
+          "size": "2XL",
+          "height": "5' 7\"",
+          "bust": "55.5\"",
+          "waist": "56\"",
+          "hips": "63\""
+        }
+      },
+      {
+        "size_label": "3XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Tee_Rex_US10013_3XL_006.jpg?v=1734537648?width=1000",
+        "local_path": "siiys_groups\\tee-rex\\tee-rex_size_3XL.jpg",
+        "model": {
+          "product_name": "Tee Rex",
+          "size": "3XL",
+          "height": "5' 7\"",
+          "bust": "62\"",
+          "waist": "58\"",
+          "hips": "68\""
+        }
+      },
+      {
+        "size_label": "4XL",
+        "image_url": "https://www.universalstandard.com/cdn/shop/files/Tee_Rex_US10013_4XL_008.jpg?v=1734537649?width=1000",
+        "local_path": "siiys_groups\\tee-rex\\tee-rex_size_4XL.jpg",
+        "model": {
+          "product_name": "Tee Rex",
+          "size": "4XL",
+          "height": "5' 6\"",
+          "bust": "62\"",
+          "waist": "67\"",
+          "hips": "77\""
+        }
+      }
+    ],
+    "measurements": [
+      {
+        "product_name": "Tee Rex",
+        "size": "4XS",
+        "height": "5' 9.5\"",
+        "bust": "33\"",
+        "waist": "25\"",
+        "hips": "36.5\""
+      },
+      {
+        "product_name": "Tee Rex",
+        "size": "3XS",
+        "height": "5' 8\"",
+        "bust": "32\"",
+        "waist": "27\"",
+        "hips": "37\""
+      },
+      {
+        "product_name": "Tee Rex",
+        "size": "2XS",
+        "height": "5' 10\"",
+        "bust": "34\"",
+        "waist": "29\"",
+        "hips": "38\""
+      },
+      {
+        "product_name": "Tee Rex",
+        "size": "XS",
+        "height": "5' 10\"",
+        "bust": "36\"",
+        "waist": "33\"",
+        "hips": "44.5\""
+      },
+      {
+        "product_name": "Tee Rex",
+        "size": "S",
+        "height": "5' 8\"",
+        "bust": "38.5\"",
+        "waist": "34.5\"",
+        "hips": "44.5\""
+      },
+      {
+        "product_name": "Tee Rex",
+        "size": "M",
+        "height": "5' 7\"",
+        "bust": "38\"",
+        "waist": "40\"",
+        "hips": "49.5\""
+      },
+      {
+        "product_name": "Tee Rex",
+        "size": "L",
+        "height": "5' 10\"",
+        "bust": "42\"",
+        "waist": "39.5\"",
+        "hips": "53.5\""
+      },
+      {
+        "product_name": "Tee Rex",
+        "size": "XL",
+        "height": "5' 7.5\"",
+        "bust": "48\"",
+        "waist": "49\"",
+        "hips": "59.5\""
+      },
+      {
+        "product_name": "Tee Rex",
+        "size": "2XL",
+        "height": "5' 7\"",
+        "bust": "55.5\"",
+        "waist": "56\"",
+        "hips": "63\""
+      },
+      {
+        "product_name": "Tee Rex",
+        "size": "3XL",
+        "height": "5' 7\"",
+        "bust": "62\"",
+        "waist": "58\"",
+        "hips": "68\""
+      },
+      {
+        "product_name": "Tee Rex",
+        "size": "4XL",
+        "height": "5' 6\"",
+        "bust": "62\"",
+        "waist": "67\"",
+        "hips": "77\""
+      }
+    ]
+  }
+}

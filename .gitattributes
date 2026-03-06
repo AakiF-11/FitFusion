@@ -1,0 +1,16 @@
+# Ensure shell scripts always use LF line endings on RunPod (Linux)
+*.sh text eol=lf
+*.py text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+
+# Binary files - no line ending conversion
+*.safetensors binary
+*.bin binary
+*.pth binary
+*.pkl binary
+*.onnx binary
+*.pt binary

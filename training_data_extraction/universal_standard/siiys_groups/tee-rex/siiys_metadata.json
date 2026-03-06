@@ -1,0 +1,240 @@
+{
+  "group": "tee-rex",
+  "source_product": "signature-tee-rex-seaside-blue",
+  "num_sizes": 11,
+  "sizes": [
+    {
+      "size_label": "4XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/761de67e-39b1-4f34-a2a1-fb62bb0e69bb_Tee_Rex_US10013_4XS_007.jpg?v=1734527709?width=1000",
+      "local_path": "siiys_groups\\tee-rex\\tee-rex_size_4XS.jpg",
+      "model": {
+        "product_name": "Tee Rex",
+        "size": "4XS",
+        "height": "5' 9.5\"",
+        "bust": "33\"",
+        "waist": "25\"",
+        "hips": "36.5\""
+      }
+    },
+    {
+      "size_label": "3XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/3xs.jpg?v=1734537646?width=1000",
+      "local_path": "siiys_groups\\tee-rex\\tee-rex_size_3XS.jpg",
+      "model": {
+        "product_name": "Tee Rex",
+        "size": "3XS",
+        "height": "5' 8\"",
+        "bust": "32\"",
+        "waist": "27\"",
+        "hips": "37\""
+      }
+    },
+    {
+      "size_label": "2XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/2XS.jpg?v=1734537646?width=1000",
+      "local_path": "siiys_groups\\tee-rex\\tee-rex_size_2XS.jpg",
+      "model": {
+        "product_name": "Tee Rex",
+        "size": "2XS",
+        "height": "5' 10\"",
+        "bust": "34\"",
+        "waist": "29\"",
+        "hips": "38\""
+      }
+    },
+    {
+      "size_label": "XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/12c8d193-3417-44a0-91a9-6301bceb78d3_Tee_Rex_US10013_XS_003.jpg?v=1734537646?width=1000",
+      "local_path": "siiys_groups\\tee-rex\\tee-rex_size_XS.jpg",
+      "model": {
+        "product_name": "Tee Rex",
+        "size": "XS",
+        "height": "5' 10\"",
+        "bust": "36\"",
+        "waist": "33\"",
+        "hips": "44.5\""
+      }
+    },
+    {
+      "size_label": "S",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/b9cfe6a4-58de-4413-85bb-c78232f11920_Tee_Rex_US10013_S_006.jpg?v=1734537646?width=1000",
+      "local_path": "siiys_groups\\tee-rex\\tee-rex_size_S.jpg",
+      "model": {
+        "product_name": "Tee Rex",
+        "size": "S",
+        "height": "5' 8\"",
+        "bust": "38.5\"",
+        "waist": "34.5\"",
+        "hips": "44.5\""
+      }
+    },
+    {
+      "size_label": "M",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Tee_Rex_US10013_M_015.jpg?v=1734537649?width=1000",
+      "local_path": "siiys_groups\\tee-rex\\tee-rex_size_M.jpg",
+      "model": {
+        "product_name": "Tee Rex",
+        "size": "M",
+        "height": "5' 7\"",
+        "bust": "38\"",
+        "waist": "40\"",
+        "hips": "49.5\""
+      }
+    },
+    {
+      "size_label": "L",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Tee_Rex_US10013_L_003.jpg?v=1734537648?width=1000",
+      "local_path": "siiys_groups\\tee-rex\\tee-rex_size_L.jpg",
+      "model": {
+        "product_name": "Tee Rex",
+        "size": "L",
+        "height": "5' 10\"",
+        "bust": "42\"",
+        "waist": "39.5\"",
+        "hips": "53.5\""
+      }
+    },
+    {
+      "size_label": "XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Tee_Rex_US10013_XL_004.jpg?v=1734537649?width=1000",
+      "local_path": "siiys_groups\\tee-rex\\tee-rex_size_XL.jpg",
+      "model": {
+        "product_name": "Tee Rex",
+        "size": "XL",
+        "height": "5' 7.5\"",
+        "bust": "48\"",
+        "waist": "49\"",
+        "hips": "59.5\""
+      }
+    },
+    {
+      "size_label": "2XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Tee_Rex_US10013_2XL_010.jpg?v=1734537648?width=1000",
+      "local_path": "siiys_groups\\tee-rex\\tee-rex_size_2XL.jpg",
+      "model": {
+        "product_name": "Tee Rex",
+        "size": "2XL",
+        "height": "5' 7\"",
+        "bust": "55.5\"",
+        "waist": "56\"",
+        "hips": "63\""
+      }
+    },
+    {
+      "size_label": "3XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Tee_Rex_US10013_3XL_006.jpg?v=1734537648?width=1000",
+      "local_path": "siiys_groups\\tee-rex\\tee-rex_size_3XL.jpg",
+      "model": {
+        "product_name": "Tee Rex",
+        "size": "3XL",
+        "height": "5' 7\"",
+        "bust": "62\"",
+        "waist": "58\"",
+        "hips": "68\""
+      }
+    },
+    {
+      "size_label": "4XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Tee_Rex_US10013_4XL_008.jpg?v=1734537649?width=1000",
+      "local_path": "siiys_groups\\tee-rex\\tee-rex_size_4XL.jpg",
+      "model": {
+        "product_name": "Tee Rex",
+        "size": "4XL",
+        "height": "5' 6\"",
+        "bust": "62\"",
+        "waist": "67\"",
+        "hips": "77\""
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "product_name": "Tee Rex",
+      "size": "4XS",
+      "height": "5' 9.5\"",
+      "bust": "33\"",
+      "waist": "25\"",
+      "hips": "36.5\""
+    },
+    {
+      "product_name": "Tee Rex",
+      "size": "3XS",
+      "height": "5' 8\"",
+      "bust": "32\"",
+      "waist": "27\"",
+      "hips": "37\""
+    },
+    {
+      "product_name": "Tee Rex",
+      "size": "2XS",
+      "height": "5' 10\"",
+      "bust": "34\"",
+      "waist": "29\"",
+      "hips": "38\""
+    },
+    {
+      "product_name": "Tee Rex",
+      "size": "XS",
+      "height": "5' 10\"",
+      "bust": "36\"",
+      "waist": "33\"",
+      "hips": "44.5\""
+    },
+    {
+      "product_name": "Tee Rex",
+      "size": "S",
+      "height": "5' 8\"",
+      "bust": "38.5\"",
+      "waist": "34.5\"",
+      "hips": "44.5\""
+    },
+    {
+      "product_name": "Tee Rex",
+      "size": "M",
+      "height": "5' 7\"",
+      "bust": "38\"",
+      "waist": "40\"",
+      "hips": "49.5\""
+    },
+    {
+      "product_name": "Tee Rex",
+      "size": "L",
+      "height": "5' 10\"",
+      "bust": "42\"",
+      "waist": "39.5\"",
+      "hips": "53.5\""
+    },
+    {
+      "product_name": "Tee Rex",
+      "size": "XL",
+      "height": "5' 7.5\"",
+      "bust": "48\"",
+      "waist": "49\"",
+      "hips": "59.5\""
+    },
+    {
+      "product_name": "Tee Rex",
+      "size": "2XL",
+      "height": "5' 7\"",
+      "bust": "55.5\"",
+      "waist": "56\"",
+      "hips": "63\""
+    },
+    {
+      "product_name": "Tee Rex",
+      "size": "3XL",
+      "height": "5' 7\"",
+      "bust": "62\"",
+      "waist": "58\"",
+      "hips": "68\""
+    },
+    {
+      "product_name": "Tee Rex",
+      "size": "4XL",
+      "height": "5' 6\"",
+      "bust": "62\"",
+      "waist": "67\"",
+      "hips": "77\""
+    }
+  ]
+}

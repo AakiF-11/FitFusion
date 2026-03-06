@@ -1,0 +1,73 @@
+# ================================================================
+# FitFusion — .gitignore
+# Optimized for RunPod deployment (code only, no large binaries)
+# ================================================================
+
+# ── Python ──────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+pip-log.txt
+
+# ── Virtual Environments ─────────────────────────────────────────
+venv_ootd/
+venv/
+env/
+.venv/
+.env
+
+# ── Model Weights & Checkpoints (too large for git, 5-15GB each) ─
+IDM-VTON/model_weights/
+IDM-VTON/ckpt/densepose/
+IDM-VTON/ckpt/humanparsing/
+IDM-VTON/ckpt/image_encoder/
+IDM-VTON/ckpt/ip_adapter/
+IDM-VTON/ckpt/openpose/
+*.safetensors
+*.bin
+*.pth
+*.pkl
+*.onnx
+*.pt
+
+# ── Large Binary / Archive Files ─────────────────────────────────
+*.tar
+*.tar.gz
+*.tar.bz2
+*.zip
+*.b64
+patches.b64
+patches.tar
+sync.tar.gz
+
+# ── Sensitive Credentials (NEVER commit SSH keys/IPs) ────────────
+.runpod_config.json
+
+# ── Dataset & Output Images (large, generated) ───────────────────
+data/tryon_output/
+data/fitfusion_vitonhd/
+data/expanded_dataset/
+*.png
+*.jpg
+*.jpeg
+!data/brand_catalog/**/*.jpg
+!data/brand_catalog/**/*.png
+
+# ── Logs & Crash Reports ─────────────────────────────────────────
+crash.log
+*.log
+
+# ── IDE & OS ─────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.DS_Store
+Thumbs.db
+
+# ── Hugging Face Cache ───────────────────────────────────────────
+IDM-VTON/model_weights/.cache/

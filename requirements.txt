@@ -1,0 +1,2 @@
+sentry-sdk
+sentry-sdk[celery]

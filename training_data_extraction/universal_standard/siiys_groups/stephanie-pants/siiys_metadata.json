@@ -1,0 +1,240 @@
+{
+  "group": "stephanie-pants",
+  "source_product": "stephanie-wide-leg-stripe-ponte-pants-27-inch-black-with-black-stripe",
+  "num_sizes": 11,
+  "sizes": [
+    {
+      "size_label": "4XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_4XS_002.jpg?v=1734650329?width=1000",
+      "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_4XS.jpg",
+      "model": {
+        "product_name": "Stephanie Pants",
+        "size": "4XS",
+        "height": "5' 9.5\"",
+        "bust": "33\"",
+        "waist": "25\"",
+        "hips": "36.5\""
+      }
+    },
+    {
+      "size_label": "3XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_3XS_004.jpg?v=1734650602?width=1000",
+      "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_3XS.jpg",
+      "model": {
+        "product_name": "Stephanie Pants",
+        "size": "3XS",
+        "height": "5' 8\"",
+        "bust": "32\"",
+        "waist": "27\"",
+        "hips": "37\""
+      }
+    },
+    {
+      "size_label": "2XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_2XS_009.jpg?v=1734650602?width=1000",
+      "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_2XS.jpg",
+      "model": {
+        "product_name": "Stephanie Pants",
+        "size": "2XS",
+        "height": "5' 9.5\"",
+        "bust": "36\"",
+        "waist": "30\"",
+        "hips": "41\""
+      }
+    },
+    {
+      "size_label": "XS",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_XS_011.jpg?v=1734652445?width=1000",
+      "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_XS.jpg",
+      "model": {
+        "product_name": "Stephanie Pants",
+        "size": "XS",
+        "height": "5' 8\"",
+        "bust": "34\"",
+        "waist": "29\"",
+        "hips": "41\""
+      }
+    },
+    {
+      "size_label": "S",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_S_021.jpg?v=1734652475?width=1000",
+      "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_S.jpg",
+      "model": {
+        "product_name": "Stephanie Pants",
+        "size": "S",
+        "height": "5' 9\"",
+        "bust": "41.5\"",
+        "waist": "35.5\"",
+        "hips": "44.5\""
+      }
+    },
+    {
+      "size_label": "M",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_M_011.jpg?v=1734652511?width=1000",
+      "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_M.jpg",
+      "model": {
+        "product_name": "Stephanie Pants",
+        "size": "M",
+        "height": "5' 10\"",
+        "bust": "46\"",
+        "waist": "40\"",
+        "hips": "48\""
+      }
+    },
+    {
+      "size_label": "L",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_L_005_3fb492e1-6b52-4d35-8910-88f7308852c8.jpg?v=1734652552?width=1000",
+      "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_L.jpg",
+      "model": {
+        "product_name": "Stephanie Pants",
+        "size": "L",
+        "height": "5' 9\"",
+        "bust": "52\"",
+        "waist": "44.5\"",
+        "hips": "55.5\""
+      }
+    },
+    {
+      "size_label": "XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_XL_003.jpg?v=1734652475?width=1000",
+      "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_XL.jpg",
+      "model": {
+        "product_name": "Stephanie Pants",
+        "size": "XL",
+        "height": "5' 10\"",
+        "bust": "44\"",
+        "waist": "47.5\"",
+        "hips": "63\""
+      }
+    },
+    {
+      "size_label": "2XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_2XL_006.jpg?v=1734650602?width=1000",
+      "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_2XL.jpg",
+      "model": {
+        "product_name": "Stephanie Pants",
+        "size": "2XL",
+        "height": "5' 7\"",
+        "bust": "55.5\"",
+        "waist": "56\"",
+        "hips": "63\""
+      }
+    },
+    {
+      "size_label": "3XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_3XL_008_7edf980e-993b-42e5-b5e0-d6f576ed3321.jpg?v=1734650603?width=1000",
+      "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_3XL.jpg",
+      "model": {
+        "product_name": "Stephanie Pants",
+        "size": "3XL",
+        "height": "5' 7\"",
+        "bust": "62\"",
+        "waist": "58\"",
+        "hips": "68\""
+      }
+    },
+    {
+      "size_label": "4XL",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Stephanie_Wide_Leg_Stripe_Pants_USPA0553_4XL_017.jpg?v=1734652339?width=1000",
+      "local_path": "siiys_groups\\stephanie-pants\\stephanie-pants_size_4XL.jpg",
+      "model": {
+        "product_name": "Stephanie Pants",
+        "size": "4XL",
+        "height": "5' 6\"",
+        "bust": "62\"",
+        "waist": "67\"",
+        "hips": "77\""
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "product_name": "Stephanie Pants",
+      "size": "4XS",
+      "height": "5' 9.5\"",
+      "bust": "33\"",
+      "waist": "25\"",
+      "hips": "36.5\""
+    },
+    {
+      "product_name": "Stephanie Pants",
+      "size": "3XS",
+      "height": "5' 8\"",
+      "bust": "32\"",
+      "waist": "27\"",
+      "hips": "37\""
+    },
+    {
+      "product_name": "Stephanie Pants",
+      "size": "2XS",
+      "height": "5' 9.5\"",
+      "bust": "36\"",
+      "waist": "30\"",
+      "hips": "41\""
+    },
+    {
+      "product_name": "Stephanie Pants",
+      "size": "XS",
+      "height": "5' 8\"",
+      "bust": "34\"",
+      "waist": "29\"",
+      "hips": "41\""
+    },
+    {
+      "product_name": "Stephanie Pants",
+      "size": "S",
+      "height": "5' 9\"",
+      "bust": "41.5\"",
+      "waist": "35.5\"",
+      "hips": "44.5\""
+    },
+    {
+      "product_name": "Stephanie Pants",
+      "size": "M",
+      "height": "5' 10\"",
+      "bust": "46\"",
+      "waist": "40\"",
+      "hips": "48\""
+    },
+    {
+      "product_name": "Stephanie Pants",
+      "size": "L",
+      "height": "5' 9\"",
+      "bust": "52\"",
+      "waist": "44.5\"",
+      "hips": "55.5\""
+    },
+    {
+      "product_name": "Stephanie Pants",
+      "size": "XL",
+      "height": "5' 10\"",
+      "bust": "44\"",
+      "waist": "47.5\"",
+      "hips": "63\""
+    },
+    {
+      "product_name": "Stephanie Pants",
+      "size": "2XL",
+      "height": "5' 7\"",
+      "bust": "55.5\"",
+      "waist": "56\"",
+      "hips": "63\""
+    },
+    {
+      "product_name": "Stephanie Pants",
+      "size": "3XL",
+      "height": "5' 7\"",
+      "bust": "62\"",
+      "waist": "58\"",
+      "hips": "68\""
+    },
+    {
+      "product_name": "Stephanie Pants",
+      "size": "4XL",
+      "height": "5' 6\"",
+      "bust": "62\"",
+      "waist": "67\"",
+      "hips": "77\""
+    }
+  ]
+}

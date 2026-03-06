@@ -1,0 +1,240 @@
+{
+  "group": "seine-jeans",
+  "source_product": "seine-high-rise-skinny-jeans-27-inch-french-blue",
+  "num_sizes": 11,
+  "sizes": [
+    {
+      "size_label": "0",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_0_005.jpg?v=1734540491?width=1000",
+      "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_0.jpg",
+      "model": {
+        "product_name": "Seine Skinny Jeans",
+        "size": "0",
+        "height": "5' 9.5\"",
+        "bust": "33\"",
+        "waist": "25\"",
+        "hips": "36.5\""
+      }
+    },
+    {
+      "size_label": "4",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_4_010.jpg?v=1734540491?width=1000",
+      "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_4.jpg",
+      "model": {
+        "product_name": "Seine Skinny Jeans",
+        "size": "4",
+        "height": "5' 9\"",
+        "bust": "32\"",
+        "waist": "25\"",
+        "hips": "37\""
+      }
+    },
+    {
+      "size_label": "8",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_8_001.jpg?v=1734540491?width=1000",
+      "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_8.jpg",
+      "model": {
+        "product_name": "Seine Skinny Jeans",
+        "size": "8",
+        "height": "5' 9.5\"",
+        "bust": "36\"",
+        "waist": "40\"",
+        "hips": "41\""
+      }
+    },
+    {
+      "size_label": "12",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_12_001.jpg?v=1734540491?width=1000",
+      "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_12.jpg",
+      "model": {
+        "product_name": "Seine Skinny Jeans",
+        "size": "12",
+        "height": "5' 10\"",
+        "bust": "36\"",
+        "waist": "33\"",
+        "hips": "44.5\""
+      }
+    },
+    {
+      "size_label": "14",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_14_008.jpg?v=1734540491?width=1000",
+      "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_14.jpg",
+      "model": {
+        "product_name": "Seine Skinny Jeans",
+        "size": "14",
+        "height": "5' 8\"",
+        "bust": "38.5\"",
+        "waist": "34.5\"",
+        "hips": "44.5\""
+      }
+    },
+    {
+      "size_label": "16",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_16_013.jpg?v=1734540491?width=1000",
+      "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_16.jpg",
+      "model": {
+        "product_name": "Seine Skinny Jeans",
+        "size": "16",
+        "height": "5' 10\"",
+        "bust": "46\"",
+        "waist": "39.5\"",
+        "hips": "48\""
+      }
+    },
+    {
+      "size_label": "20",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_20_020.jpg?v=1734540491?width=1000",
+      "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_20.jpg",
+      "model": {
+        "product_name": "Seine Skinny Jeans",
+        "size": "20",
+        "height": "5' 10\"",
+        "bust": "42\"",
+        "waist": "40\"",
+        "hips": "53.5\""
+      }
+    },
+    {
+      "size_label": "24",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_24_012.jpg?v=1734540491?width=1000",
+      "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_24.jpg",
+      "model": {
+        "product_name": "Seine Skinny Jeans",
+        "size": "24",
+        "height": "5' 10\"",
+        "bust": "44\"",
+        "waist": "47.5\"",
+        "hips": "63\""
+      }
+    },
+    {
+      "size_label": "28",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_28_003.jpg?v=1734540491?width=1000",
+      "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_28.jpg",
+      "model": {
+        "product_name": "Seine Skinny Jeans",
+        "size": "28",
+        "height": "5' 7\"",
+        "bust": "55.5\"",
+        "waist": "56\"",
+        "hips": "63\""
+      }
+    },
+    {
+      "size_label": "30",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_30_002.jpg?v=1734540661?width=1000",
+      "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_30.jpg",
+      "model": {
+        "product_name": "Seine Skinny Jeans",
+        "size": "30",
+        "height": "5' 7\"",
+        "bust": "62\"",
+        "waist": "58\"",
+        "hips": "68\""
+      }
+    },
+    {
+      "size_label": "36",
+      "image_url": "https://www.universalstandard.com/cdn/shop/files/Seine_Mid_Rise_Skinny_Jeans_USPA0302_34_012.jpg?v=1734540491?width=1000",
+      "local_path": "siiys_groups\\seine-jeans\\seine-jeans_size_36.jpg",
+      "model": {
+        "product_name": "Seine Skinny Jeans",
+        "size": "36",
+        "height": "5' 6\"",
+        "bust": "62\"",
+        "waist": "67\"",
+        "hips": "77\""
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "product_name": "Seine Skinny Jeans",
+      "size": "0",
+      "height": "5' 9.5\"",
+      "bust": "33\"",
+      "waist": "25\"",
+      "hips": "36.5\""
+    },
+    {
+      "product_name": "Seine Skinny Jeans",
+      "size": "4",
+      "height": "5' 9\"",
+      "bust": "32\"",
+      "waist": "25\"",
+      "hips": "37\""
+    },
+    {
+      "product_name": "Seine Skinny Jeans",
+      "size": "8",
+      "height": "5' 9.5\"",
+      "bust": "36\"",
+      "waist": "40\"",
+      "hips": "41\""
+    },
+    {
+      "product_name": "Seine Skinny Jeans",
+      "size": "12",
+      "height": "5' 10\"",
+      "bust": "36\"",
+      "waist": "33\"",
+      "hips": "44.5\""
+    },
+    {
+      "product_name": "Seine Skinny Jeans",
+      "size": "14",
+      "height": "5' 8\"",
+      "bust": "38.5\"",
+      "waist": "34.5\"",
+      "hips": "44.5\""
+    },
+    {
+      "product_name": "Seine Skinny Jeans",
+      "size": "16",
+      "height": "5' 10\"",
+      "bust": "46\"",
+      "waist": "39.5\"",
+      "hips": "48\""
+    },
+    {
+      "product_name": "Seine Skinny Jeans",
+      "size": "20",
+      "height": "5' 10\"",
+      "bust": "42\"",
+      "waist": "40\"",
+      "hips": "53.5\""
+    },
+    {
+      "product_name": "Seine Skinny Jeans",
+      "size": "24",
+      "height": "5' 10\"",
+      "bust": "44\"",
+      "waist": "47.5\"",
+      "hips": "63\""
+    },
+    {
+      "product_name": "Seine Skinny Jeans",
+      "size": "28",
+      "height": "5' 7\"",
+      "bust": "55.5\"",
+      "waist": "56\"",
+      "hips": "63\""
+    },
+    {
+      "product_name": "Seine Skinny Jeans",
+      "size": "30",
+      "height": "5' 7\"",
+      "bust": "62\"",
+      "waist": "58\"",
+      "hips": "68\""
+    },
+    {
+      "product_name": "Seine Skinny Jeans",
+      "size": "36",
+      "height": "5' 6\"",
+      "bust": "62\"",
+      "waist": "67\"",
+      "hips": "77\""
+    }
+  ]
+}

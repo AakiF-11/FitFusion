@@ -34,13 +34,29 @@ def generate_adaptive_mask(
     Returns:
         agnostic_mask: PIL Image binary mask (white = inpaint region).
     """
-    from size_adaptive_mask import SizeAdaptiveMask
+    from size_adaptive_mask import compute_size_adaptive_mask, SIZE_TO_INDEX
 
-    generator = SizeAdaptiveMask()
-    return generator.generate(
-        schp_mask=schp_mask,
+    person_size_idx  = SIZE_TO_INDEX.get(person_size.upper(), 5)
+    garment_size_idx = SIZE_TO_INDEX.get(target_size.upper(), 7)
+
+    # Extract clothing pixels from human parsing label map
+    # SCHP labels: 1-7 upper body, 8-12 lower body, 16=dress, 17=coat
+    clothing_labels = {1, 2, 3, 4, 5, 6, 7, 16, 17}
+    body_mask = np.zeros(schp_mask.shape[:2], dtype=np.uint8)
+    for lbl in clothing_labels:
+        body_mask[schp_mask == lbl] = 255
+
+    adapted = compute_size_adaptive_mask(
+        body_mask=body_mask,
+        person_size_idx=person_size_idx,
+        garment_size_idx=garment_size_idx,
         garment_type=garment_type,
-        person_size=person_size,
-        garment_size=target_size,
-        output_dir=output_dir,
     )
+
+    result = Image.fromarray(adapted)
+
+    if output_dir:
+        Path(output_dir).mkdir(parents=True, exist_ok=True)
+        result.save(str(Path(output_dir) / "agnostic_mask_adaptive.png"))
+
+    return result

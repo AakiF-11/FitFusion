@@ -34,10 +34,10 @@ FitFusion/
 │   │   ├── background.py            # rembg background stripping → studio gray
 │   │   └── validator.py             # Image dimension/format gating
 │   ├── pose/
-│   │   ├── openpose.py              # OpenPose keypoint extraction [stub]
-│   │   └── densepose.py             # DensePose UV map generation [stub]
+│   │   ├── openpose.py              # OpenPose keypoint extraction
+│   │   └── densepose.py             # DensePose UV map generation
 │   ├── masking/
-│   │   ├── human_parsing.py         # SCHP segmentation runner [stub]
+│   │   ├── human_parsing.py         # SCHP dual-ONNX segmentation runner
 │   │   ├── confidence.py            # Arm-geometry confidence scorer
 │   │   ├── adaptive_mask.py         # Size-adaptive agnostic mask scaler
 │   │   └── compositor.py            # Skin/tattoo restoration compositor
@@ -270,9 +270,9 @@ The physics engine maps (person_size, target_size) pairs to one of 7 fit classes
 |---|---|---|
 | Preprocessing | `src/preprocessing/background.py` | Complete |
 | Preprocessing | `src/preprocessing/validator.py` | Complete |
-| Pose | `src/pose/openpose.py` | Stub — `NotImplementedError` |
-| Pose | `src/pose/densepose.py` | Stub — `NotImplementedError` |
-| Masking | `src/masking/human_parsing.py` | Stub — `NotImplementedError` |
+| Pose | `src/pose/openpose.py` | Complete — wraps `IDM-VTON/preprocess/openpose/` (`OpenposeDetector`, ckpt monkey-patch) |
+| Pose | `src/pose/densepose.py` | Complete — wraps `IDM-VTON/generate_densepose.py` (`segformer_b2_clothes` IUV approx) |
+| Masking | `src/masking/human_parsing.py` | Complete — wraps `IDM-VTON/preprocess/humanparsing/` (dual ONNX: ATR + LIP) |
 | Masking | `src/masking/confidence.py` | Complete (re-exports `fitfusion/masking/confidence_scorer.py`) |
 | Masking | `src/masking/adaptive_mask.py` | Complete (wraps `IDM-VTON/size_adaptive_mask.py`) |
 | Masking | `src/masking/compositor.py` | Complete (re-exports `fitfusion/masking/compositor.py`) |
@@ -283,8 +283,15 @@ The physics engine maps (person_size, target_size) pairs to one of 7 fit classes
 | Inference | `src/inference/tryon.py` | Complete |
 | Catalog | `src/catalog/brand.py` | Complete (re-exports `IDM-VTON/brand_catalog.py`) |
 
-**Stubs requiring implementation:** `src/pose/openpose.py`, `src/pose/densepose.py`, `src/masking/human_parsing.py`  
-These integrate with the ckpt weights but the actual inference wrappers need to be written around the upstream `IDM-VTON/preprocess/` scripts.
+**All modules are now implemented.** Stages 2 and 3 of `run_pipeline.py` are fully wired with no `NotImplementedError` stubs remaining.
+
+### Implementation Details
+
+**`src/pose/openpose.py`** — Lazy-loads `OpenposeDetector` from `IDM-VTON/preprocess/openpose/annotator/openpose/`. Monkey-patches `annotator_ckpts_path` on both `annotator.util` and `annotator.openpose` modules before instantiation, so `body_pose_model.pth` is resolved from the caller-supplied `ckpt_dir` regardless of the symlink state. Returns `{pose_keypoints_2d: list[18], pose_image: PIL}` — both needed by downstream stages.
+
+**`src/pose/densepose.py`** — Uses the segformer-based IUV approximation from `IDM-VTON/generate_densepose.py`. Detectron2 DensePose is excluded because it cannot be installed cleanly on CUDA 12.1. Loads `mattmdjaga/segformer_b2_clothes` from local HF snapshot (offline-first) or HF Hub. Returns a PIL IUV RGB image matching the input resolution.
+
+**`src/masking/human_parsing.py`** — Creates `onnxruntime.InferenceSession` objects directly from `ckpt_dir`, bypassing `run_parsing.py`'s hardcoded paths. Passes PIL Image directly to `onnx_inference()` — `SimpleFolderDataset` handles `isinstance(root, Image.Image)` natively, meaning zero filesystem I/O. ATR session uses CUDA; LIP (neck refinement) runs on CPU to avoid VRAM contention. Returns `(H, W)` uint8 numpy array of SCHP class labels 0–18.
 
 ---
 
@@ -372,8 +379,8 @@ See [MODEL_SELECTION_AND_TRAINING_PLAN.md](MODEL_SELECTION_AND_TRAINING_PLAN.md)
 | IDM-VTON model loader | Complete |
 | Diffusion inference executor | Complete |
 | `run_pipeline.py` entry point | Complete |
-| OpenPose wrapper (`src/pose/`) | Stub — needs implementation |
-| DensePose wrapper (`src/pose/`) | Stub — needs implementation |
-| SCHP human parsing (`src/masking/`) | Stub — needs implementation |
+| OpenPose wrapper (`src/pose/openpose.py`) | Complete |
+| DensePose wrapper (`src/pose/densepose.py`) | Complete |
+| SCHP human parsing (`src/masking/human_parsing.py`) | Complete |
 | VITON-HD test dataset on pod | Missing — required for full inference test |
 | QLoRA training run | Not started |

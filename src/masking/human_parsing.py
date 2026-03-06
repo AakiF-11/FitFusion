@@ -28,7 +28,7 @@ import sys
 import logging
 import numpy as np
 from pathlib import Path
-from typing import Dict, Union
+from typing import Any, Dict, Union
 
 log = logging.getLogger(__name__)
 

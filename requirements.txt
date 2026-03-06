@@ -1,2 +1,26 @@
-sentry-sdk
-sentry-sdk[celery]
+# FitFusion — Python dependencies
+# Install: pip install -r requirements.txt
+
+# Core ML
+torch>=2.2.0
+torchvision>=0.17.0
+numpy<2.0
+
+# HuggingFace stack
+transformers>=4.40.0
+diffusers>=0.27.0
+accelerate>=0.28.0
+huggingface_hub==0.23.4
+
+# Image processing
+Pillow>=10.0.0
+opencv-python-headless>=4.9.0
+rembg>=2.0.50
+onnxruntime-gpu>=1.16.0
+
+# Visualisation (required by OpenPose annotator)
+matplotlib>=3.8.0
+
+# Utilities
+scipy>=1.12.0
+scikit-image>=0.22.0

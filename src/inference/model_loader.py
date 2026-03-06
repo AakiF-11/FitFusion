@@ -26,17 +26,27 @@ def load_idm_vton_pipeline(ckpt_dir: str, device: str = "cuda") -> Any:
     Returns:
         pipeline: Loaded TryonPipeline ready for inference.
     """
-    from diffusers import AutoencoderKL
-    from transformers import (
-        CLIPImageProcessor,
-        CLIPTextModel,
-        CLIPTextModelWithProjection,
-        CLIPTokenizer,
-        CLIPVisionModelWithProjection,
-    )
-    from tryon_pipeline import StableDiffusionXLInpaintPipeline as TryonPipeline
-    from unet_hacked_tryon import UNet2DConditionModel
-    from unet_hacked_garmnet import UNet2DConditionModel as GarmentUNet
+    # FitFusion's own 'src' package is already in sys.modules by Stage 3/4.
+    # IDM-VTON's internal code also uses 'from src.X import' expecting its own
+    # src/ dir.  Temporarily evict FitFusion's 'src' subtree so IDM-VTON's
+    # imports resolve to IDM-VTON/src/ instead.
+    _saved_src = {k: sys.modules.pop(k)
+                  for k in list(sys.modules)
+                  if k == "src" or k.startswith("src.")}
+    try:
+        from diffusers import AutoencoderKL
+        from transformers import (
+            CLIPImageProcessor,
+            CLIPTextModel,
+            CLIPTextModelWithProjection,
+            CLIPTokenizer,
+            CLIPVisionModelWithProjection,
+        )
+        from tryon_pipeline import StableDiffusionXLInpaintPipeline as TryonPipeline
+        from unet_hacked_tryon import UNet2DConditionModel
+        from unet_hacked_garmnet import UNet2DConditionModel as GarmentUNet
+    finally:
+        sys.modules.update(_saved_src)
 
     dtype = torch.float16 if device == "cuda" else torch.float32
 

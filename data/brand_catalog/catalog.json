@@ -1,4 +1,4 @@
-{
+﻿{
   "_meta": {
     "description": "FitFusion brand catalog \u2014 reference index for size-aware virtual try-on testing",
     "purpose": "Testing the size-aware architecture (NOT training). All measurements are real brand data.",
@@ -362,7 +362,7 @@
       "garment_size_std": "XL",
       "expected_fit": "LOOSE",
       "width_ratio_expected": 1.2,
-      "run_command": "python run_pipeline.py --person_image data/test_inputs/person_model_C_Pixie.jpg --garment_image data/test_inputs/garment_cropped_borg_aviator_jacket_black.png --person_size M --target_size XL --garment_type top --ckpt_dir ./ckpt --output_dir ./output --steps 30 --guidance_scale 2.0 --seed 42 --device cuda --skip_preprocessing"
+      "run_command": "cd IDM-VTON \u0026\u0026 python run_tryon.py --product_id cropped-borg-aviator-jacket-black --brand_id snag_tights --s3_image_url file:///workspace/FitFusion/data/test_inputs/person_model_C_Pixie.jpg --bust 92 --waist 76 --hips 100 --height 167 --all_sizes --output /workspace/output_all_sizes.png --steps 30 --seed 42"
     },
     {
       "id": "scenario_02",
@@ -374,7 +374,7 @@
       "garment_size_std": "3XL",
       "expected_fit": "VERY_LOOSE",
       "width_ratio_expected": 1.34,
-      "run_command": "python run_pipeline.py --person_image data/test_inputs/person_model_C_Pixie.jpg --garment_image data/test_inputs/garment_cropped_borg_aviator_jacket_black.png --person_size M --target_size 3XL --garment_type top --ckpt_dir ./ckpt --output_dir ./output --steps 30 --guidance_scale 2.0 --seed 42 --device cuda --skip_preprocessing"
+      "run_command": "cd IDM-VTON \u0026\u0026 python run_tryon.py --product_id cropped-borg-aviator-jacket-black --brand_id snag_tights --s3_image_url file:///workspace/FitFusion/data/test_inputs/person_model_C_Pixie.jpg --bust 92 --waist 76 --hips 100 --height 167 --all_sizes --output /workspace/output_all_sizes.png --steps 30 --seed 42"
     },
     {
       "id": "scenario_03",
@@ -386,7 +386,7 @@
       "garment_size_std": "L",
       "expected_fit": "SLIGHTLY_LOOSE",
       "width_ratio_expected": 1.08,
-      "run_command": "python run_pipeline.py --person_image data/test_inputs/person_model_C_Pixie.jpg --garment_image data/test_inputs/garment_cropped_borg_aviator_jacket_black.png --person_size M --target_size L --garment_type top --ckpt_dir ./ckpt --output_dir ./output --steps 30 --guidance_scale 2.0 --seed 42 --device cuda --skip_preprocessing"
+      "run_command": "cd IDM-VTON \u0026\u0026 python run_tryon.py --product_id cropped-borg-aviator-jacket-black --brand_id snag_tights --s3_image_url file:///workspace/FitFusion/data/test_inputs/person_model_C_Pixie.jpg --bust 92 --waist 76 --hips 100 --height 167 --all_sizes --output /workspace/output_all_sizes.png --steps 30 --seed 42"
     }
   ]
 }

@@ -31,10 +31,18 @@ echo "  Done."
 # ─── Step 2: Python dependencies ─────────────────────────────────────
 echo "[2/7] Installing Python dependencies..."
 
-# Core ML
-pip install -q --no-cache-dir \
-    torch==2.1.0 torchvision==0.16.0 --index-url https://download.pytorch.org/whl/cu118 \
-    2>/dev/null || echo "  PyTorch already at correct version"
+# Core ML — detect CUDA version to install matching torchvision
+NVCC_MAJOR=$(nvcc --version 2>/dev/null | grep -oP 'release \K[0-9]+' | head -1 || echo "11")
+if [ "${NVCC_MAJOR}" -ge 12 ]; then
+  TORCH_IDX="cu128"
+  echo "  Detected CUDA ${NVCC_MAJOR}.x → using cu128 wheels"
+else
+  TORCH_IDX="cu118"
+  echo "  Detected CUDA ${NVCC_MAJOR}.x → using cu118 wheels"
+fi
+# Install torchvision matching the pod's torch (don't downgrade torch if already installed)
+pip install -q --no-cache-dir torchvision --index-url "https://download.pytorch.org/whl/${TORCH_IDX}" \
+    2>/dev/null || echo "  [WARN] torchvision install issue"
 
 pip install -q --no-cache-dir \
     diffusers==0.25.0 \
@@ -63,6 +71,9 @@ pip install -q --no-cache-dir \
     fvcore \
     cloudpickle \
     pycocotools \
+    portalocker \
+    iopath \
+    shapely \
     timm \
     packaging \
     ftfy \
@@ -73,8 +84,8 @@ pip install -q --no-cache-dir \
 echo "  IDM-VTON extras done."
 
 # run_tryon.py runtime dependencies
-echo "  Installing run_tryon.py dependencies (boto3, celery, redis, sentry-sdk, opencv)..."
-pip install -q --no-cache-dir boto3 celery redis sentry-sdk opencv-contrib-python-headless
+echo "  Installing run_tryon.py dependencies (boto3, celery, redis, sentry-sdk)..."
+pip install -q --no-cache-dir boto3 celery redis sentry-sdk
 echo "  Done."
 
 # Detectron2 + DensePose (for proper IUV body part maps)

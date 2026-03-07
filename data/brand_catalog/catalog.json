@@ -1,24 +1,15 @@
-﻿{
+{
   "_meta": {
-    "description": "FitFusion brand catalog \u2014 reference index for size-aware virtual try-on testing",
+    "description": "FitFusion brand catalog — reference index for size-aware virtual try-on testing",
     "purpose": "Testing the size-aware architecture (NOT training). All measurements are real brand data.",
     "measurement_files": {
       "models": "data/measurements/models.json",
       "garments": "data/measurements/garments.json"
     },
-    "size_computation": "IDM-VTON/size_charts.py \u2014 compute_size_ratio(garment_type, garment_size, person_size)",
-    "last_updated": "2026-03-07"
+    "size_computation": "IDM-VTON/size_charts.py — compute_size_ratio(garment_type, garment_size, person_size)",
+    "last_updated": "2025-06-04"
   },
   "brands": {
-    "snag_tights": {
-      "brand_id": "snag_tights",
-      "name": "Snag Tights",
-      "url": "https://snagtights.com",
-      "size_system": "letter (A=XS through H=4XL)",
-      "inclusive_range": "XS to 4XL (UK 6 to UK 30)",
-      "model_count": 8,
-      "test_garment_count": 2
-    },
     "universal_standard": {
       "brand_id": "universal_standard",
       "name": "Universal Standard",
@@ -26,84 +17,10 @@
       "size_system": "standard (XS-4XL)",
       "inclusive_range": "XS to 4XL",
       "model_count": 8,
-      "test_garment_count": 1
+      "test_garment_count": 2
     }
   },
   "models": {
-    "snag_tights_model_A": {
-      "brand": "snag_tights",
-      "size_label": "XS",
-      "snag_label": "A",
-      "bust_cm": 76,
-      "waist_cm": 60,
-      "hips_cm": 84,
-      "height_cm": 157
-    },
-    "snag_tights_model_B": {
-      "brand": "snag_tights",
-      "size_label": "S",
-      "snag_label": "B",
-      "bust_cm": 84,
-      "waist_cm": 68,
-      "hips_cm": 92,
-      "height_cm": 162
-    },
-    "snag_tights_model_C": {
-      "brand": "snag_tights",
-      "size_label": "M",
-      "snag_label": "C",
-      "bust_cm": 92,
-      "waist_cm": 76,
-      "hips_cm": 100,
-      "height_cm": 167,
-      "test_image": "data/test_inputs/person_model_C_Pixie.jpg",
-      "_note": "Primary test model \u2014 Pixie"
-    },
-    "snag_tights_model_D": {
-      "brand": "snag_tights",
-      "size_label": "L",
-      "snag_label": "D",
-      "bust_cm": 100,
-      "waist_cm": 84,
-      "hips_cm": 108,
-      "height_cm": 170
-    },
-    "snag_tights_model_E": {
-      "brand": "snag_tights",
-      "size_label": "XL",
-      "snag_label": "E",
-      "bust_cm": 110,
-      "waist_cm": 94,
-      "hips_cm": 118,
-      "height_cm": 173
-    },
-    "snag_tights_model_F": {
-      "brand": "snag_tights",
-      "size_label": "2XL",
-      "snag_label": "F",
-      "bust_cm": 120,
-      "waist_cm": 104,
-      "hips_cm": 128,
-      "height_cm": 175
-    },
-    "snag_tights_model_G": {
-      "brand": "snag_tights",
-      "size_label": "3XL",
-      "snag_label": "G",
-      "bust_cm": 130,
-      "waist_cm": 114,
-      "hips_cm": 138,
-      "height_cm": 175
-    },
-    "snag_tights_model_H": {
-      "brand": "snag_tights",
-      "size_label": "4XL",
-      "snag_label": "H",
-      "bust_cm": 140,
-      "waist_cm": 124,
-      "hips_cm": 148,
-      "height_cm": 175
-    },
     "universal_standard_model_XS": {
       "brand": "universal_standard",
       "size_label": "XS",
@@ -136,7 +53,7 @@
       "hips_cm": 136,
       "height_cm": 178,
       "test_image": "training_data_extraction/universal_standard/siiys_groups/tee-rex/tee-rex_size_L.jpg",
-      "_note": "Primary US test model \u2014 L size tee-rex shoot (bust=42\",waist=39.5\",hips=53.5\",height=5'10\")"
+      "_note": "Primary US test model — L size tee-rex shoot (bust=42\",waist=39.5\",hips=53.5\",height=5'10\")"
     },
     "universal_standard_model_XL": {
       "brand": "universal_standard",
@@ -172,121 +89,6 @@
     }
   },
   "garments": {
-    "snag_tights_cropped-borg-aviator-jacket-black": {
-      "garment_id": "cropped-borg-aviator-jacket-black",
-      "brand": "snag_tights",
-      "name": "Cropped Borg Aviator Jacket \u2014 Black",
-      "garment_type": "top",
-      "fit_style": "relaxed",
-      "test_image": "data/test_inputs/garment_cropped_borg_aviator_jacket_black.png",
-      "sizes": {
-        "D1": {
-          "standard_equiv": "L",
-          "chest_cm": 108,
-          "shoulder_cm": 44,
-          "sleeve_cm": 60,
-          "length_cm": 52,
-          "hem_cm": 104
-        },
-        "E1": {
-          "standard_equiv": "XL",
-          "chest_cm": 120,
-          "shoulder_cm": 46,
-          "sleeve_cm": 62,
-          "length_cm": 54,
-          "hem_cm": 116
-        },
-        "G2": {
-          "standard_equiv": "3XL",
-          "chest_cm": 134,
-          "shoulder_cm": 50,
-          "sleeve_cm": 64,
-          "length_cm": 56,
-          "hem_cm": 130
-        },
-        "H2": {
-          "standard_equiv": "4XL",
-          "chest_cm": 144,
-          "shoulder_cm": 52,
-          "sleeve_cm": 66,
-          "length_cm": 58,
-          "hem_cm": 140
-        }
-      }
-    },
-    "snag_tights_classic-tights": {
-      "garment_id": "classic-tights",
-      "brand": "snag_tights",
-      "name": "Classic Tights",
-      "garment_type": "tights",
-      "fit_style": "fitted",
-      "sizes": {
-        "A": {
-          "standard_equiv": "XS",
-          "waist_cm": 60,
-          "hip_cm": 84,
-          "rise_cm": 28,
-          "inseam_cm": 68,
-          "outseam_cm": 96
-        },
-        "B": {
-          "standard_equiv": "S",
-          "waist_cm": 68,
-          "hip_cm": 92,
-          "rise_cm": 29,
-          "inseam_cm": 69,
-          "outseam_cm": 98
-        },
-        "C": {
-          "standard_equiv": "M",
-          "waist_cm": 76,
-          "hip_cm": 100,
-          "rise_cm": 30,
-          "inseam_cm": 70,
-          "outseam_cm": 100
-        },
-        "D": {
-          "standard_equiv": "L",
-          "waist_cm": 84,
-          "hip_cm": 108,
-          "rise_cm": 31,
-          "inseam_cm": 70,
-          "outseam_cm": 101
-        },
-        "E": {
-          "standard_equiv": "XL",
-          "waist_cm": 94,
-          "hip_cm": 118,
-          "rise_cm": 32,
-          "inseam_cm": 71,
-          "outseam_cm": 103
-        },
-        "F": {
-          "standard_equiv": "2XL",
-          "waist_cm": 104,
-          "hip_cm": 128,
-          "rise_cm": 33,
-          "inseam_cm": 72,
-          "outseam_cm": 105
-        },
-        "G": {
-          "standard_equiv": "3XL",
-          "waist_cm": 114,
-          "hip_cm": 138,
-          "rise_cm": 34,
-          "inseam_cm": 72,
-          "outseam_cm": 106
-        },
-        "H": {
-          "standard_equiv": "4XL",
-          "waist_cm": 124,
-          "hip_cm": 148,
-          "rise_cm": 35,
-          "inseam_cm": 73,
-          "outseam_cm": 108
-        }
-      }
-    },
     "universal_standard_geneva-classic-top": {
       "garment_id": "geneva-classic-top",
       "brand": "universal_standard",
@@ -463,53 +265,21 @@
             }
           ]
         }
-      }
+      },
+      "test_image": "training_data_extraction/universal_standard/images/tee-rex-black_1_370761.jpg"
     }
+  },
   "test_scenarios": [
     {
-      "id": "scenario_01",
-      "description": "Size M model tries on XL jacket \u2014 LOOSE fit (primary test)",
-      "person_model": "snag_tights_model_C",
-      "person_size": "M",
-      "garment": "snag_tights_cropped-borg-aviator-jacket-black",
-      "garment_size_key": "E1",
-      "garment_size_std": "XL",
-      "expected_fit": "LOOSE",
-      "width_ratio_expected": 1.2,
-      "run_command": "cd IDM-VTON \u0026\u0026 python run_tryon.py --product_id cropped-borg-aviator-jacket-black --brand_id snag_tights --s3_image_url file:///workspace/FitFusion/data/test_inputs/person_model_C_Pixie.jpg --bust 92 --waist 76 --hips 100 --height 167 --all_sizes --output /workspace/output_all_sizes.png --steps 30 --seed 42"
-    },
-    {
-      "id": "scenario_02",
-      "description": "Size M model tries on 3XL jacket \u2014 VERY LOOSE fit",
-      "person_model": "snag_tights_model_C",
-      "person_size": "M",
-      "garment": "snag_tights_cropped-borg-aviator-jacket-black",
-      "garment_size_key": "G2",
-      "garment_size_std": "3XL",
-      "expected_fit": "VERY_LOOSE",
-      "width_ratio_expected": 1.34,
-      "run_command": "cd IDM-VTON \u0026\u0026 python run_tryon.py --product_id cropped-borg-aviator-jacket-black --brand_id snag_tights --s3_image_url file:///workspace/FitFusion/data/test_inputs/person_model_C_Pixie.jpg --bust 92 --waist 76 --hips 100 --height 167 --all_sizes --output /workspace/output_all_sizes.png --steps 30 --seed 42"
-    },
-    {
-      "id": "scenario_03",
-      "description": "Size M model tries on L jacket \u2014 SLIGHTLY LOOSE fit",
-      "person_model": "snag_tights_model_C",
-      "person_size": "M",
-      "garment": "snag_tights_cropped-borg-aviator-jacket-black",
-      "garment_size_key": "D1",
-      "garment_size_std": "L",
-      "expected_fit": "SLIGHTLY_LOOSE",
-      "width_ratio_expected": 1.08,
-      "run_command": "cd IDM-VTON \u0026\u0026 python run_tryon.py --product_id cropped-borg-aviator-jacket-black --brand_id snag_tights --s3_image_url file:///workspace/FitFusion/data/test_inputs/person_model_C_Pixie.jpg --bust 92 --waist 76 --hips 100 --height 167 --all_sizes --output /workspace/output_all_sizes.png --steps 30 --seed 42"    },
-    {
       "id": "scenario_04",
-      "description": "Universal Standard L model tries on Tee Rex \u2014 all sizes (primary US test)",
+      "description": "Universal Standard L model tries on Tee Rex — all sizes (primary US test)",
       "person_model": "universal_standard_model_L",
       "person_size": "L",
       "garment": "universal_standard_tee-rex",
       "garment_size_std": "L",
       "expected_fit": "FITTED",
-      "_note": "Model: bust=42in,waist=39.5in,hips=53.5in,height=5'10\" \u2014 uses clean SIIYS studio photo with bg removal",
-      "run_command": "cd IDM-VTON && python run_tryon.py --product_id tee-rex --brand_id universal_standard --s3_image_url file:///workspace/FitFusion/training_data_extraction/universal_standard/siiys_groups/tee-rex/tee-rex_size_L.jpg --bust 107 --waist 100 --hips 136 --height 178 --all_sizes --output /workspace/output_us_tee_rex_all_sizes.png --steps 30 --seed 42"    }
+      "_note": "Model: bust=42in,waist=39.5in,hips=53.5in,height=5'10\" — uses clean SIIYS studio photo with bg removal",
+      "run_command": "cd IDM-VTON && python run_tryon.py --product_id tee-rex --brand_id universal_standard --s3_image_url file:///workspace/FitFusion/training_data_extraction/universal_standard/siiys_groups/tee-rex/tee-rex_size_L.jpg --bust 107 --waist 100 --hips 136 --height 178 --all_sizes --output /workspace/output_us_tee_rex_all_sizes.png --steps 30 --seed 42"
+    }
   ]
 }

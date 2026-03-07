@@ -186,7 +186,17 @@ def _do_inference(
         transforms.ToTensor(),
         transforms.Normalize([0.5], [0.5]),
     ])
-    
+
+    # Apply background standardization before inference
+    _project_root = str(Path(__file__).resolve().parent.parent)
+    if _project_root not in sys.path:
+        sys.path.insert(0, _project_root)
+    try:
+        from fitfusion.utils.preprocessing import standardize_background
+        person_image_path = standardize_background(person_image_path)
+    except Exception as _bg_err:
+        print(f"[run_tryon] background removal skipped: {_bg_err}")
+
     person_image = Image.open(person_image_path).convert("RGB")
     garment_image = Image.open(garment_image_path).convert("RGB")
     agnostic_mask = Image.open(agnostic_mask_path).convert("L")

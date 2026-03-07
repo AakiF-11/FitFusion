@@ -657,7 +657,52 @@ class SizeAwareVTON:
         
         # Step 4: Create regional mask with gradient edges
         mask = create_regional_mask(person_image, densepose_map, fit, garment_type, schp_mask, worn_tucked, openpose_keypoints, garment_length_cm, user_torso_cm)
-        
+
+        # Step 4b: DensePose torso-floor pelvis clamp — prevents tee-to-dress hallucination.
+        # Finds the lowest Y pixel of the DensePose torso region (labels 1 & 2) and zeros
+        # out every mask row below that point + 5% padding.  Runs only for top garments.
+        # Fails silently: any exception leaves the mask completely unmodified.
+        if garment_type.lower() in ("top", "shirt", "t-shirt", "tee", "blouse", "hoodie", "sweater", "jacket"):
+            try:
+                # Normalise densepose_map to a 2-D uint8 numpy array
+                if densepose_map is not None:
+                    if isinstance(densepose_map, Image.Image):
+                        dp_arr = np.array(densepose_map.convert("L"))
+                    else:
+                        dp_arr = np.array(densepose_map)
+                    # Collapse to 2-D if the array has a channel dimension
+                    if dp_arr.ndim == 3:
+                        # DensePose part-label maps are usually single-channel stored as RGB;
+                        # take the first channel which holds the part index.
+                        dp_arr = dp_arr[:, :, 0]
+
+                    # DensePose COCO part IDs for torso: 1 (torso-front) and 2 (torso-back).
+                    # Any non-zero overlap means a body pixel; we use all non-zero as a broad
+                    # torso proxy when the exact label range is uncertain (segm vs IUV maps).
+                    torso_mask = (dp_arr == 1) | (dp_arr == 2)
+                    if not torso_mask.any():
+                        # Broad fallback: treat every non-zero DensePose pixel as body
+                        torso_mask = dp_arr > 0
+
+                    if torso_mask.any():
+                        # Find the lowest (max Y) torso pixel row, scale to mask dimensions
+                        dp_h, dp_w = dp_arr.shape[:2]
+                        torso_max_y_dp = int(np.max(np.where(torso_mask)[0]))  # row index in dp space
+
+                        # Convert to mask pixel space (mask is still at person_image resolution here)
+                        mask_arr = np.array(mask)
+                        mask_h = mask_arr.shape[0]
+                        torso_max_y_mask = int(torso_max_y_dp * mask_h / dp_h)
+
+                        # 5% downward padding so the hemline sits naturally below the literal waist
+                        padding_px = int(mask_h * 0.05)
+                        cut_y = min(mask_h, torso_max_y_mask + padding_px)
+
+                        mask_arr[cut_y:, :] = 0
+                        mask = Image.fromarray(mask_arr)
+            except Exception:
+                pass  # leave mask unmodified on any failure
+
         # Step 5: Resize all to target resolution
         warped = warped.resize((self.target_w, self.target_h), Image.LANCZOS)
         mask = mask.resize((self.target_w, self.target_h), Image.NEAREST)

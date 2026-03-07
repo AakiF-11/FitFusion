@@ -723,7 +723,7 @@ class BrandCatalog:
         if not catalog_file.exists():
             return
         
-        with open(catalog_file) as f:
+        with open(catalog_file, encoding='utf-8-sig') as f:
             data = json.load(f)
         
         self.brands = data.get("brands", {})

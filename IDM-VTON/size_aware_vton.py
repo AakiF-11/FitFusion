@@ -248,6 +248,71 @@ def resize_garment(
 
 
 # ════════════════════════════════════════════════════════════════
+#  Layer 3b: Pelvis-Floor Mask Clamp
+# ════════════════════════════════════════════════════════════════
+
+def clip_mask_at_pelvis(
+    mask: np.ndarray,
+    openpose_keypoints: Any,
+    garment_type: str,
+) -> np.ndarray:
+    """
+    TASK 1 FIX — Y-Axis Mask Cropping.
+
+    For 'top' garments (shirt, tee, hoodie …) zero-out every mask pixel
+    that falls below the lowest pelvic keypoint so the diffusion model
+    cannot extend the garment down to the knees and hallucinate a dress.
+
+    OpenPose Body-25 indices used:
+        8  = MidHip
+        9  = RHip
+        12 = LHip
+
+    keypoints may be a list / ndarray of [x, y, conf] triplets, or a dict
+    mapping index → [x, y, conf].  Y=0 at the image top, so the pelvic
+    floor is the MAXIMUM Y among the three hip points.
+    """
+    if garment_type.lower() not in (
+        "top", "shirt", "t-shirt", "tee", "blouse",
+        "hoodie", "sweater", "jacket",
+    ):
+        return mask
+
+    h = mask.shape[0]
+    pelvic_indices = [8, 9, 12]  # Body-25: MidHip, RHip, LHip
+
+    # Normalise keypoints into a list regardless of input format
+    if isinstance(openpose_keypoints, dict):
+        kps = [openpose_keypoints.get(i) for i in range(max(pelvic_indices) + 1)]
+    elif isinstance(openpose_keypoints, (list, np.ndarray)):
+        kps = list(openpose_keypoints)
+    else:
+        kps = []
+
+    pelvis_ys: list = []
+    for idx in pelvic_indices:
+        if idx < len(kps):
+            pt = kps[idx]
+            if pt is not None:
+                pt = list(pt)
+                # Accept both [x,y] and [x,y,conf]; conf=0 means invisible
+                if len(pt) >= 2 and float(pt[0]) > 0 and float(pt[1]) > 0:
+                    if len(pt) < 3 or float(pt[2]) > 0:
+                        pelvis_ys.append(float(pt[1]))
+
+    if pelvis_ys:
+        # Pelvic floor = largest Y (furthest down) + 10 px tolerance so the
+        # shirt hem is not abruptly severed at the hip line.
+        cut_y = int(min(h, max(pelvis_ys) + 10))
+    else:
+        # No valid hip keypoints detected — conservative fallback: 65 % height.
+        cut_y = int(h * 0.65)
+
+    mask[cut_y:, :] = 0
+    return mask
+
+
+# ════════════════════════════════════════════════════════════════
 #  Layer 4: DensePose-Guided Regional Masking
 # ════════════════════════════════════════════════════════════════
 
@@ -479,6 +544,12 @@ def create_regional_mask(
         else:
             # Overwrites upper boundary of pants natively (handled by IDM-VTON mask prioritization natively)
             pass
+
+    # ── Task 1: Pelvis-floor clamp ────────────────────────────────────────────
+    # Zero-out all mask pixels below the hip keypoints so a t-shirt can never
+    # grow into a dress.  Must run BEFORE the face-zone clamp so both
+    # constraints are always applied.
+    mask = clip_mask_at_pelvis(mask, openpose_keypoints, garment_type)
 
     # Hard-protect the face zone: never let the mask extend above 20% of image
     # height for upper-body garments, regardless of DensePose dilation.

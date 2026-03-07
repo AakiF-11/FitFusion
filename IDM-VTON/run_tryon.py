@@ -131,6 +131,94 @@ def load_model(model_path: str = "yisol/IDM-VTON", device: str = "cuda"):
     return pipe, unet_encoder, ip_processor
 
 
+# ────────────────────────────────────────────────────────────
+# TASK 2 — Shoulder Keypoint Shift Helper
+# Injection point: module level, right after load_model(), before run_inference.
+# ────────────────────────────────────────────────────────────
+import cv2 as _cv2_pose  # cv2 may not be imported at module top yet
+
+def _shift_pose_shoulders(pose_img_np: np.ndarray, size_gap: int) -> np.ndarray:
+    """
+    TASK 2 FIX — Shoulder Constraint / Skeletal Shifting.
+
+    OpenPose points 2 (RShoulder) and 5 (LShoulder) bind IDM-VTON tightly
+    to the original shoulder positions.  For oversized fits the garment
+    should show a drop-shoulder effect — shoulders wider, sleeves lower.
+
+    Implementation strategy
+    -----------------------
+    The rendered DensePose/pose image is a colour-coded 2-D array.  Rather
+    than re-running OpenPose and re-drawing the skeleton (which would require
+    a separate model call), we apply an inverse horizontal scale to the
+    UPPER BODY ZONE only (top 45 % of frame height) so that every pixel in
+    that zone is sampled from a proportionally compressed source column.
+    The effect is identical to shifting shoulder keypoints outward:
+      size_gap > 0  → expand shoulders (oversized / dropped shoulder)
+      size_gap < 0  → contract shoulders (tight / fitted)
+      size_gap = 0  → no change (standard fit)
+
+    Parameters
+    ----------
+    pose_img_np : H×W×3 uint8 rendered pose / DensePose image
+    size_gap    : signed integer from FitProfile.size_gap
+                  (positive = garment larger than body, negative = tighter)
+    """
+    if size_gap == 0:
+        return pose_img_np
+
+    h, w = pose_img_np.shape[:2]
+    shoulder_zone_bottom = int(h * 0.45)  # captures shoulders, clavicle, upper arms
+
+    # 3 % horizontal scale per size step; clamped to ±15 % total
+    scale_x = 1.0 + size_gap * 0.03
+    scale_x = max(0.85, min(1.15, scale_x))
+    if abs(scale_x - 1.0) < 0.005:
+        return pose_img_np
+
+    out = pose_img_np.copy()
+    zone = pose_img_np[:shoulder_zone_bottom].astype(np.float32)
+
+    cx = w / 2.0
+    ys_map, xs_map = np.mgrid[0:shoulder_zone_bottom, 0:w].astype(np.float32)
+
+    # Inverse map: destination x → source x (compress source to expand visually)
+    src_x = cx + (xs_map - cx) / scale_x
+    src_x = np.clip(src_x, 0, w - 1)
+
+    remapped = _cv2_pose.remap(
+        zone,
+        src_x,
+        ys_map,
+        interpolation=_cv2_pose.INTER_LINEAR,
+        borderMode=_cv2_pose.BORDER_REPLICATE,
+    ).astype(np.uint8)
+
+    out[:shoulder_zone_bottom] = remapped
+    return out
+
+
+# ────────────────────────────────────────────────────────────
+# TASK 3 — Lazy SCHP singleton used by the compositor
+# ────────────────────────────────────────────────────────────
+_schp_model = None  # never reload across Celery task calls
+
+def _get_schp_mask(person_img: Image.Image) -> np.ndarray:
+    """
+    Run SCHP human-parsing on *person_img* and return the label map as a
+    uint8 numpy array (same pixel dimensions as person_img).
+    Returns None if the model cannot be loaded.
+    """
+    global _schp_model
+    if _schp_model is None:
+        _preprocess_dir = str(Path(__file__).resolve().parent / "preprocess")
+        if _preprocess_dir not in sys.path:
+            sys.path.insert(0, _preprocess_dir)
+        from humanparsing.run_parsing import Parsing
+        _schp_model = Parsing(0)  # 0 = first CUDA device
+    parse_result, _ = _schp_model(person_img)
+    return np.array(parse_result)
+
+
 @app.task(bind=True)
 def run_inference(
     self,
@@ -145,10 +233,11 @@ def run_inference(
     guidance_scale: float = 2.0,
     seed: int = 42,
     device: str = "cuda",
+    size_gap: int = 0,          # TASK 2: forwarded to _do_inference for shoulder shift
 ) -> str:
     """Run a single IDM-VTON inference with physics-preprocessed inputs."""
     try:
-        return _do_inference(person_image_path, garment_image_path, agnostic_mask_path, positive_prompt, negative_prompt, output_path, inpainting_strength, num_steps, guidance_scale, seed, device)
+        return _do_inference(person_image_path, garment_image_path, agnostic_mask_path, positive_prompt, negative_prompt, output_path, inpainting_strength, num_steps, guidance_scale, seed, device, size_gap)
     except Exception as e:
         import sentry_sdk
         sentry_sdk.capture_exception(e)
@@ -166,6 +255,7 @@ def _do_inference(
     guidance_scale: float = 2.0,
     seed: int = 42,
     device: str = "cuda",
+    size_gap: int = 0,          # TASK 2: controls shoulder zone expansion
 ):
     global tryon_pipe, tryon_unet_encoder, tryon_ip_processor
     if 'tryon_pipe' not in globals() or tryon_pipe is None:
@@ -221,6 +311,13 @@ def _do_inference(
     args = apply_net.create_argument_parser().parse_args(('show', config_path, ckpt_path, 'dp_segm', '-v', '--opts', 'MODEL.DEVICE', 'cuda'))
     pose_img_np = args.func(args, human_img_arg)
     pose_img_np = pose_img_np[:,:,::-1]
+
+    # ── TASK 2: Shoulder shift — injection point: right after DensePose BGR→RGB
+    # Expand (size_gap > 0) or contract (size_gap < 0) the upper-body zone of
+    # the pose conditioning image before feeding it to the UNet, recreating the
+    # visual effect of shifting shoulder keypoints outward for oversized fits.
+    pose_img_np = _shift_pose_shoulders(pose_img_np, size_gap)
+
     pose_img = Image.fromarray(pose_img_np).resize((768,1024))
     print("Done.")
     
@@ -266,15 +363,56 @@ def _do_inference(
             
     output_image = output[0][0]
 
-    # Restore the original face / hair so the person's identity is preserved.
-    # Paste the top 18% of the (BG-removed) person image back over the result;
-    # this is safely above the neckline for all standard standing shots.
+    # ── TASK 3: Compositor-based face / skin restoration ───────────────────────
+    # Injection point: immediately after output_image = output[0][0],
+    #                  before output_image.save().
+    #
+    # Strategy:
+    #   1. Try to obtain an SCHP label map for the ORIGINAL person image.
+    #   2. Call compositor.restore_original_skin() which alpha-blends the
+    #      original face, neck, and arms back over the VAE-decoded result,
+    #      fully eliminating VAE-induced facial distortion.
+    #   3. If SCHP is unavailable fall back to a Gaussian-feathered hard-paste
+    #      of the top-18% face zone — still much better than nothing.
     try:
-        face_boundary = int(human_img.height * 0.18)
-        face_region = human_img.crop((0, 0, human_img.width, face_boundary))
-        output_image.paste(face_region, (0, 0))
-    except Exception as _face_err:
-        print(f"[run_tryon] face restoration skipped: {_face_err}")
+        _project_root = str(Path(__file__).resolve().parent.parent)
+        if _project_root not in sys.path:
+            sys.path.insert(0, _project_root)
+        from fitfusion.masking.compositor import restore_original_skin
+
+        schp_mask = None
+        try:
+            schp_mask = _get_schp_mask(human_img)
+        except Exception as _schp_err:
+            print(f"[run_tryon] SCHP unavailable — using feathered face-paste fallback: {_schp_err}")
+
+        if schp_mask is not None:
+            # Full path: compositor alpha-blends face (label 11), neck (18),
+            # left/right arms (14/15) back from the original image.
+            output_image = restore_original_skin(human_img, output_image, schp_mask)
+        else:
+            # Feathered fallback: blend top-18% (face/hair) using a vertical
+            # Gaussian gradient so there is no hard seam at the chin.
+            face_h = int(human_img.height * 0.18)
+            face_np  = np.array(human_img.crop((0, 0, human_img.width, face_h)))
+            out_np   = np.array(output_image)
+
+            # Alpha ramp: 1.0 at top → 0.0 at face_h (smooth chin blend)
+            ramp = np.linspace(1.0, 0.0, face_h, dtype=np.float32)
+            ramp = ramp[:, np.newaxis, np.newaxis]  # broadcast over W, C
+
+            blended = (face_np * ramp + out_np[:face_h] * (1.0 - ramp)).astype(np.uint8)
+            out_np[:face_h] = blended
+            output_image = Image.fromarray(out_np)
+
+    except Exception as _compositor_err:
+        print(f"[run_tryon] compositor skipped entirely: {_compositor_err}")
+        # Absolute worst-case: hard-paste, no blend
+        try:
+            face_boundary = int(human_img.height * 0.18)
+            output_image.paste(human_img.crop((0, 0, human_img.width, face_boundary)), (0, 0))
+        except Exception:
+            pass
 
     output_image.save(output_path)
     return output_path
@@ -365,6 +503,7 @@ def generate_single_size(
             f"{garment_neg_extra}naked, bare chest, topless"
         )
         strength = session["fit_profile"]["inpainting_strength"]
+        size_gap = int(session["fit_profile"].get("size_gap", 0))   # TASK 2
         
         tryon_result_path = run_inference(
             person_image_path=str(session_dir / "person_resized.png"),
@@ -376,6 +515,7 @@ def generate_single_size(
             inpainting_strength=strength,
             num_steps=num_steps,
             seed=seed,
+            size_gap=size_gap,              # TASK 2: shoulder width shift
         )
         
         print(f"\n  ✓ Try-on image saved: {tryon_result_path}")

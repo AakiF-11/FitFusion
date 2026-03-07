@@ -160,113 +160,57 @@
       "name": "Tee Rex (Signature Tee)",
       "garment_type": "top",
       "fit_style": "relaxed",
+      "test_image": "data/test_inputs/garment_tee_rex_black_white_stripe.jpg",
       "sizes": {
         "XS": {
           "chest_cm": 88,
           "shoulder_cm": 38,
           "sleeve_cm": 20,
-          "length_cm": 66,
-          "photos": [
-            {
-              "model_id": "universal_standard_model_XS",
-              "image_path": "training_data_extraction/universal_standard/siiys_groups/tee-rex/tee-rex_size_XS.jpg",
-              "shot": "front"
-            }
-          ]
+          "length_cm": 66
         },
         "S": {
           "chest_cm": 94,
           "shoulder_cm": 40,
           "sleeve_cm": 20,
-          "length_cm": 67,
-          "photos": [
-            {
-              "model_id": "universal_standard_model_S",
-              "image_path": "training_data_extraction/universal_standard/siiys_groups/tee-rex/tee-rex_size_S.jpg",
-              "shot": "front"
-            }
-          ]
+          "length_cm": 67
         },
         "M": {
           "chest_cm": 100,
           "shoulder_cm": 42,
           "sleeve_cm": 21,
-          "length_cm": 68,
-          "photos": [
-            {
-              "model_id": "universal_standard_model_M",
-              "image_path": "training_data_extraction/universal_standard/siiys_groups/tee-rex/tee-rex_size_M.jpg",
-              "shot": "front"
-            }
-          ]
+          "length_cm": 68
         },
         "L": {
           "chest_cm": 108,
           "shoulder_cm": 44,
           "sleeve_cm": 22,
-          "length_cm": 70,
-          "photos": [
-            {
-              "model_id": "universal_standard_model_L",
-              "image_path": "training_data_extraction/universal_standard/siiys_groups/tee-rex/tee-rex_size_L.jpg",
-              "shot": "front"
-            }
-          ]
+          "length_cm": 70
         },
         "XL": {
           "chest_cm": 116,
           "shoulder_cm": 46,
           "sleeve_cm": 22,
-          "length_cm": 72,
-          "photos": [
-            {
-              "model_id": "universal_standard_model_XL",
-              "image_path": "training_data_extraction/universal_standard/siiys_groups/tee-rex/tee-rex_size_XL.jpg",
-              "shot": "front"
-            }
-          ]
+          "length_cm": 72
         },
         "2XL": {
           "chest_cm": 124,
           "shoulder_cm": 48,
           "sleeve_cm": 23,
-          "length_cm": 74,
-          "photos": [
-            {
-              "model_id": "universal_standard_model_2XL",
-              "image_path": "training_data_extraction/universal_standard/siiys_groups/tee-rex/tee-rex_size_2XL.jpg",
-              "shot": "front"
-            }
-          ]
+          "length_cm": 74
         },
         "3XL": {
           "chest_cm": 132,
           "shoulder_cm": 50,
           "sleeve_cm": 24,
-          "length_cm": 76,
-          "photos": [
-            {
-              "model_id": "universal_standard_model_3XL",
-              "image_path": "training_data_extraction/universal_standard/siiys_groups/tee-rex/tee-rex_size_3XL.jpg",
-              "shot": "front"
-            }
-          ]
+          "length_cm": 76
         },
         "4XL": {
           "chest_cm": 142,
           "shoulder_cm": 52,
           "sleeve_cm": 25,
-          "length_cm": 78,
-          "photos": [
-            {
-              "model_id": "universal_standard_model_4XL",
-              "image_path": "training_data_extraction/universal_standard/siiys_groups/tee-rex/tee-rex_size_4XL.jpg",
-              "shot": "front"
-            }
-          ]
+          "length_cm": 78
         }
-      },
-      "test_image": "data/test_inputs/garment_tee_rex_black_white_stripe.jpg"
+      }
     }
   },
   "test_scenarios": [

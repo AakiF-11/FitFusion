@@ -37,7 +37,6 @@ import os
 
 # Add parent to path if needed for fitfusion import
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from fitfusion.utils.preprocessing import erase_neckline, desaturate_source_garment
 from size_charts import compute_size_ratio, get_garment_dimensions
 
 
@@ -243,73 +242,6 @@ def resize_garment(
     # dress: no crop — encoder needs to see the full garment
 
     return garment_image
-
-
-# ════════════════════════════════════════════════════════════════
-#  Layer 3b: Pelvis-Floor Mask Clamp
-# ════════════════════════════════════════════════════════════════
-
-def clip_mask_at_pelvis(
-    mask: np.ndarray,
-    openpose_keypoints: Any,
-    garment_type: str,
-) -> np.ndarray:
-    """
-    Y-Axis Mask Crop — Pelvis floor.
-
-    For 'top' garments zero-out every row below the lowest visible pelvic
-    keypoint (Body-25 indices 8=MidHip, 9=RHip, 12=LHip).  This prevents
-    the diffusion model from extending a t-shirt down to the knees.
-
-    mask  : 2-D uint8 numpy array, shape (H, W).  Modified in-place AND returned.
-    Y=0 is the image top, so the pelvic floor is max(Y) across the hip points.
-    """
-    if garment_type.lower() not in (
-        "top", "shirt", "t-shirt", "tee", "blouse",
-        "hoodie", "sweater", "jacket",
-    ):
-        return mask
-
-    H = mask.shape[0]   # height only — no width needed for row slicing
-    pelvic_indices = [8, 9, 12]  # Body-25: MidHip, RHip, LHip
-
-    # Normalise to a flat list regardless of dict / list / ndarray input
-    if isinstance(openpose_keypoints, dict):
-        max_idx = max(pelvic_indices)
-        kps = [openpose_keypoints.get(i) for i in range(max_idx + 1)]
-    elif openpose_keypoints is not None:
-        kps = list(openpose_keypoints)
-    else:
-        kps = []
-
-    pelvis_ys: list = []
-    for idx in pelvic_indices:
-        if idx >= len(kps):
-            continue
-        pt = kps[idx]
-        if pt is None:
-            continue
-        pt = list(pt)
-        # Accept [x, y] or [x, y, conf].  Skip invisible points (conf == 0).
-        if len(pt) < 2:
-            continue
-        x, y = float(pt[0]), float(pt[1])
-        conf = float(pt[2]) if len(pt) > 2 else 1.0
-        if x > 0 and y > 0 and conf > 0:
-            pelvis_ys.append(y)
-
-    # cut_y is the first row to zero out (rows [cut_y : H] are below the pelvis)
-    if pelvis_ys:
-        # +10 px tolerance so the shirt-hem is not visually cut at the hip bone
-        cut_y = int(min(H, max(pelvis_ys) + 10))
-    else:
-        # No valid hip keypoints — conservative fallback at 65 % of frame height
-        cut_y = int(H * 0.65)
-
-    # Safe in-place zero: mask is a (H, W) uint8 array, slicing rows only.
-    mask[cut_y:, :] = 0
-    return mask
-
 
 
 
@@ -546,12 +478,6 @@ def create_regional_mask(
             # Overwrites upper boundary of pants natively (handled by IDM-VTON mask prioritization natively)
             pass
 
-    # ── Task 1: Pelvis-floor clamp ────────────────────────────────────────────
-    # Zero-out all mask pixels below the hip keypoints so a t-shirt can never
-    # grow into a dress.  Must run BEFORE the face-zone clamp so both
-    # constraints are always applied.
-    mask = clip_mask_at_pelvis(mask, openpose_keypoints, garment_type)
-
     # Hard-protect the face zone: never let the mask extend above 20% of image
     # height for upper-body garments, regardless of DensePose dilation.
     if gtype in ("top", "shirt", "t-shirt", "tee", "blouse", "hoodie", "sweater", "jacket"):
@@ -720,10 +646,6 @@ class SizeAwareVTON:
             - inpainting_strength: model creative freedom
             - fit_profile: full fit analysis
         """
-        # [TASK 2 MOD: The Neckline Override & Source Desaturation Pass]
-        person_image = erase_neckline(person_image, openpose_keypoints, neckline_type)
-        person_image = desaturate_source_garment(person_image, schp_mask)
-        
         # Step 1: Classify the fit
         fit = classify_fit(garment_type, garment_size, person_size, fabric_rigidity)
 

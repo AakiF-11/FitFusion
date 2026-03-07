@@ -362,58 +362,6 @@ def _do_inference(
             )
             
     output_image = output[0][0]
-
-    # ── TASK 3: Compositor-based face / skin restoration ───────────────────────
-    # Injection point: immediately after output_image = output[0][0],
-    #                  before output_image.save().
-    #
-    # Strategy:
-    #   1. Try to obtain an SCHP label map for the ORIGINAL person image.
-    #   2. Call compositor.restore_original_skin() which alpha-blends the
-    #      original face, neck, and arms back over the VAE-decoded result,
-    #      fully eliminating VAE-induced facial distortion.
-    #   3. If SCHP is unavailable fall back to a Gaussian-feathered hard-paste
-    #      of the top-18% face zone — still much better than nothing.
-    try:
-        _project_root = str(Path(__file__).resolve().parent.parent)
-        if _project_root not in sys.path:
-            sys.path.insert(0, _project_root)
-        from fitfusion.masking.compositor import restore_original_skin
-
-        schp_mask = None
-        try:
-            schp_mask = _get_schp_mask(human_img)
-        except Exception as _schp_err:
-            print(f"[run_tryon] SCHP unavailable — using feathered face-paste fallback: {_schp_err}")
-
-        if schp_mask is not None:
-            # Full path: compositor alpha-blends face (label 11), neck (18),
-            # left/right arms (14/15) back from the original image.
-            output_image = restore_original_skin(human_img, output_image, schp_mask)
-        else:
-            # Feathered fallback: blend top-18% (face/hair) using a vertical
-            # Gaussian gradient so there is no hard seam at the chin.
-            face_h = int(human_img.height * 0.18)
-            face_np  = np.array(human_img.crop((0, 0, human_img.width, face_h)))
-            out_np   = np.array(output_image)
-
-            # Alpha ramp: 1.0 at top → 0.0 at face_h (smooth chin blend)
-            ramp = np.linspace(1.0, 0.0, face_h, dtype=np.float32)
-            ramp = ramp[:, np.newaxis, np.newaxis]  # broadcast over W, C
-
-            blended = (face_np * ramp + out_np[:face_h] * (1.0 - ramp)).astype(np.uint8)
-            out_np[:face_h] = blended
-            output_image = Image.fromarray(out_np)
-
-    except Exception as _compositor_err:
-        print(f"[run_tryon] compositor skipped entirely: {_compositor_err}")
-        # Absolute worst-case: hard-paste, no blend
-        try:
-            face_boundary = int(human_img.height * 0.18)
-            output_image.paste(human_img.crop((0, 0, human_img.width, face_boundary)), (0, 0))
-        except Exception:
-            pass
-
     output_image.save(output_path)
     return output_path
 

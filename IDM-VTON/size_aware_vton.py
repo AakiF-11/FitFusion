@@ -257,20 +257,14 @@ def clip_mask_at_pelvis(
     garment_type: str,
 ) -> np.ndarray:
     """
-    TASK 1 FIX — Y-Axis Mask Cropping.
+    Y-Axis Mask Crop — Pelvis floor.
 
-    For 'top' garments (shirt, tee, hoodie …) zero-out every mask pixel
-    that falls below the lowest pelvic keypoint so the diffusion model
-    cannot extend the garment down to the knees and hallucinate a dress.
+    For 'top' garments zero-out every row below the lowest visible pelvic
+    keypoint (Body-25 indices 8=MidHip, 9=RHip, 12=LHip).  This prevents
+    the diffusion model from extending a t-shirt down to the knees.
 
-    OpenPose Body-25 indices used:
-        8  = MidHip
-        9  = RHip
-        12 = LHip
-
-    keypoints may be a list / ndarray of [x, y, conf] triplets, or a dict
-    mapping index → [x, y, conf].  Y=0 at the image top, so the pelvic
-    floor is the MAXIMUM Y among the three hip points.
+    mask  : 2-D uint8 numpy array, shape (H, W).  Modified in-place AND returned.
+    Y=0 is the image top, so the pelvic floor is max(Y) across the hip points.
     """
     if garment_type.lower() not in (
         "top", "shirt", "t-shirt", "tee", "blouse",
@@ -278,38 +272,111 @@ def clip_mask_at_pelvis(
     ):
         return mask
 
-    h = mask.shape[0]
+    H = mask.shape[0]   # height only — no width needed for row slicing
     pelvic_indices = [8, 9, 12]  # Body-25: MidHip, RHip, LHip
 
-    # Normalise keypoints into a list regardless of input format
+    # Normalise to a flat list regardless of dict / list / ndarray input
     if isinstance(openpose_keypoints, dict):
-        kps = [openpose_keypoints.get(i) for i in range(max(pelvic_indices) + 1)]
-    elif isinstance(openpose_keypoints, (list, np.ndarray)):
+        max_idx = max(pelvic_indices)
+        kps = [openpose_keypoints.get(i) for i in range(max_idx + 1)]
+    elif openpose_keypoints is not None:
         kps = list(openpose_keypoints)
     else:
         kps = []
 
     pelvis_ys: list = []
     for idx in pelvic_indices:
-        if idx < len(kps):
-            pt = kps[idx]
-            if pt is not None:
-                pt = list(pt)
-                # Accept both [x,y] and [x,y,conf]; conf=0 means invisible
-                if len(pt) >= 2 and float(pt[0]) > 0 and float(pt[1]) > 0:
-                    if len(pt) < 3 or float(pt[2]) > 0:
-                        pelvis_ys.append(float(pt[1]))
+        if idx >= len(kps):
+            continue
+        pt = kps[idx]
+        if pt is None:
+            continue
+        pt = list(pt)
+        # Accept [x, y] or [x, y, conf].  Skip invisible points (conf == 0).
+        if len(pt) < 2:
+            continue
+        x, y = float(pt[0]), float(pt[1])
+        conf = float(pt[2]) if len(pt) > 2 else 1.0
+        if x > 0 and y > 0 and conf > 0:
+            pelvis_ys.append(y)
 
+    # cut_y is the first row to zero out (rows [cut_y : H] are below the pelvis)
     if pelvis_ys:
-        # Pelvic floor = largest Y (furthest down) + 10 px tolerance so the
-        # shirt hem is not abruptly severed at the hip line.
-        cut_y = int(min(h, max(pelvis_ys) + 10))
+        # +10 px tolerance so the shirt-hem is not visually cut at the hip bone
+        cut_y = int(min(H, max(pelvis_ys) + 10))
     else:
-        # No valid hip keypoints detected — conservative fallback: 65 % height.
-        cut_y = int(h * 0.65)
+        # No valid hip keypoints — conservative fallback at 65 % of frame height
+        cut_y = int(H * 0.65)
 
+    # Safe in-place zero: mask is a (H, W) uint8 array, slicing rows only.
     mask[cut_y:, :] = 0
     return mask
+
+
+def shift_openpose_shoulders(
+    openpose_keypoints: Any,
+    size_gap: int,
+    image_width: int,
+) -> Any:
+    """
+    Shoulder Constraint — Drop-Shoulder for Oversized Fits.
+
+    Shifts the X-coordinates of Body-25 shoulder keypoints outward
+    (size_gap > 0) or inward (size_gap < 0) before the skeleton is used
+    to drive mask generation or pose conditioning.
+
+        Body-25 index 2 = RShoulder (on the LEFT side of the image)
+        Body-25 index 5 = LShoulder (on the RIGHT side of the image)
+
+    Shift magnitude: 3 % of image_width per size_gap step, clamped to ±12 %.
+    The caller is responsible for passing image_width in the same pixel space
+    as the keypoint coordinates (i.e. the pre-resize person image width).
+
+    Returns the same type that was passed in (list or dict), with X values
+    updated in-place where the keypoint is visible (conf > 0).
+    """
+    if size_gap == 0 or not openpose_keypoints:
+        return openpose_keypoints
+
+    # Clamp total shift to ±12 % of image width
+    shift_px = int(image_width * max(-0.12, min(0.12, size_gap * 0.03)))
+    if shift_px == 0:
+        return openpose_keypoints
+
+    # Index 2 = RShoulder → shifts LEFT  (negative X offset)
+    # Index 5 = LShoulder → shifts RIGHT (positive X offset)
+    # "Outward" means away from body centre in image space.
+    shoulder_shifts = {
+        2: -shift_px,  # RShoulder moves left
+        5:  shift_px,  # LShoulder moves right
+    }
+
+    def _apply(kps_list: list) -> list:
+        result = [pt for pt in kps_list]  # shallow copy of outer list
+        for idx, dx in shoulder_shifts.items():
+            if idx >= len(result):
+                continue
+            pt = result[idx]
+            if pt is None:
+                continue
+            pt = list(pt)  # copy so we don't mutate the original
+            if len(pt) < 2:
+                continue
+            conf = float(pt[2]) if len(pt) > 2 else 1.0
+            if conf <= 0:
+                continue
+            # Clamp to [0, image_width - 1] to prevent out-of-bounds coordinates
+            new_x = max(0, min(image_width - 1, float(pt[0]) + dx))
+            pt[0] = new_x
+            result[idx] = pt
+        return result
+
+    if isinstance(openpose_keypoints, dict):
+        kps_list = [openpose_keypoints.get(i) for i in range(max(shoulder_shifts) + 1)]
+        shifted = _apply(kps_list)
+        return {i: shifted[i] for i in range(len(shifted))}
+    else:
+        return _apply(list(openpose_keypoints))
 
 
 # ════════════════════════════════════════════════════════════════
@@ -725,7 +792,16 @@ class SizeAwareVTON:
         
         # Step 1: Classify the fit
         fit = classify_fit(garment_type, garment_size, person_size, fabric_rigidity)
-        
+
+        # Shoulder shift: move shoulder keypoints outward/inward according to
+        # size_gap BEFORE the mask is generated so both clip_mask_at_pelvis and
+        # create_regional_mask operate on corrected skeleton coordinates.
+        if openpose_keypoints is not None and fit.size_gap != 0:
+            person_w = person_image.size[0]  # pixel width of person image
+            openpose_keypoints = shift_openpose_shoulders(
+                openpose_keypoints, fit.size_gap, person_w
+            )
+
         # Step 2: Resize garment mathematically
         resized = resize_garment(garment_image, fit, garment_type)
         

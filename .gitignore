@@ -58,7 +58,6 @@ data/expanded_dataset/
 *.jpeg
 !data/brand_catalog/**/*.jpg
 !data/brand_catalog/**/*.png
-!data/test_inputs/**
 
 # ── Logs & Crash Reports ─────────────────────────────────────────
 crash.log

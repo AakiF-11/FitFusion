@@ -2,16 +2,30 @@
 FitFusion — Size Chart Database
 ================================
 Standard garment measurements per size for computing resize ratios.
-Based on international sizing standards (ISO, ASTM).
+
+Two tiers:
+  1. Generic charts (UPPER_BODY_CHART, LOWER_BODY_CHART, DRESS_CHART) —
+     ISO/ASTM-based fallback values used when no brand is specified.
+  2. Brand-specific charts (SNAG_*, US_*) — real measured garment dimensions
+     sourced from data/measurements/garments.json. Used when brand= is passed
+     to get_garment_dimensions() or compute_size_ratio().
 
 Usage:
     from size_charts import get_garment_dimensions, compute_size_ratio
+
+    # Generic
+    dims = get_garment_dimensions("jacket", "XL")
+
+    # Brand-specific (uses real Snag Tights Borg Jacket measurements)
+    dims = get_garment_dimensions("jacket", "E1", brand="snag_tights")
+    ratio = compute_size_ratio("jacket", "E1", "C1", brand="snag_tights")
+    # → {"width_ratio": 1.20, "length_ratio": 1.06, ...}
 """
 
 
 # ════════════════════════════════════════════════════════════════════
-#  Standard Garment Measurements (in cm)
-#  Source: International sizing standards + Universal Standard charts
+#  Generic Garment Measurements (in cm)
+#  Source: International sizing standards (ISO, ASTM)
 # ════════════════════════════════════════════════════════════════════
 
 # Width at chest/bust level for upper-body garments
@@ -28,6 +42,66 @@ UPPER_BODY_CHART = {
     "2XL":  {"chest": 118, "shoulder": 48, "sleeve": 66, "length": 66},
     "3XL":  {"chest": 124, "shoulder": 50, "sleeve": 67, "length": 67},
     "4XL":  {"chest": 130, "shoulder": 52, "sleeve": 68, "length": 68},
+}
+
+
+# ════════════════════════════════════════════════════════════════════
+#  Brand-Specific Garment Measurements (in cm)
+#  Source: data/measurements/garments.json (real brand measurements)
+# ════════════════════════════════════════════════════════════════════
+
+# Snag Tights — Cropped Borg Aviator Jacket
+# D1(L), E1(XL), G2(3XL), H2(4XL) are real brand measurements.
+# S, M, 2XL are interpolated (jacket not produced in those sizes).
+SNAG_UPPER_BODY_CHART = {
+    "XS":  {"chest": 88,  "shoulder": 38, "sleeve": 57, "length": 48},
+    "S":   {"chest": 94,  "shoulder": 40, "sleeve": 58, "length": 50},
+    "M":   {"chest": 100, "shoulder": 42, "sleeve": 59, "length": 51},
+    "L":   {"chest": 108, "shoulder": 44, "sleeve": 60, "length": 52},  # D1
+    "XL":  {"chest": 120, "shoulder": 46, "sleeve": 62, "length": 54},  # E1
+    "2XL": {"chest": 128, "shoulder": 48, "sleeve": 63, "length": 55},
+    "3XL": {"chest": 134, "shoulder": 50, "sleeve": 64, "length": 56},  # G2
+    "4XL": {"chest": 144, "shoulder": 52, "sleeve": 66, "length": 58},  # H2
+}
+
+# Snag Tights — Classic Tights (A–H sizes, all real brand measurements)
+SNAG_LOWER_BODY_CHART = {
+    "XS":  {"waist": 60,  "hip": 84,  "inseam": 68, "outseam": 96},   # A
+    "S":   {"waist": 68,  "hip": 92,  "inseam": 69, "outseam": 98},   # B
+    "M":   {"waist": 76,  "hip": 100, "inseam": 70, "outseam": 100},  # C
+    "L":   {"waist": 84,  "hip": 108, "inseam": 70, "outseam": 101},  # D
+    "XL":  {"waist": 94,  "hip": 118, "inseam": 71, "outseam": 103},  # E
+    "2XL": {"waist": 104, "hip": 128, "inseam": 72, "outseam": 105},  # F
+    "3XL": {"waist": 114, "hip": 138, "inseam": 72, "outseam": 106},  # G
+    "4XL": {"waist": 124, "hip": 148, "inseam": 73, "outseam": 108},  # H
+}
+
+# Universal Standard — Geneva Classic Top (all real brand measurements)
+US_UPPER_BODY_CHART = {
+    "XS":  {"chest": 86,  "shoulder": 38, "sleeve": 22, "length": 68},
+    "S":   {"chest": 92,  "shoulder": 40, "sleeve": 22, "length": 69},
+    "M":   {"chest": 98,  "shoulder": 42, "sleeve": 23, "length": 70},
+    "L":   {"chest": 106, "shoulder": 44, "sleeve": 23, "length": 72},
+    "XL":  {"chest": 114, "shoulder": 46, "sleeve": 24, "length": 74},
+    "2XL": {"chest": 122, "shoulder": 48, "sleeve": 24, "length": 76},
+    "3XL": {"chest": 130, "shoulder": 50, "sleeve": 25, "length": 78},
+    "4XL": {"chest": 140, "shoulder": 52, "sleeve": 25, "length": 80},
+}
+
+# brand name (lowercased, underscored) → garment_type → chart
+BRAND_CHARTS = {
+    "snag_tights": {
+        "jacket": SNAG_UPPER_BODY_CHART,
+        "top":    SNAG_UPPER_BODY_CHART,
+        "shirt":  SNAG_UPPER_BODY_CHART,
+        "tights":   SNAG_LOWER_BODY_CHART,
+        "leggings": SNAG_LOWER_BODY_CHART,
+    },
+    "universal_standard": {
+        "top":    US_UPPER_BODY_CHART,
+        "shirt":  US_UPPER_BODY_CHART,
+        "blouse": US_UPPER_BODY_CHART,
+    },
 }
 
 # Width at hip/waist for lower-body garments
@@ -86,19 +160,31 @@ GARMENT_CHARTS = {
 }
 
 
-def get_garment_dimensions(garment_type: str, size_label: str) -> dict:
+def get_garment_dimensions(garment_type: str, size_label: str, brand: str = None) -> dict:
     """
-    Look up standard garment measurements for a given type and size.
-    
+    Look up garment measurements for a given type and size.
+
     Args:
-        garment_type: e.g. "top", "pants", "dress"
-        size_label: e.g. "S", "M", "XL", "2XL"
-    
+        garment_type: e.g. "top", "jacket", "tights"
+        size_label:   standard (e.g. "XL") or brand-specific (e.g. "E1", "UK14")
+        brand:        optional brand key, e.g. "snag_tights", "universal_standard"
+                      When supplied, brand-specific real measurements are used.
+
     Returns:
         dict of measurements in cm
     """
-    chart = GARMENT_CHARTS.get(garment_type.lower(), UPPER_BODY_CHART)
     normalized = normalize_size_label(size_label)
+    gtype = garment_type.lower()
+
+    # Brand-specific chart takes priority
+    if brand:
+        brand_key = brand.lower().replace(" ", "_")
+        brand_chart = BRAND_CHARTS.get(brand_key, {}).get(gtype)
+        if brand_chart:
+            return brand_chart.get(normalized, brand_chart.get("M", {}))
+
+    # Fallback: generic ISO/ASTM chart
+    chart = GARMENT_CHARTS.get(gtype, UPPER_BODY_CHART)
     return chart.get(normalized, chart.get("M", {}))
 
 
@@ -106,19 +192,27 @@ def compute_size_ratio(
     garment_type: str,
     garment_size: str,
     person_size: str,
+    brand: str = None,
 ) -> dict:
     """
     Compute the ratio between garment dimensions and the person's expected
     body dimensions at their size.
-    
+
+    Args:
+        garment_type: e.g. "jacket", "tights"
+        garment_size: size of the garment (e.g. "E1", "XL")
+        person_size:  size of the person (e.g. "C1", "M")
+        brand:        optional brand key for real measurements
+                      (e.g. "snag_tights", "universal_standard")
+
     Returns:
         dict with "width_ratio" and "length_ratio"
         - > 1.0 means garment is LARGER than person (loose fit)
         - < 1.0 means garment is SMALLER than person (tight fit)
         - = 1.0 means exact fit
     """
-    garment_dims = get_garment_dimensions(garment_type, normalize_size_label(garment_size))
-    person_dims = get_garment_dimensions(garment_type, normalize_size_label(person_size))
+    garment_dims = get_garment_dimensions(garment_type, normalize_size_label(garment_size), brand=brand)
+    person_dims = get_garment_dimensions(garment_type, normalize_size_label(person_size), brand=brand)
     
     if not garment_dims or not person_dims:
         return {"width_ratio": 1.0, "length_ratio": 1.0}
@@ -227,13 +321,25 @@ def _size_to_idx(size_label: str) -> int:
 
 
 if __name__ == "__main__":
-    # Quick demo
-    print("Size ratio examples:")
+    print("Generic size ratio examples (ISO/ASTM chart):")
     for gs in ["S", "M", "L", "XL", "2XL"]:
         ratio = compute_size_ratio("top", gs, "M")
         print(f"  {gs} shirt on M person: width={ratio['width_ratio']:.2f}x, "
               f"length={ratio['length_ratio']:.2f}x, gap={ratio['size_gap']:+d}")
-    
+
+    print("\nSnag Tights Borg Jacket — real brand measurements:")
+    for gs, ps in [("D1","C1"), ("E1","C1"), ("G2","C1"), ("H2","C1")]:
+        ratio = compute_size_ratio("jacket", gs, ps, brand="snag_tights")
+        print(f"  Jacket {gs} on model {ps}: width={ratio['width_ratio']:.2f}x "
+              f"(garment {ratio['garment_width_cm']}cm / person {ratio['person_width_cm']}cm), "
+              f"gap={ratio['size_gap']:+d}")
+
+    print("\nUniversal Standard Geneva Top — real brand measurements:")
+    for gs in ["M", "XL", "2XL", "4XL"]:
+        ratio = compute_size_ratio("top", gs, "M", brand="universal_standard")
+        print(f"  Geneva Top {gs} on M model: width={ratio['width_ratio']:.2f}x, "
+              f"length={ratio['length_ratio']:.2f}x")
+
     print("\nBrand size normalization:")
     for brand_size in ["A1", "C1", "D1", "E1", "G2", "H2", "10", "UK14", "EU42"]:
         print(f"  {brand_size:>5} → {normalize_size_label(brand_size)}")

@@ -1,0 +1,211 @@
+{
+  "_meta": {
+    "description": "Body measurements for all test models used in FitFusion size-aware try-on system",
+    "unit": "cm",
+    "sources": {
+      "snag_tights": "Snag Tights official size guide — https://snagtights.com/pages/size-guide",
+      "universal_standard": "Universal Standard official size guide — https://www.universalstandard.com/pages/size-guide"
+    }
+  },
+
+  "snag_tights": {
+    "_note": "Snag Tights uses letter sizing A–H (XS–4XL). Each model was photographed wearing the specific letter size.",
+    "model_A": {
+      "model_id": "snag_tights_model_A",
+      "label": "Size A",
+      "size_label": "XS",
+      "uk_size": "6–8",
+      "us_size": "2–4",
+      "eu_size": "34–36",
+      "bust_cm": 76,
+      "waist_cm": 60,
+      "hips_cm": 84,
+      "height_cm": 157,
+      "inside_leg_cm": 74
+    },
+    "model_B": {
+      "model_id": "snag_tights_model_B",
+      "label": "Size B",
+      "size_label": "S",
+      "uk_size": "8–10",
+      "us_size": "4–6",
+      "eu_size": "36–38",
+      "bust_cm": 84,
+      "waist_cm": 68,
+      "hips_cm": 92,
+      "height_cm": 162,
+      "inside_leg_cm": 75
+    },
+    "model_C": {
+      "model_id": "snag_tights_model_C",
+      "label": "Size C",
+      "size_label": "M",
+      "uk_size": "10–12",
+      "us_size": "6–8",
+      "eu_size": "38–40",
+      "bust_cm": 92,
+      "waist_cm": 76,
+      "hips_cm": 100,
+      "height_cm": 167,
+      "inside_leg_cm": 76,
+      "_note": "Primary test model — person_model_C_Pixie.jpg"
+    },
+    "model_D": {
+      "model_id": "snag_tights_model_D",
+      "label": "Size D",
+      "size_label": "L",
+      "uk_size": "12–14",
+      "us_size": "8–10",
+      "eu_size": "40–42",
+      "bust_cm": 100,
+      "waist_cm": 84,
+      "hips_cm": 108,
+      "height_cm": 170,
+      "inside_leg_cm": 77
+    },
+    "model_E": {
+      "model_id": "snag_tights_model_E",
+      "label": "Size E",
+      "size_label": "XL",
+      "uk_size": "14–18",
+      "us_size": "10–14",
+      "eu_size": "42–46",
+      "bust_cm": 110,
+      "waist_cm": 94,
+      "hips_cm": 118,
+      "height_cm": 173,
+      "inside_leg_cm": 77
+    },
+    "model_F": {
+      "model_id": "snag_tights_model_F",
+      "label": "Size F",
+      "size_label": "2XL",
+      "uk_size": "18–22",
+      "us_size": "14–18",
+      "eu_size": "46–50",
+      "bust_cm": 120,
+      "waist_cm": 104,
+      "hips_cm": 128,
+      "height_cm": 175,
+      "inside_leg_cm": 78
+    },
+    "model_G": {
+      "model_id": "snag_tights_model_G",
+      "label": "Size G",
+      "size_label": "3XL",
+      "uk_size": "22–26",
+      "us_size": "18–22",
+      "eu_size": "50–54",
+      "bust_cm": 130,
+      "waist_cm": 114,
+      "hips_cm": 138,
+      "height_cm": 175,
+      "inside_leg_cm": 78
+    },
+    "model_H": {
+      "model_id": "snag_tights_model_H",
+      "label": "Size H",
+      "size_label": "4XL",
+      "uk_size": "26–30",
+      "us_size": "22–26",
+      "eu_size": "54–58",
+      "bust_cm": 140,
+      "waist_cm": 124,
+      "hips_cm": 148,
+      "height_cm": 175,
+      "inside_leg_cm": 79
+    }
+  },
+
+  "universal_standard": {
+    "_note": "Universal Standard sizes XS–4XL (US00–US40 system). Body measurements at each size.",
+    "model_XS": {
+      "model_id": "universal_standard_model_XS",
+      "size_label": "XS",
+      "us_size": "0–2",
+      "uk_size": "4–6",
+      "bust_cm": 84,
+      "waist_cm": 66,
+      "hips_cm": 90,
+      "height_cm": 165,
+      "inside_leg_cm": 78
+    },
+    "model_S": {
+      "model_id": "universal_standard_model_S",
+      "size_label": "S",
+      "us_size": "4–6",
+      "uk_size": "8–10",
+      "bust_cm": 90,
+      "waist_cm": 72,
+      "hips_cm": 96,
+      "height_cm": 168,
+      "inside_leg_cm": 79
+    },
+    "model_M": {
+      "model_id": "universal_standard_model_M",
+      "size_label": "M",
+      "us_size": "8–10",
+      "uk_size": "12–14",
+      "bust_cm": 96,
+      "waist_cm": 78,
+      "hips_cm": 102,
+      "height_cm": 170,
+      "inside_leg_cm": 79
+    },
+    "model_L": {
+      "model_id": "universal_standard_model_L",
+      "size_label": "L",
+      "us_size": "12–14",
+      "uk_size": "16–18",
+      "bust_cm": 104,
+      "waist_cm": 86,
+      "hips_cm": 110,
+      "height_cm": 172,
+      "inside_leg_cm": 80
+    },
+    "model_XL": {
+      "model_id": "universal_standard_model_XL",
+      "size_label": "XL",
+      "us_size": "16–18",
+      "uk_size": "20–22",
+      "bust_cm": 112,
+      "waist_cm": 94,
+      "hips_cm": 118,
+      "height_cm": 173,
+      "inside_leg_cm": 80
+    },
+    "model_2XL": {
+      "model_id": "universal_standard_model_2XL",
+      "size_label": "2XL",
+      "us_size": "20–22",
+      "uk_size": "24–26",
+      "bust_cm": 120,
+      "waist_cm": 102,
+      "hips_cm": 128,
+      "height_cm": 175,
+      "inside_leg_cm": 81
+    },
+    "model_3XL": {
+      "model_id": "universal_standard_model_3XL",
+      "size_label": "3XL",
+      "us_size": "24–26",
+      "uk_size": "28–30",
+      "bust_cm": 130,
+      "waist_cm": 112,
+      "hips_cm": 138,
+      "height_cm": 175,
+      "inside_leg_cm": 81
+    },
+    "model_4XL": {
+      "model_id": "universal_standard_model_4XL",
+      "size_label": "4XL",
+      "us_size": "28–30",
+      "uk_size": "32–34",
+      "bust_cm": 140,
+      "waist_cm": 122,
+      "hips_cm": 148,
+      "height_cm": 175,
+      "inside_leg_cm": 81
+    }
+  }
+}

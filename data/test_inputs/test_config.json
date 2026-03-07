@@ -1,43 +1,50 @@
 {
-  "description": "Size-aware inference test: M-size model (Snag Tights Model C) trying on XL Cropped Borg Aviator Jacket Black",
+  "description": "FitFusion primary test — size M model wearing XL Cropped Borg Aviator Jacket. Validates the LOOSE-fit code path of the size-aware system.",
 
   "person_image": "data/test_inputs/person_model_C_Pixie.jpg",
   "garment_image": "data/test_inputs/garment_cropped_borg_aviator_jacket_black.png",
 
-  "person_measurements": {
+  "person": {
     "model_id": "snag_tights_model_C",
+    "label": "Snag Tights Size C (Pixie)",
     "size_label": "M",
+    "snag_label": "C",
+    "uk_size": "10–12",
     "bust_cm": 92,
     "waist_cm": 76,
     "hips_cm": 100,
-    "height_cm": 167,
-    "source": "brand_catalog"
-  },
-
-  "target_measurements": {
-    "model_id": "snag_tights_model_E",
-    "size_label": "XL",
-    "bust_cm": 110,
-    "waist_cm": 94,
-    "hips_cm": 118,
-    "height_cm": 173,
-    "source": "brand_catalog"
+    "height_cm": 167
   },
 
   "garment": {
-    "product_id": "cropped-borg-aviator-jacket-black",
-    "brand_id": "snag_tights",
-    "name": "Cropped Borg Aviator Jacket Black",
-    "type": "top",
-    "source_size_session": "snag_tights_cropped-borg-aviator-jacket-black_D1_1772475036",
-    "note": "Garment image is background-removed preprocessed PNG from tryon_output pipeline"
+    "garment_id": "cropped-borg-aviator-jacket-black",
+    "brand": "snag_tights",
+    "name": "Cropped Borg Aviator Jacket — Black",
+    "garment_type": "top",
+    "fit_style": "relaxed",
+    "size_key": "E1",
+    "size_label": "XL",
+    "uk_size": "14–18",
+    "measurements": {
+      "chest_cm": 120,
+      "shoulder_cm": 46,
+      "sleeve_cm": 62,
+      "length_cm": 54,
+      "hem_cm": 116
+    }
   },
 
-  "size_delta": {
-    "bust_expansion_cm": 18,
-    "waist_expansion_cm": 18,
-    "hips_expansion_cm": 18,
-    "expected_fit_type": "LOOSE"
+  "size_physics": {
+    "person_size": "M",
+    "garment_size": "XL",
+    "snag_garment_size": "E1",
+    "width_ratio": 1.20,
+    "length_ratio": 1.04,
+    "size_gap": 2,
+    "expected_fit_type": "LOOSE",
+    "bust_difference_cm": 28,
+    "waist_difference_cm": 36,
+    "_note": "garment chest (120cm) vs person bust (92cm) = +28cm = correct LOOSE fit for an oversized jacket"
   },
 
   "inference_params": {
@@ -46,8 +53,38 @@
     "garment_type": "top",
     "steps": 30,
     "guidance_scale": 2.0,
-    "seed": 42
+    "seed": 42,
+    "width": 768,
+    "height": 1024
   },
 
-  "run_command": "python run_pipeline.py --person_image data/test_inputs/person_model_C_Pixie.jpg --garment_image data/test_inputs/garment_cropped_borg_aviator_jacket_black.png --person_size M --target_size XL --garment_type top --ckpt_dir ./ckpt --output_dir ./output --steps 30 --guidance_scale 2.0 --seed 42 --device cuda"
+  "run_command": "python run_pipeline.py --person_image data/test_inputs/person_model_C_Pixie.jpg --garment_image data/test_inputs/garment_cropped_borg_aviator_jacket_black.png --person_size M --target_size XL --garment_type top --ckpt_dir ./ckpt --output_dir ./output --steps 30 --guidance_scale 2.0 --seed 42 --device cuda --skip_preprocessing",
+
+  "additional_test_scenarios": [
+    {
+      "description": "Same model, 3XL jacket — very loose",
+      "target_size": "3XL",
+      "garment_size_key": "G2",
+      "garment_measurements": {"chest_cm": 134, "shoulder_cm": 50, "sleeve_cm": 64, "length_cm": 56},
+      "expected_width_ratio": 1.34,
+      "expected_fit": "VERY_LOOSE"
+    },
+    {
+      "description": "Same model, L jacket — slightly loose",
+      "target_size": "L",
+      "garment_size_key": "D1",
+      "garment_measurements": {"chest_cm": 108, "shoulder_cm": 44, "sleeve_cm": 60, "length_cm": 52},
+      "expected_width_ratio": 1.08,
+      "expected_fit": "SLIGHTLY_LOOSE"
+    },
+    {
+      "description": "Same model, 4XL jacket — extreme oversize",
+      "target_size": "4XL",
+      "garment_size_key": "H2",
+      "garment_measurements": {"chest_cm": 144, "shoulder_cm": 52, "sleeve_cm": 66, "length_cm": 58},
+      "expected_width_ratio": 1.44,
+      "expected_fit": "VERY_LOOSE"
+    }
+  ]
 }
+

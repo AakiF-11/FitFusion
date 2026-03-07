@@ -87,12 +87,14 @@ class GarmentProfile:
     worn_tucked: bool = False   # e.g. True if this top is tucked into pants/skirts
     neckline_type: str = "crew" # e.g. "v-neck", "crew", "scoop"
     fabric_rigidity: float = 0.5 # e.g. Denim = 0.9, Cotton = 0.4, Silk = 0.1
+    garment_image_path: str = ""  # flat-lay product photo (fallback when no per-size photos)
     sizes: Dict[str, GarmentSize] = field(default_factory=dict)
     # Key = size label ("S", "M", etc.)
     
     def available_sizes(self) -> List[str]:
-        """List sizes that have at least one photo."""
-        return [s for s, data in self.sizes.items() if data.photos]
+        """List all sizes that have measurements. Falls back to all sizes if none have photos."""
+        with_photos = [s for s, data in self.sizes.items() if data.photos]
+        return with_photos if with_photos else list(self.sizes.keys())
     
     def get_photos_for_size(self, size: str) -> List[Dict]:
         """Get all photos for a specific size."""
@@ -577,6 +579,9 @@ class BrandCatalog:
             size_label = closest
         
         if not photos:
+            # Fall back to garment_image_path (flat-lay product photo)
+            if garment.garment_image_path:
+                return {"image_path": garment.garment_image_path, "size": size_label, "garment_id": garment.garment_id}
             return None
         
         # Prefer matching model if specified
@@ -729,13 +734,25 @@ class BrandCatalog:
         self.brands = data.get("brands", {})
         
         for k, m in data.get("models", {}).items():
-            self.models[k] = ModelProfile(**m)
+            # Catalog stores model measurements; model_id and name derive from the key
+            # Skip unrecognised fields (brand, snag_label, etc.)
+            self.models[k] = ModelProfile(
+                model_id=k,
+                name=m.get("name", k),
+                bust_cm=m["bust_cm"],
+                waist_cm=m["waist_cm"],
+                hips_cm=m["hips_cm"],
+                height_cm=m["height_cm"],
+                size_label=m.get("size_label", "M"),
+            )
         
         for gid, g in data.get("garments", {}).items():
             sizes = {}
             for s, sd in g.get("sizes", {}).items():
-                sizes[s] = GarmentSize(
-                    size_label=sd["size_label"],
+                # Use standard_equiv as the canonical size key (e.g. "XL"), not brand-specific ("E1")
+                std_label = sd.get("standard_equiv", s)
+                sizes[std_label] = GarmentSize(
+                    size_label=std_label,
                     chest_cm=sd.get("chest_cm", 0),
                     waist_cm=sd.get("waist_cm", 0),
                     hip_cm=sd.get("hip_cm", 0),
@@ -745,9 +762,10 @@ class BrandCatalog:
             
             self.garments[gid] = GarmentProfile(
                 garment_id=g["garment_id"],
-                brand_id=g["brand_id"],
+                brand_id=g.get("brand_id", g.get("brand", "")),
                 name=g["name"],
                 garment_type=g["garment_type"],
+                garment_image_path=g.get("test_image") or g.get("garment_image_path", ""),
                 sizes=sizes,
             )
     

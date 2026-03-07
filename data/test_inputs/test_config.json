@@ -60,6 +60,44 @@
 
   "run_command": "python run_pipeline.py --person_image data/test_inputs/person_model_C_Pixie.jpg --garment_image data/test_inputs/garment_cropped_borg_aviator_jacket_black.png --person_size M --target_size XL --garment_type top --ckpt_dir ./ckpt --output_dir ./output --steps 30 --guidance_scale 2.0 --seed 42 --device cuda --skip_preprocessing",
 
+  "universal_standard_test": {
+    "_description": "Alternative test using Universal Standard Geneva Classic Top — cleaner flat-lay product photography, better garment image quality for diffusion conditioning.",
+    "_garment_image_note": "Place a garment flat-lay image at data/test_inputs/garment_us_geneva_classic_top_M.jpg — download from https://www.universalstandard.com/products/geneva-classic-top, right-click the product photo, save as garment_us_geneva_classic_top_M.jpg",
+    "garment_image": "data/test_inputs/garment_us_geneva_classic_top_M.jpg",
+    "garment": {
+      "garment_id": "geneva-classic-top",
+      "brand": "universal_standard",
+      "name": "Geneva Classic Top",
+      "garment_type": "top",
+      "fit_style": "relaxed",
+      "size_key": "XL",
+      "size_label": "XL",
+      "us_size": "14–16",
+      "uk_size": "18–20"
+    },
+    "size_chart": {
+      "_note": "Full size chart in data/measurements/garments.json → universal_standard.geneva_classic_top",
+      "XS":  {"chest_cm": 86,  "shoulder_cm": 38, "sleeve_cm": 22, "length_cm": 68, "hem_cm": 90},
+      "S":   {"chest_cm": 92,  "shoulder_cm": 40, "sleeve_cm": 22, "length_cm": 69, "hem_cm": 96},
+      "M":   {"chest_cm": 98,  "shoulder_cm": 42, "sleeve_cm": 23, "length_cm": 70, "hem_cm": 102},
+      "L":   {"chest_cm": 106, "shoulder_cm": 44, "sleeve_cm": 23, "length_cm": 72, "hem_cm": 110},
+      "XL":  {"chest_cm": 114, "shoulder_cm": 46, "sleeve_cm": 24, "length_cm": 74, "hem_cm": 118},
+      "2XL": {"chest_cm": 122, "shoulder_cm": 48, "sleeve_cm": 24, "length_cm": 76, "hem_cm": 126},
+      "3XL": {"chest_cm": 130, "shoulder_cm": 50, "sleeve_cm": 25, "length_cm": 78, "hem_cm": 134},
+      "4XL": {"chest_cm": 140, "shoulder_cm": 52, "sleeve_cm": 25, "length_cm": 80, "hem_cm": 142}
+    },
+    "size_physics_XL_on_M_model": {
+      "person_size": "M",
+      "garment_size": "XL",
+      "width_ratio": 1.16,
+      "length_ratio": 1.06,
+      "size_gap": 2,
+      "expected_fit_type": "LOOSE",
+      "bust_difference_cm": 22
+    },
+    "run_command": "python run_pipeline.py --person_image data/test_inputs/person_model_C_Pixie.jpg --garment_image data/test_inputs/garment_us_geneva_classic_top_M.jpg --person_size M --target_size XL --garment_type top --ckpt_dir ./ckpt --output_dir ./output --steps 30 --guidance_scale 2.0 --seed 42 --device cuda --skip_preprocessing"
+  },
+
   "additional_test_scenarios": [
     {
       "description": "Same model, 3XL jacket — very loose",

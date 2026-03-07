@@ -44,48 +44,18 @@ fi
 pip install -q --no-cache-dir torchvision --index-url "https://download.pytorch.org/whl/${TORCH_IDX}" \
     2>/dev/null || echo "  [WARN] torchvision install issue"
 
-pip install -q --no-cache-dir \
-    diffusers==0.25.0 \
-    transformers==4.36.2 \
-    accelerate==0.26.1 \
-    peft==0.11.1 \
-    bitsandbytes==0.43.3 \
-    xformers==0.0.22.post7 \
-    huggingface_hub==0.23.0 \
-    safetensors \
-    einops \
-    opencv-contrib-python-headless \
-    pillow \
-    numpy\<2 \
-    scipy \
-    tqdm \
-    wandb \
-    tensorboard \
-    mediapipe \
-    rembg[gpu]
+# Install all dependencies from versioned requirements files (single source of truth)
+echo "  Installing from requirements.txt..."
+pip install -q --no-cache-dir -r "$PROJECT_DIR/requirements.txt" \
+    2>/dev/null || echo "  [WARN] Some requirements.txt packages failed, continuing..."
 
-# IDM-VTON additional required packages
-echo "  Installing IDM-VTON additional dependencies..."
-pip install -q --no-cache-dir \
-    omegaconf \
-    fvcore \
-    cloudpickle \
-    pycocotools \
-    portalocker \
-    iopath \
-    shapely \
-    timm \
-    packaging \
-    ftfy \
-    torchmetrics \
-    basicsr \
-    av \
-    2>/dev/null || echo "  [WARN] Some IDM-VTON extras failed, continuing..."
-echo "  IDM-VTON extras done."
+echo "  Installing from pod_requirements.txt (GPU/Linux-only)..."
+pip install -q --no-cache-dir -r "$PROJECT_DIR/pod_requirements.txt" \
+    2>/dev/null || echo "  [WARN] Some pod_requirements.txt packages failed, continuing..."
 
-# run_tryon.py runtime dependencies
-echo "  Installing run_tryon.py dependencies (boto3, celery, redis, sentry-sdk)..."
-pip install -q --no-cache-dir boto3 celery redis sentry-sdk
+# rembg with GPU extras (optional — falls back to CPU rembg if omitted)
+pip install -q --no-cache-dir "rembg[gpu]" 2>/dev/null || true
+
 echo "  Done."
 
 # Detectron2 + DensePose (for proper IUV body part maps)

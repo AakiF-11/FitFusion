@@ -1,0 +1,16 @@
+# FitFusion — RunPod / GPU-Linux-only dependencies
+# These cannot be installed on Windows and must only be used on the pod.
+#
+# Install on pod AFTER requirements.txt:
+#   pip install -r requirements.txt
+#   pip install -r pod_requirements.txt
+
+# Fast attention kernels (CUDA, Linux only)
+xformers==0.0.22.post7
+
+# 4-bit / 8-bit quantisation for QLoRA training (Linux only)
+bitsandbytes==0.43.3
+
+# Training observability (optional but expected by train_xl.py)
+wandb
+tensorboard

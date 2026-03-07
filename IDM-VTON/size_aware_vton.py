@@ -38,8 +38,6 @@ import os
 # Add parent to path if needed for fitfusion import
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fitfusion.utils.preprocessing import erase_neckline, desaturate_source_garment
-from fitfusion.masking.compositor import restore_original_skin
-
 from size_charts import compute_size_ratio, get_garment_dimensions
 
 
@@ -313,70 +311,6 @@ def clip_mask_at_pelvis(
     return mask
 
 
-def shift_openpose_shoulders(
-    openpose_keypoints: Any,
-    size_gap: int,
-    image_width: int,
-) -> Any:
-    """
-    Shoulder Constraint — Drop-Shoulder for Oversized Fits.
-
-    Shifts the X-coordinates of Body-25 shoulder keypoints outward
-    (size_gap > 0) or inward (size_gap < 0) before the skeleton is used
-    to drive mask generation or pose conditioning.
-
-        Body-25 index 2 = RShoulder (on the LEFT side of the image)
-        Body-25 index 5 = LShoulder (on the RIGHT side of the image)
-
-    Shift magnitude: 3 % of image_width per size_gap step, clamped to ±12 %.
-    The caller is responsible for passing image_width in the same pixel space
-    as the keypoint coordinates (i.e. the pre-resize person image width).
-
-    Returns the same type that was passed in (list or dict), with X values
-    updated in-place where the keypoint is visible (conf > 0).
-    """
-    if size_gap == 0 or not openpose_keypoints:
-        return openpose_keypoints
-
-    # Clamp total shift to ±12 % of image width
-    shift_px = int(image_width * max(-0.12, min(0.12, size_gap * 0.03)))
-    if shift_px == 0:
-        return openpose_keypoints
-
-    # Index 2 = RShoulder → shifts LEFT  (negative X offset)
-    # Index 5 = LShoulder → shifts RIGHT (positive X offset)
-    # "Outward" means away from body centre in image space.
-    shoulder_shifts = {
-        2: -shift_px,  # RShoulder moves left
-        5:  shift_px,  # LShoulder moves right
-    }
-
-    def _apply(kps_list: list) -> list:
-        result = [pt for pt in kps_list]  # shallow copy of outer list
-        for idx, dx in shoulder_shifts.items():
-            if idx >= len(result):
-                continue
-            pt = result[idx]
-            if pt is None:
-                continue
-            pt = list(pt)  # copy so we don't mutate the original
-            if len(pt) < 2:
-                continue
-            conf = float(pt[2]) if len(pt) > 2 else 1.0
-            if conf <= 0:
-                continue
-            # Clamp to [0, image_width - 1] to prevent out-of-bounds coordinates
-            new_x = max(0, min(image_width - 1, float(pt[0]) + dx))
-            pt[0] = new_x
-            result[idx] = pt
-        return result
-
-    if isinstance(openpose_keypoints, dict):
-        kps_list = [openpose_keypoints.get(i) for i in range(max(shoulder_shifts) + 1)]
-        shifted = _apply(kps_list)
-        return {i: shifted[i] for i in range(len(shifted))}
-    else:
-        return _apply(list(openpose_keypoints))
 
 
 # ════════════════════════════════════════════════════════════════
@@ -793,15 +727,6 @@ class SizeAwareVTON:
         # Step 1: Classify the fit
         fit = classify_fit(garment_type, garment_size, person_size, fabric_rigidity)
 
-        # Shoulder shift: move shoulder keypoints outward/inward according to
-        # size_gap BEFORE the mask is generated so both clip_mask_at_pelvis and
-        # create_regional_mask operate on corrected skeleton coordinates.
-        if openpose_keypoints is not None and fit.size_gap != 0:
-            person_w = person_image.size[0]  # pixel width of person image
-            openpose_keypoints = shift_openpose_shoulders(
-                openpose_keypoints, fit.size_gap, person_w
-            )
-
         # Step 2: Resize garment mathematically
         resized = resize_garment(garment_image, fit, garment_type)
         
@@ -833,18 +758,9 @@ class SizeAwareVTON:
         generated_image: Image.Image,
         schp_mask: np.ndarray,
     ) -> Image.Image:
-        """
-        Applies final composite overlays (skin and absolute hand exclusion) to protect
-        user identity and prevent hallucinated fingers.
-        """
-        # Resize inputs to match if needed
+        """Pass-through — all compositing removed; return raw generated image."""
         w, h = self.target_w, self.target_h
-        orig_resized = original_person_image.resize((w, h), Image.LANCZOS)
-        gen_resized = generated_image.resize((w, h), Image.LANCZOS)
-        
-        # Apply the absolute hand exclusion zone and standard skin recovery
-        final_image = restore_original_skin(orig_resized, gen_resized, schp_mask)
-        return final_image
+        return generated_image.resize((w, h), Image.LANCZOS)
     
     def generate_comparison(
         self,

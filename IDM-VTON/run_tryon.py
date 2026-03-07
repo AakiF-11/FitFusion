@@ -131,94 +131,6 @@ def load_model(model_path: str = "yisol/IDM-VTON", device: str = "cuda"):
     return pipe, unet_encoder, ip_processor
 
 
-# ────────────────────────────────────────────────────────────
-# TASK 2 — Shoulder Keypoint Shift Helper
-# Injection point: module level, right after load_model(), before run_inference.
-# ────────────────────────────────────────────────────────────
-import cv2 as _cv2_pose  # cv2 may not be imported at module top yet
-
-def _shift_pose_shoulders(pose_img_np: np.ndarray, size_gap: int) -> np.ndarray:
-    """
-    TASK 2 FIX — Shoulder Constraint / Skeletal Shifting.
-
-    OpenPose points 2 (RShoulder) and 5 (LShoulder) bind IDM-VTON tightly
-    to the original shoulder positions.  For oversized fits the garment
-    should show a drop-shoulder effect — shoulders wider, sleeves lower.
-
-    Implementation strategy
-    -----------------------
-    The rendered DensePose/pose image is a colour-coded 2-D array.  Rather
-    than re-running OpenPose and re-drawing the skeleton (which would require
-    a separate model call), we apply an inverse horizontal scale to the
-    UPPER BODY ZONE only (top 45 % of frame height) so that every pixel in
-    that zone is sampled from a proportionally compressed source column.
-    The effect is identical to shifting shoulder keypoints outward:
-      size_gap > 0  → expand shoulders (oversized / dropped shoulder)
-      size_gap < 0  → contract shoulders (tight / fitted)
-      size_gap = 0  → no change (standard fit)
-
-    Parameters
-    ----------
-    pose_img_np : H×W×3 uint8 rendered pose / DensePose image
-    size_gap    : signed integer from FitProfile.size_gap
-                  (positive = garment larger than body, negative = tighter)
-    """
-    if size_gap == 0:
-        return pose_img_np
-
-    h, w = pose_img_np.shape[:2]
-    shoulder_zone_bottom = int(h * 0.45)  # captures shoulders, clavicle, upper arms
-
-    # 3 % horizontal scale per size step; clamped to ±15 % total
-    scale_x = 1.0 + size_gap * 0.03
-    scale_x = max(0.85, min(1.15, scale_x))
-    if abs(scale_x - 1.0) < 0.005:
-        return pose_img_np
-
-    out = pose_img_np.copy()
-    zone = pose_img_np[:shoulder_zone_bottom].astype(np.float32)
-
-    cx = w / 2.0
-    ys_map, xs_map = np.mgrid[0:shoulder_zone_bottom, 0:w].astype(np.float32)
-
-    # Inverse map: destination x → source x (compress source to expand visually)
-    src_x = cx + (xs_map - cx) / scale_x
-    src_x = np.clip(src_x, 0, w - 1)
-
-    remapped = _cv2_pose.remap(
-        zone,
-        src_x,
-        ys_map,
-        interpolation=_cv2_pose.INTER_LINEAR,
-        borderMode=_cv2_pose.BORDER_REPLICATE,
-    ).astype(np.uint8)
-
-    out[:shoulder_zone_bottom] = remapped
-    return out
-
-
-# ────────────────────────────────────────────────────────────
-# TASK 3 — Lazy SCHP singleton used by the compositor
-# ────────────────────────────────────────────────────────────
-_schp_model = None  # never reload across Celery task calls
-
-def _get_schp_mask(person_img: Image.Image) -> np.ndarray:
-    """
-    Run SCHP human-parsing on *person_img* and return the label map as a
-    uint8 numpy array (same pixel dimensions as person_img).
-    Returns None if the model cannot be loaded.
-    """
-    global _schp_model
-    if _schp_model is None:
-        _preprocess_dir = str(Path(__file__).resolve().parent / "preprocess")
-        if _preprocess_dir not in sys.path:
-            sys.path.insert(0, _preprocess_dir)
-        from humanparsing.run_parsing import Parsing
-        _schp_model = Parsing(0)  # 0 = first CUDA device
-    parse_result, _ = _schp_model(person_img)
-    return np.array(parse_result)
-
-
 @app.task(bind=True)
 def run_inference(
     self,
@@ -311,12 +223,6 @@ def _do_inference(
     args = apply_net.create_argument_parser().parse_args(('show', config_path, ckpt_path, 'dp_segm', '-v', '--opts', 'MODEL.DEVICE', 'cuda'))
     pose_img_np = args.func(args, human_img_arg)
     pose_img_np = pose_img_np[:,:,::-1]
-
-    # ── TASK 2: Shoulder shift — injection point: right after DensePose BGR→RGB
-    # Expand (size_gap > 0) or contract (size_gap < 0) the upper-body zone of
-    # the pose conditioning image before feeding it to the UNet, recreating the
-    # visual effect of shifting shoulder keypoints outward for oversized fits.
-    pose_img_np = _shift_pose_shoulders(pose_img_np, size_gap)
 
     pose_img = Image.fromarray(pose_img_np).resize((768,1024))
     print("Done.")

@@ -11,12 +11,25 @@ transformers>=4.40.0
 diffusers==0.25.0
 accelerate>=0.28.0
 huggingface_hub==0.23.4
+safetensors
+peft>=0.11.0
+
+# IDM-VTON required packages
+einops>=0.7.0
+omegaconf
+fvcore
+cloudpickle
+pycocotools
+timm
+packaging
+ftfy
+torchmetrics
 
 # Image processing
 Pillow>=10.0.0
 opencv-python-headless>=4.9.0
-rembg>=2.0.50
-onnxruntime-gpu>=1.16.0
+rembg>=2.0.50           # fallback BG removal (u2net)
+onnxruntime-gpu>=1.16.0 # rembg GPU acceleration
 
 # Visualisation (required by OpenPose annotator)
 matplotlib>=3.8.0
@@ -24,3 +37,8 @@ matplotlib>=3.8.0
 # Utilities
 scipy>=1.12.0
 scikit-image>=0.22.0
+tqdm
+
+# Note: BRIA RMBG-1.4 is downloaded at setup time by runpod_setup.sh into
+# /workspace/model_cache/RMBG-1.4 and used automatically by
+# fitfusion/utils/preprocessing.py (falls back to rembg if not cached).

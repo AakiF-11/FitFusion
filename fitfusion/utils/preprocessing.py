@@ -1,31 +1,102 @@
 import os
-from rembg import remove
+import logging
+from pathlib import Path
 from PIL import Image
 from typing import Any, Tuple
 import numpy as np
 import cv2
 
-def standardize_background(input_image_path: str) -> str:
+log = logging.getLogger(__name__)
+
+# ── RMBG-1.4 (BRIA) background removal ────────────────────────────────────────
+# RMBG-1.4 is a BiRefNet-based model that produces far cleaner person/garment
+# masks than the older rembg u2net model. It is downloaded during pod setup to
+# /workspace/model_cache/RMBG-1.4. Falls back to rembg if not available.
+
+# Cache dir where runpod_setup.sh writes the model.
+_RMBG_CACHE = os.environ.get("RMBG_MODEL_DIR", "/workspace/model_cache/RMBG-1.4")
+_rmbg_pipe = None  # lazy-loaded singleton
+
+
+def _load_rmbg_pipe():
+    """Lazy-load the BRIA RMBG-1.4 pipeline (once per process)."""
+    global _rmbg_pipe
+    if _rmbg_pipe is not None:
+        return _rmbg_pipe
+
+    try:
+        from transformers import pipeline as hf_pipeline
+        import torch
+
+        model_source = _RMBG_CACHE if os.path.isdir(_RMBG_CACHE) else "briaai/RMBG-1.4"
+        device = 0 if torch.cuda.is_available() else -1  # GPU index or CPU (-1)
+
+        log.info(f"Loading RMBG-1.4 from {model_source} (device={'cuda' if device==0 else 'cpu'})...")
+        _rmbg_pipe = hf_pipeline(
+            "image-segmentation",
+            model=model_source,
+            trust_remote_code=True,
+            device=device,
+        )
+        log.info("RMBG-1.4 loaded.")
+        return _rmbg_pipe
+    except Exception as exc:
+        log.warning(f"RMBG-1.4 unavailable ({exc}), will fall back to rembg.")
+        return None
+
+
+def _remove_bg_rmbg(img_rgba: Image.Image) -> Image.Image:
     """
-    Strips the background and replaces the transparent alpha channel with a solid studio gray color (R:238, G:238, B:238).
-    Saves and returns the path to the new, clean image.
+    Use BRIA RMBG-1.4 to remove the background.
+    Returns an RGBA image (background = fully transparent).
+    """
+    pipe = _load_rmbg_pipe()
+    if pipe is None:
+        raise RuntimeError("RMBG-1.4 not available")
+
+    img_rgb = img_rgba.convert("RGB")
+    result = pipe(img_rgb)
+    # result is a list of dicts: [{"score": float, "label": str, "mask": PIL.Image}]
+    mask = result[0]["mask"]  # "L" mode — white=foreground, black=background
+    mask = mask.convert("L").resize(img_rgb.size, Image.LANCZOS)
+
+    out = img_rgb.convert("RGBA")
+    out.putalpha(mask)
+    return out
+
+
+def _remove_bg_rembg(img_rgba: Image.Image) -> Image.Image:
+    """Fallback: use the rembg u2net model (always available)."""
+    from rembg import remove
+    return remove(img_rgba)
+
+
+def standardize_background(input_image_path: str, bg_color: Tuple[int, int, int] = (238, 238, 238)) -> str:
+    """
+    Strips the background and replaces it with a solid studio gray (238, 238, 238).
+
+    Uses BRIA RMBG-1.4 for best quality (downloaded at pod setup time).
+    Falls back to rembg / u2net automatically if RMBG-1.4 isn't available.
+
+    Returns the path to the cleaned image.
     """
     input_img = Image.open(input_image_path).convert("RGBA")
-    
-    # Remove background
-    no_bg_img = remove(input_img)
-    
-    # Create solid gray background
-    gray_bg = Image.new("RGBA", no_bg_img.size, (238, 238, 238, 255))
-    
-    # Composite the foreground over the gray studio background
+
+    # Try RMBG-1.4 first; fall back to rembg on any error
+    try:
+        no_bg_img = _remove_bg_rmbg(input_img)
+        log.info("  Background removed with RMBG-1.4.")
+    except Exception as exc:
+        log.warning(f"  RMBG-1.4 failed ({exc}), using rembg fallback.")
+        no_bg_img = _remove_bg_rembg(input_img)
+
+    # Composite foreground over studio gray
+    gray_bg = Image.new("RGBA", no_bg_img.size, (*bg_color, 255))
     clean_img = Image.alpha_composite(gray_bg, no_bg_img).convert("RGB")
-    
-    # Save to a new path
-    base, ext = os.path.splitext(input_image_path)
+
+    base, _ = os.path.splitext(input_image_path)
     output_path = f"{base}_studio_bg.png"
     clean_img.save(output_path)
-    
     return output_path
 
 def erase_neckline(person_image: Image.Image, openpose_keypoints: Any, neckline_type: str, color: Tuple[int, int, int] = (238, 238, 238)) -> Image.Image:

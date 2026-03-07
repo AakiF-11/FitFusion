@@ -56,6 +56,22 @@ pip install -q --no-cache-dir \
     mediapipe \
     rembg[gpu]
 
+# IDM-VTON additional required packages
+echo "  Installing IDM-VTON additional dependencies..."
+pip install -q --no-cache-dir \
+    omegaconf \
+    fvcore \
+    cloudpickle \
+    pycocotools \
+    timm \
+    packaging \
+    ftfy \
+    torchmetrics \
+    basicsr \
+    av \
+    2>/dev/null || echo "  [WARN] Some IDM-VTON extras failed, continuing..."
+echo "  IDM-VTON extras done."
+
 # Detectron2 + DensePose (for proper IUV body part maps)
 echo "  Installing Detectron2 + DensePose..."
 pip install -q --no-cache-dir \
@@ -90,7 +106,7 @@ fi
 echo "  Done."
 
 # ─── Step 4: Download model weights ──────────────────────────────────
-echo "[4/7] Downloading IDM-VTON model weights..."
+echo "[4/7] Downloading model weights (IDM-VTON + RMBG-1.4)..."
 python -c "
 from huggingface_hub import snapshot_download
 import os
@@ -108,6 +124,18 @@ snapshot_download(
 )
 print('  IDM-VTON weights downloaded.')
 print('  (CLIP image encoder is included in IDM-VTON/image_encoder/)')
+
+# BRIA RMBG-1.4 — background removal model
+# Produces much cleaner person/garment masks than the generic rembg u2net model.
+# Used by fitfusion/utils/preprocessing.py Stage 1 background standardization.
+print('  Downloading BRIA RMBG-1.4 background removal model...')
+snapshot_download(
+    'briaai/RMBG-1.4',
+    local_dir=os.path.join(cache_dir, 'RMBG-1.4'),
+    cache_dir=cache_dir,
+    local_dir_use_symlinks=False,
+)
+print('  RMBG-1.4 downloaded.')
 "
 
 echo "  Done."

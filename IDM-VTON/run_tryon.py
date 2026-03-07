@@ -406,7 +406,12 @@ def download_customer_asset(s3_image_url: str, local_destination: str):
     """Securely downloads the image to the local destination before the IDM-VTON pipeline initializes."""
     os.makedirs(os.path.dirname(local_destination), exist_ok=True)
     
-    if s3_image_url.startswith("http"):
+    if s3_image_url.startswith("file://"):
+        # Local file path — just copy it
+        import shutil
+        local_src = s3_image_url[len("file://"):]
+        shutil.copy2(local_src, local_destination)
+    elif s3_image_url.startswith("http"):
         response = requests.get(s3_image_url, stream=True)
         response.raise_for_status()
         with open(local_destination, 'wb') as f:
@@ -417,7 +422,7 @@ def download_customer_asset(s3_image_url: str, local_destination: str):
         s3 = boto3.client('s3')
         s3.download_file(parsed.netloc, parsed.path.lstrip('/'), local_destination)
     else:
-        raise ValueError("Invalid s3_image_url format: Must start with http or s3://")
+        raise ValueError("Invalid s3_image_url format: Must start with file://, http, or s3://")
 
 
 def main():

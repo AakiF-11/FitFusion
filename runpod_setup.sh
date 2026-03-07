@@ -72,6 +72,11 @@ pip install -q --no-cache-dir \
     2>/dev/null || echo "  [WARN] Some IDM-VTON extras failed, continuing..."
 echo "  IDM-VTON extras done."
 
+# run_tryon.py runtime dependencies
+echo "  Installing run_tryon.py dependencies (boto3, celery, redis, sentry-sdk, opencv)..."
+pip install -q --no-cache-dir boto3 celery redis sentry-sdk opencv-python-headless
+echo "  Done."
+
 # Detectron2 + DensePose (for proper IUV body part maps)
 echo "  Installing Detectron2 + DensePose..."
 pip install -q --no-cache-dir \

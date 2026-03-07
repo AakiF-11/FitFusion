@@ -56,8 +56,9 @@ def _remove_bg_rmbg(img_rgba: Image.Image) -> Image.Image:
 
     img_rgb = img_rgba.convert("RGB")
     result = pipe(img_rgb)
-    # result is a list of dicts: [{"score": float, "label": str, "mask": PIL.Image}]
-    mask = result[0]["mask"]  # "L" mode — white=foreground, black=background
+    # HF pipelines may return [{"score":..., "mask": PIL.Image}] OR a PIL.Image directly.
+    raw = result[0] if isinstance(result, list) else result
+    mask = raw["mask"] if isinstance(raw, dict) else raw  # "L" mode — white=fg, black=bg
     mask = mask.convert("L").resize(img_rgb.size, Image.LANCZOS)
 
     out = img_rgb.convert("RGBA")

@@ -265,6 +265,17 @@ def _do_inference(
             )
             
     output_image = output[0][0]
+
+    # Restore the original face / hair so the person's identity is preserved.
+    # Paste the top 18% of the (BG-removed) person image back over the result;
+    # this is safely above the neckline for all standard standing shots.
+    try:
+        face_boundary = int(human_img.height * 0.18)
+        face_region = human_img.crop((0, 0, human_img.width, face_boundary))
+        output_image.paste(face_region, (0, 0))
+    except Exception as _face_err:
+        print(f"[run_tryon] face restoration skipped: {_face_err}")
+
     output_image.save(output_path)
     return output_path
 
@@ -333,10 +344,26 @@ def generate_single_size(
         with open(session_dir / "session.json") as f:
             session = json.load(f)
         
-        # Strip the old prompt overrides and use the raw product description instead.
+        # Build a prompt that names the garment type explicitly so IDM-VTON
+        # doesn't confuse a full-body product shot with a dress.
         raw_description = garment_info.get("name", product_id).lower()
-        pos_prompt = f"high quality fashion photograph, {raw_description}"
-        neg_prompt = "monochrome, lowres, bad anatomy, worst quality, low quality"
+        garment_type_str = garment_info.get("type", "top").lower()
+        garment_word = {
+            "top": "t-shirt", "shirt": "shirt", "tee": "t-shirt", "blouse": "blouse",
+            "hoodie": "hoodie", "sweater": "sweater", "jacket": "jacket",
+            "pants": "pants", "jeans": "jeans", "skirt": "skirt", "dress": "dress",
+        }.get(garment_type_str, garment_type_str)
+        pos_prompt = (
+            f"high quality fashion photograph, person wearing a {garment_word}, "
+            f"{raw_description}, upper body visible"
+        )
+        garment_neg_extra = ""
+        if garment_type_str in ("top", "shirt", "tee", "blouse", "hoodie", "sweater", "jacket"):
+            garment_neg_extra = "full-length dress, long gown, long skirt, "
+        neg_prompt = (
+            f"monochrome, lowres, bad anatomy, worst quality, low quality, "
+            f"{garment_neg_extra}naked, bare chest, topless"
+        )
         strength = session["fit_profile"]["inpainting_strength"]
         
         tryon_result_path = run_inference(

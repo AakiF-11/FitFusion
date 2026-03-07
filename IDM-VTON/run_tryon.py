@@ -89,9 +89,9 @@ def load_model(model_path: str = "yisol/IDM-VTON", device: str = "cuda"):
         from tryon_pipeline import StableDiffusionXLInpaintPipeline as TryonPipeline
         from unet_hacked_tryon import UNet2DConditionModel
         from unet_hacked_garmnet import UNet2DConditionModel as UNet2DConditionModel_ref
-    except ImportError:
-        print("ERROR: IDM-VTON source code not found.")
-        print("Run this script from the IDM-VTON directory.")
+    except ImportError as e:
+        print(f"ERROR: IDM-VTON source code import failed: {e}")
+        print(f"  sys.path includes: {[p for p in sys.path[:6]]}")
         sys.exit(1)
     
     dtype = torch.float16
@@ -456,7 +456,10 @@ Examples:
     parser.add_argument("--all_sizes", action="store_true", help="Generate all available sizes")
     parser.add_argument("--output", default="output_tryon.png", help="Output image path")
     parser.add_argument("--model_path", default="yisol/IDM-VTON", help="IDM-VTON model path")
-    parser.add_argument("--catalog_dir", default="data/brand_catalog", help="Brand catalog dir")
+    # Default catalog_dir is relative to the project root (one level above IDM-VTON/)
+    _project_root = str(Path(__file__).resolve().parent.parent)
+    _default_catalog = os.path.join(_project_root, "data", "brand_catalog")
+    parser.add_argument("--catalog_dir", default=_default_catalog, help="Brand catalog dir")
     parser.add_argument("--steps", type=int, default=30, help="Inference steps")
     parser.add_argument("--seed", type=int, default=42, help="Random seed")
     parser.add_argument("--no_model", action="store_true", help="Skip model loading (preprocess only)")
@@ -471,8 +474,9 @@ Examples:
     api = TryOnAPI(catalog_dir=args.catalog_dir)
     
     if not api.catalog.garments:
-        print("Catalog empty — auto-onboarding from expanded dataset...")
-        api.catalog.onboard_from_expanded_dataset("data/expanded_dataset")
+        print(f"ERROR: Catalog is empty. Check catalog_dir: {args.catalog_dir}")
+        print(f"  catalog.json should be at: {os.path.join(args.catalog_dir, 'catalog.json')}")
+        sys.exit(1)
     
     # Load model (unless --no_model)
     global tryon_pipe, tryon_unet_encoder, tryon_ip_processor

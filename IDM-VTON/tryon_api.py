@@ -35,10 +35,16 @@ Usage:
 
 import json
 import os
+import sys
 import time
 from pathlib import Path
 from typing import Dict, Optional, List
 from PIL import Image
+
+# Ensure project root is on sys.path so fitfusion package is importable
+_PROJECT_ROOT = str(Path(__file__).resolve().parent.parent)
+if _PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, _PROJECT_ROOT)
 
 from brand_catalog import BrandCatalog
 from size_aware_vton import SizeAwareVTON, classify_fit
@@ -186,8 +192,15 @@ class TryOnAPI:
         # 3. Compute fit profile (physics parameters)
         fit = classify_fit(garment.garment_type, selected_size, body_match["model_size"])
         
-        # 4. Load images
-        customer_img = Image.open(customer_photo).convert("RGB")
+        # 4. Load images — remove background first so the diffusion model
+        #    receives a clean studio-background person photo (no distracting scenery).
+        try:
+            from fitfusion.utils.preprocessing import standardize_background
+            _cleaned = standardize_background(customer_photo)
+        except Exception as _bg_err:
+            print(f"[tryon_api] background removal skipped: {_bg_err}")
+            _cleaned = customer_photo
+        customer_img = Image.open(_cleaned).convert("RGB")
         
         def get_valid_path(ref):
             if not ref or not ref.get("image_path"): return None

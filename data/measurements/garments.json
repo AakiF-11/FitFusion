@@ -13,177 +13,8 @@
       "hip_cm": "Full garment hip circumference (flat × 2).",
       "inseam_cm": "Inner leg seam from crotch to hem.",
       "outseam_cm": "Outer leg seam from waistband to hem."
-    },
-    "size_mapping": {
-      "_note": "Snag Tights letter codes map to standard sizes via size_charts.normalize_size_label()",
-      "A / A1 / A2": "XS",
-      "B / B1 / B2": "S",
-      "C / C1 / C2": "M",
-      "D / D1 / D2": "L",
-      "E / E1 / E2": "XL",
-      "F / F1 / F2": "2XL",
-      "G / G1 / G2": "3XL",
-      "H / H1 / H2": "4XL"
     }
   },
-
-  "snag_tights": {
-    "cropped_borg_aviator_jacket_black": {
-      "garment_id": "cropped-borg-aviator-jacket-black",
-      "brand": "Snag Tights",
-      "name": "Cropped Borg Aviator Jacket — Black",
-      "garment_type": "top",
-      "fit_style": "relaxed",
-      "_note": "Oversized cropped aviator-style jacket in borg (sherpa-like fleece) fabric. Cropped hem sits just above the hip. Available in sizes D1–H2 (L–4XL).",
-      "test_image": "data/test_inputs/garment_cropped_borg_aviator_jacket_black.png",
-      "sizes": {
-        "D1": {
-          "standard_equiv": "L",
-          "uk_size": "12–14",
-          "us_size": "8–10",
-          "chest_cm": 108,
-          "shoulder_cm": 44,
-          "sleeve_cm": 60,
-          "length_cm": 52,
-          "hem_cm": 104,
-          "_fits_body_bust_up_to_cm": 104
-        },
-        "E1": {
-          "standard_equiv": "XL",
-          "uk_size": "14–18",
-          "us_size": "10–14",
-          "chest_cm": 120,
-          "shoulder_cm": 46,
-          "sleeve_cm": 62,
-          "length_cm": 54,
-          "hem_cm": 116,
-          "_fits_body_bust_up_to_cm": 116,
-          "_note": "Primary test garment size — represents 'XL jacket on M model' scenario"
-        },
-        "G2": {
-          "standard_equiv": "3XL",
-          "uk_size": "22–26",
-          "us_size": "18–22",
-          "chest_cm": 134,
-          "shoulder_cm": 50,
-          "sleeve_cm": 64,
-          "length_cm": 56,
-          "hem_cm": 130,
-          "_fits_body_bust_up_to_cm": 130
-        },
-        "H2": {
-          "standard_equiv": "4XL",
-          "uk_size": "26–30",
-          "us_size": "22–26",
-          "chest_cm": 144,
-          "shoulder_cm": 52,
-          "sleeve_cm": 66,
-          "length_cm": 58,
-          "hem_cm": 140,
-          "_fits_body_bust_up_to_cm": 140
-        }
-      },
-      "size_ratios": {
-        "_note": "Width ratio = garment_chest / reference_M_chest (100cm). Used by size physics engine.",
-        "D1_vs_M": { "width_ratio": 1.08, "length_ratio": 1.00 },
-        "E1_vs_M": { "width_ratio": 1.20, "length_ratio": 1.04 },
-        "G2_vs_M": { "width_ratio": 1.34, "length_ratio": 1.08 },
-        "H2_vs_M": { "width_ratio": 1.44, "length_ratio": 1.12 }
-      }
-    },
-
-    "classic_tights": {
-      "garment_id": "classic-tights",
-      "brand": "Snag Tights",
-      "name": "Classic Tights",
-      "garment_type": "tights",
-      "fit_style": "fitted",
-      "_note": "Snag's signature inclusive tights. Full sizes A–H (XS–4XL). Measurements are garment dimensions relaxed (no stretch).",
-      "sizes": {
-        "A": {
-          "standard_equiv": "XS",
-          "uk_size": "6–8",
-          "waist_cm": 60,
-          "hip_cm": 84,
-          "rise_cm": 28,
-          "inseam_cm": 68,
-          "outseam_cm": 96,
-          "gusset_cm": 20
-        },
-        "B": {
-          "standard_equiv": "S",
-          "uk_size": "8–10",
-          "waist_cm": 68,
-          "hip_cm": 92,
-          "rise_cm": 29,
-          "inseam_cm": 69,
-          "outseam_cm": 98,
-          "gusset_cm": 21
-        },
-        "C": {
-          "standard_equiv": "M",
-          "uk_size": "10–12",
-          "waist_cm": 76,
-          "hip_cm": 100,
-          "rise_cm": 30,
-          "inseam_cm": 70,
-          "outseam_cm": 100,
-          "gusset_cm": 22
-        },
-        "D": {
-          "standard_equiv": "L",
-          "uk_size": "12–14",
-          "waist_cm": 84,
-          "hip_cm": 108,
-          "rise_cm": 31,
-          "inseam_cm": 70,
-          "outseam_cm": 101,
-          "gusset_cm": 24
-        },
-        "E": {
-          "standard_equiv": "XL",
-          "uk_size": "14–18",
-          "waist_cm": 94,
-          "hip_cm": 118,
-          "rise_cm": 32,
-          "inseam_cm": 71,
-          "outseam_cm": 103,
-          "gusset_cm": 26
-        },
-        "F": {
-          "standard_equiv": "2XL",
-          "uk_size": "18–22",
-          "waist_cm": 104,
-          "hip_cm": 128,
-          "rise_cm": 33,
-          "inseam_cm": 72,
-          "outseam_cm": 105,
-          "gusset_cm": 28
-        },
-        "G": {
-          "standard_equiv": "3XL",
-          "uk_size": "22–26",
-          "waist_cm": 114,
-          "hip_cm": 138,
-          "rise_cm": 34,
-          "inseam_cm": 72,
-          "outseam_cm": 106,
-          "gusset_cm": 30
-        },
-        "H": {
-          "standard_equiv": "4XL",
-          "uk_size": "26–30",
-          "waist_cm": 124,
-          "hip_cm": 148,
-          "rise_cm": 35,
-          "inseam_cm": 73,
-          "outseam_cm": 108,
-          "gusset_cm": 32
-        }
-      }
-    }
-  },
-
   "universal_standard": {
     "geneva_classic_top": {
       "garment_id": "geneva-classic-top",
@@ -264,6 +95,81 @@
           "sleeve_cm": 25,
           "length_cm": 80,
           "hem_cm": 142
+        }
+      }
+    },
+    "tee_rex": {
+      "garment_id": "tee-rex",
+      "brand": "Universal Standard",
+      "name": "Tee Rex (Signature Tee)",
+      "garment_type": "top",
+      "fit_style": "relaxed",
+      "_note": "Universal Standard signature tee. Relaxed fit. XS–4XL.",
+      "test_image": "training_data_extraction/universal_standard/images/tee-rex-black-white-stripe-with-aventurine-trim_2_78e86e.jpg",
+      "sizes": {
+        "XS": {
+          "us_size": "00–0",
+          "uk_size": "4–6",
+          "chest_cm": 88,
+          "shoulder_cm": 38,
+          "sleeve_cm": 20,
+          "length_cm": 66
+        },
+        "S": {
+          "us_size": "2–4",
+          "uk_size": "6–8",
+          "chest_cm": 94,
+          "shoulder_cm": 40,
+          "sleeve_cm": 20,
+          "length_cm": 67
+        },
+        "M": {
+          "us_size": "6–8",
+          "uk_size": "10–12",
+          "chest_cm": 100,
+          "shoulder_cm": 42,
+          "sleeve_cm": 21,
+          "length_cm": 68
+        },
+        "L": {
+          "us_size": "10–12",
+          "uk_size": "14–16",
+          "chest_cm": 108,
+          "shoulder_cm": 44,
+          "sleeve_cm": 22,
+          "length_cm": 70
+        },
+        "XL": {
+          "us_size": "14–16",
+          "uk_size": "18–20",
+          "chest_cm": 116,
+          "shoulder_cm": 46,
+          "sleeve_cm": 22,
+          "length_cm": 72
+        },
+        "2XL": {
+          "us_size": "18–20",
+          "uk_size": "22–24",
+          "chest_cm": 124,
+          "shoulder_cm": 48,
+          "sleeve_cm": 23,
+          "length_cm": 74
+        },
+        "3XL": {
+          "us_size": "22–24",
+          "uk_size": "26–28",
+          "chest_cm": 132,
+          "shoulder_cm": 50,
+          "sleeve_cm": 24,
+          "length_cm": 76
+        },
+        "4XL": {
+          "us_size": "26–28",
+          "uk_size": "30–32",
+          "chest_cm": 142,
+          "shoulder_cm": 52,
+          "sleeve_cm": 25,
+          "length_cm": 78
         }
       }
     }

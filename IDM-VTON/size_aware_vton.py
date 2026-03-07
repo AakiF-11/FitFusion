@@ -509,16 +509,26 @@ def apply_fit_aware_warp(
     # intensity=1.0 → full body-hugging, intensity=0.0 → no change
     warped_points = src_points + intensity * (dst_points - src_points)
     
-    # Compute TPS transformation
-    tps = cv2.createThinPlateSplineShapeTransformer()
-    
+    # Compute transformation (TPS preferred, perspective warp as fallback)
     src_reshaped = src_points.reshape(1, -1, 2)
     dst_reshaped = warped_points.reshape(1, -1, 2)
-    
-    matches = [cv2.DMatch(i, i, 0) for i in range(len(src_points))]
-    tps.estimateTransformation(dst_reshaped, src_reshaped, matches)
-    
-    result = tps.warpImage(garment_np)
+    try:
+        tps = cv2.createThinPlateSplineShapeTransformer()
+        matches = [cv2.DMatch(i, i, 0) for i in range(len(src_points))]
+        tps.estimateTransformation(dst_reshaped, src_reshaped, matches)
+        result = tps.warpImage(garment_np)
+    except AttributeError:
+        # opencv-contrib not available; fall back to perspective warp
+        src_corners = np.array(
+            [src_points[0], src_points[1], src_points[4], src_points[5]],
+            dtype=np.float32,
+        )
+        dst_corners = np.array(
+            [warped_points[0], warped_points[1], warped_points[4], warped_points[5]],
+            dtype=np.float32,
+        )
+        M = cv2.getPerspectiveTransform(src_corners, dst_corners)
+        result = cv2.warpPerspective(garment_np, M, (w, h))
     
     return Image.fromarray(result)
 

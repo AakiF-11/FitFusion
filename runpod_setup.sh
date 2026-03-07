@@ -46,7 +46,7 @@ pip install -q --no-cache-dir \
     huggingface_hub==0.23.0 \
     safetensors \
     einops \
-    opencv-python-headless \
+    opencv-contrib-python-headless \
     pillow \
     numpy\<2 \
     scipy \

@@ -52,7 +52,7 @@
       "waist_cm": 100,
       "hips_cm": 136,
       "height_cm": 178,
-      "test_image": "training_data_extraction/universal_standard/siiys_groups/tee-rex/tee-rex_size_L.jpg",
+      "test_image": "data/test_inputs/person_us_model_L.jpg",
       "_note": "Primary US test model — L size tee-rex shoot (bust=42\",waist=39.5\",hips=53.5\",height=5'10\")"
     },
     "universal_standard_model_XL": {
@@ -266,7 +266,7 @@
           ]
         }
       },
-      "test_image": "training_data_extraction/universal_standard/images/tee-rex-black-white-stripe-with-aventurine-trim_2_78e86e.jpg"
+      "test_image": "data/test_inputs/garment_tee_rex_black_white_stripe.jpg"
     }
   },
   "test_scenarios": [
@@ -279,7 +279,7 @@
       "garment_size_std": "L",
       "expected_fit": "FITTED",
       "_note": "Model: bust=42in,waist=39.5in,hips=53.5in,height=5'10\" — uses clean SIIYS studio photo with bg removal",
-      "run_command": "cd IDM-VTON && python run_tryon.py --product_id tee-rex --brand_id universal_standard --s3_image_url file:///workspace/FitFusion/training_data_extraction/universal_standard/siiys_groups/tee-rex/tee-rex_size_L.jpg --bust 107 --waist 100 --hips 136 --height 178 --all_sizes --output /workspace/output_us_tee_rex_all_sizes.png --steps 30 --seed 42"
+      "run_command": "cd IDM-VTON && python run_tryon.py --product_id tee-rex --brand_id universal_standard --s3_image_url file:///workspace/FitFusion/data/test_inputs/person_us_model_L.jpg --bust 107 --waist 100 --hips 136 --height 178 --all_sizes --output /workspace/output_us_tee_rex_all_sizes.png --steps 30 --seed 42"
     }
   ]
 }

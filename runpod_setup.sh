@@ -74,7 +74,7 @@ echo "  IDM-VTON extras done."
 
 # run_tryon.py runtime dependencies
 echo "  Installing run_tryon.py dependencies (boto3, celery, redis, sentry-sdk, opencv)..."
-pip install -q --no-cache-dir boto3 celery redis sentry-sdk opencv-python-headless
+pip install -q --no-cache-dir boto3 celery redis sentry-sdk opencv-contrib-python-headless
 echo "  Done."
 
 # Detectron2 + DensePose (for proper IUV body part maps)

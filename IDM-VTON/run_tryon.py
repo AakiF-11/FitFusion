@@ -145,11 +145,10 @@ def run_inference(
     guidance_scale: float = 2.0,
     seed: int = 42,
     device: str = "cuda",
-    size_gap: int = 0,          # TASK 2: forwarded to _do_inference for shoulder shift
 ) -> str:
     """Run a single IDM-VTON inference with physics-preprocessed inputs."""
     try:
-        return _do_inference(person_image_path, garment_image_path, agnostic_mask_path, positive_prompt, negative_prompt, output_path, inpainting_strength, num_steps, guidance_scale, seed, device, size_gap)
+        return _do_inference(person_image_path, garment_image_path, agnostic_mask_path, positive_prompt, negative_prompt, output_path, inpainting_strength, num_steps, guidance_scale, seed, device)
     except Exception as e:
         import sentry_sdk
         sentry_sdk.capture_exception(e)
@@ -167,7 +166,6 @@ def _do_inference(
     guidance_scale: float = 2.0,
     seed: int = 42,
     device: str = "cuda",
-    size_gap: int = 0,          # TASK 2: controls shoulder zone expansion
 ):
     global tryon_pipe, tryon_unet_encoder, tryon_ip_processor
     if 'tryon_pipe' not in globals() or tryon_pipe is None:
@@ -336,28 +334,10 @@ def generate_single_size(
         with open(session_dir / "session.json") as f:
             session = json.load(f)
         
-        # Build a prompt that names the garment type explicitly so IDM-VTON
-        # doesn't confuse a full-body product shot with a dress.
         raw_description = garment_info.get("name", product_id).lower()
-        garment_type_str = garment_info.get("type", "top").lower()
-        garment_word = {
-            "top": "t-shirt", "shirt": "shirt", "tee": "t-shirt", "blouse": "blouse",
-            "hoodie": "hoodie", "sweater": "sweater", "jacket": "jacket",
-            "pants": "pants", "jeans": "jeans", "skirt": "skirt", "dress": "dress",
-        }.get(garment_type_str, garment_type_str)
-        pos_prompt = (
-            f"high quality fashion photograph, person wearing a {garment_word}, "
-            f"{raw_description}, upper body visible"
-        )
-        garment_neg_extra = ""
-        if garment_type_str in ("top", "shirt", "tee", "blouse", "hoodie", "sweater", "jacket"):
-            garment_neg_extra = "full-length dress, long gown, long skirt, "
-        neg_prompt = (
-            f"monochrome, lowres, bad anatomy, worst quality, low quality, "
-            f"{garment_neg_extra}naked, bare chest, topless"
-        )
+        pos_prompt = f"high quality fashion photograph, {raw_description}"
+        neg_prompt = "monochrome, lowres, bad anatomy, worst quality, low quality"
         strength = session["fit_profile"]["inpainting_strength"]
-        size_gap = int(session["fit_profile"].get("size_gap", 0))   # TASK 2
         
         tryon_result_path = run_inference(
             person_image_path=str(session_dir / "person_resized.png"),
@@ -369,7 +349,6 @@ def generate_single_size(
             inpainting_strength=strength,
             num_steps=num_steps,
             seed=seed,
-            size_gap=size_gap,              # TASK 2: shoulder width shift
         )
         
         print(f"\n  ✓ Try-on image saved: {tryon_result_path}")

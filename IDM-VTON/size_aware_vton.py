@@ -123,9 +123,9 @@ def classify_fit(
     
     # Mask expansion: positive = dilate (room for excess fabric)
     if gap > 0:
-        mask_expansion_px = int(gap * 20)   # 20px per size up (stronger size differentiation)
+        mask_expansion_px = int(gap * 12)   # 12px per size up
     elif gap < 0:
-        mask_expansion_px = int(gap * 8)    # 8px per size down
+        mask_expansion_px = int(gap * 6)    # 6px per size down
     else:
         mask_expansion_px = 0
     
@@ -173,39 +173,12 @@ def classify_fit(
 
 def _build_fit_prompts(fit_type: FitType, garment_type: str, gap: int) -> tuple:
     """
-    Build precise text prompts that include garment type and fit keywords.
-    The garment type word anchors IDM-VTON to the correct garment category,
-    and anti-dress negatives prevent full-body product shots from bleeding
-    through as a long dress/gown on the output.
+    Build simple text prompts. Fit conditioning is driven by the mask area,
+    not prompt adjectives.
     """
-    gtype = garment_type.lower()
-    garment_word = {
-        "top": "t-shirt", "shirt": "shirt", "tee": "t-shirt", "blouse": "blouse",
-        "hoodie": "hoodie", "sweater": "sweater", "jacket": "jacket",
-        "pants": "pants", "jeans": "jeans", "skirt": "skirt", "dress": "dress",
-        "tights": "tights", "leggings": "leggings",
-    }.get(gtype, gtype)
-
-    fit_word = {
-        FitType.VERY_TIGHT: "very tight body-hugging",
-        FitType.TIGHT: "tight slim-fit",
-        FitType.SNUG: "snug close-fitting",
-        FitType.STANDARD: "standard relaxed",
-        FitType.RELAXED: "relaxed comfortable",
-        FitType.LOOSE: "loose",
-        FitType.OVERSIZED: "very oversized baggy",
-    }.get(fit_type, "")
-
-    base = "high quality fashion photograph, professional studio lighting, sharp focus"
-    pos = f"{base}, person wearing a {fit_word} {garment_word}, upper body visible"
-
-    garment_neg = ""
-    if gtype in ("top", "shirt", "t-shirt", "tee", "blouse", "hoodie", "sweater", "jacket"):
-        garment_neg = "full-length dress, long gown, long skirt, pants becoming dress, "
-    neg = (
-        f"monochrome, lowres, bad anatomy, worst quality, low quality, artifacts, "
-        f"{garment_neg}naked, bare chest, topless, extra limbs"
-    )
+    base = "high quality fashion photograph, professional studio lighting, sharp details"
+    pos = base
+    neg = "monochrome, lowres, bad anatomy, worst quality, low quality, artifacts"
     return pos, neg
 
 
@@ -218,29 +191,7 @@ def resize_garment(
     fit_profile: FitProfile,
     garment_type: str,
 ) -> Image.Image:
-    """
-    Crop the garment image to the relevant body zone so IDM-VTON's garment
-    encoder only sees the target garment — not pants/legs from full-body
-    product shots (which would make the model generate a long dress).
-    """
-    w, h = garment_image.size
-    gtype = garment_type.lower()
-
-    if gtype in ("top", "shirt", "t-shirt", "tee", "blouse", "hoodie", "sweater", "jacket"):
-        # Keep only the upper 55%: captures torso/shirt, removes pants and shoes.
-        # Resize back to original dimensions so the downstream 768x1024 scale
-        # fills the canvas with a properly zoomed-in view of the garment.
-        crop_h = int(h * 0.55)
-        garment_image = garment_image.crop((0, 0, w, crop_h)).resize((w, h), Image.LANCZOS)
-    elif gtype in ("pants", "jeans", "trousers", "skirt", "tights", "leggings"):
-        # Keep only the lower 60%: captures pants/skirt, removes upper body.
-        crop_y = int(h * 0.40)
-        bottom = garment_image.crop((0, crop_y, w, h))
-        result = Image.new("RGB", (w, h), (238, 238, 238))
-        result.paste(bottom.resize((w, h - crop_y), Image.LANCZOS), (0, crop_y))
-        garment_image = result
-    # dress: no crop — encoder needs to see the full garment
-
+    """Pass through — IDM-VTON's garment encoder expects the full garment image."""
     return garment_image
 
 
